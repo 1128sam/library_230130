@@ -19,9 +19,9 @@ public class TestController {
 	@GetMapping("/test1")
 	@ResponseBody
 	public String test1() {
-		return "Hello world!";
+		return "Hello world!!";
 	}
-	
+
 	@GetMapping("/test2")
 	@ResponseBody
 	public Map<String, Object> test2() {
@@ -31,13 +31,12 @@ public class TestController {
 		result.put("키3", 333);
 		return result;
 	}
-	
+
 	@GetMapping("/test3")
 	public String test3() {
 		return "test/test";
 	}
-	
-	// http://localhost:8080/test4
+
 	@GetMapping("/test4")
 	@ResponseBody
 	public List<Map<String, Object>> test4() {
