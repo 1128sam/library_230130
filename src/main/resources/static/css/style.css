@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+#wrap {width:1200px;}
+.bgTemp {background-color: #8AAAE5;}
+
+a {text-decoration: none; color:#000;}
+a:hover {text-decoration: none; color: #777;}
+
+header {width:1200px; height:80px;}
+#menu1 {width: 1200px; height: 50px;}
+/* #menu1 a {text-decoration: none; color:#000;}
+#menu1 a:hover {color: #777;} */
+
+.search {width: 1200px; height: 150px;}
+#search {height:40px; background-color:dark;}
+.radio {height:30px;}
+.radio span {vertical-align: middle;}
+[type="radio"] {vertical-align: middle;}
+
+.section1 {width: 1200px; min-height: 400px;}
+.popularBooksBox {width: max; height:300px;}
+.imgBox {width:100px; height:120px; background-color:#999;}
+.bookDisplayBox {width: 130px; height: 250px;}
+
+.section2 {width: 1200px; height: 400px;}
+.post {height:400px;}
+/* .section2 a {text-decoration: none; color: #000;}
+.section2 a:hover {color: #777;} */
+
+footer{width:1200px; height:90px;}
