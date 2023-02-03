@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.library.user.dao.UserDAO">
+	<insert id="insertUser" parameterType="map">
+		INSERT INTO `user`
+			(
+				`userId`
+				, `password`
+				, `type`
+				, `name`
+				, `email`
+				, `imageUrl`
+				, `self_vertify_que`
+				, `self_vertify_ans`
+				, `createdAt`
+				, `updatedAt`
+			)
+		VALUES
+			(
+				#{userId}
+				, #{password}
+				, 1
+				, #{name}
+				, #{email}
+				, NULL
+				, 1
+				, 'test'
+				, NOW()
+				, NOW()
+			)
+	</insert>
+	
+	<select id="selectUserList" resultType="com.library.user.model.User">
+		SELECT * FROM `user`
+	</select>
+</mapper>

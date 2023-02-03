@@ -29,3 +29,9 @@ header {width:1200px; height:80px;}
 .section2 a:hover {color: #777;} */
 
 footer{width:1200px; height:90px;}
+
+
+
+/* signUp*/
+.signUp {height: 700px; background-color: #FFF;}
+.signUp .sign-up-box {width: 500px;}

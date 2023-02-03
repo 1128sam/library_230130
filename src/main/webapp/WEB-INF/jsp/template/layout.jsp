@@ -13,23 +13,15 @@
 <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
 <body>
+<%-- <jsp:include page="../include/header.jsp" /> --%>
 <div class="container">
 	<div id="wrap" class="bg-light">
 		<header class="d-flex bgTemp">
-			<div class="d-flex justify-content-end col-2"></div>
-			<span class="display-4 d-flex justify-content-center col-8">Digital Library</span>
-			<div class="d-flex justify-content-end col-2"><div class="d-flex align-items-end"><a href="#" class="mr-3">로그인</a><a href="#" class="ml-3">회원가입</a></div></div>
+			<jsp:include page="../include/header.jsp" />
 		</header>
 
 		<div id="menu1" class="bgTemp d-flex justify-content-center">
-			<nav class="menu col-8">
-				<ul class="nav nav-fill">
-		        	<li class="nav-item"><a href="#" class="nav-link">도서관 소개</a></li>
-		            <li class="nav-item"><a href="#" class="nav-link">분류별 보기</a></li>
-		            <li class="nav-item"><a href="#" class="nav-link">공지사항</a></li>
-		            <li class="nav-item"><a href="#" class="nav-link">도서추천</a></li>
-		        </ul>
-			</nav>
+			<jsp:include page="../include/nav.jsp" />
 		</div>
 
 		<section class="search d-flex justify-content-center">
@@ -67,9 +59,9 @@
 		</div>
 
 		<section class="section1">
-			<div class="d-flex justify-content-center mt-3 bg-primary">
-				<div class="d-flex col-1"><span class="d-flex justify-content-center align-items-center"><img src="file:///C:/AseowonLee/00_library_project/clone/src/main/resources/static/images/left_arrow.png" alt="arrowLeft" width="25"></span></div>
-				<div class="col-10 mt-5 bg-warning">
+			<div class="d-flex justify-content-center mt-3">
+				<div class="d-flex col-1"><span class="d-flex justify-content-center align-items-center pl-3"><img src="https://www.pngfind.com/pngs/m/9-95287_double-left-chevron-svg-png-icon-free-download.png" alt="arrowLeft" width="30"></span></div>
+				<div class="col-10 mt-5">
 					<h1><i>Popular</i></h1>
 					<div class="popularBooksBox d-flex justify-content-between pt-2">
 						<a href="#">
@@ -98,11 +90,11 @@
 	                    </article>
 					</div>
 				</div>
-				<div class="d-flex col-1 bg-danger"><span class="d-flex justify-content-center align-items-center">fdsafds</span></div>
+				<div class="d-flex col-1"><span class="d-flex justify-content-center align-items-center pl-3"><img src="right_arrow.png" alt="arrowRight" width="30"></span></div>
 				</div>
 
 				<div class="d-flex justify-content-center">
-				<div class="col-9 section1">
+				<div class="col-10 section1">
 					<h1><i>Recently Returned Books</i></h1>
 						<div class="popularBooksBox d-flex justify-content-between pt-2">
 							<article class="bookDisplayBox">
@@ -185,7 +177,7 @@
 		</section>
 
 		<footer class="bgTemp">
-			<div class="d-flex justify-content-center align-items-end"><small>2023. DigLib. ©</small></div>
+			<jsp:include page="../include/footer.jsp" />
 		</footer>
 	</div>
 </div>
