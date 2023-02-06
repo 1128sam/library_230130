@@ -44,6 +44,17 @@ public class UserRestController {
 			result.put("errorMessage", "User does not exist.");
 		}
 		return result;
+		
+//		nonJS
+//
+//
+//		admin이 할일이 적은 경우
+//		admin package => AdminController => AdminBO => ProductBO
+//
+//
+//		admin이 할일이 많은 경우
+//		product package => ProductAdminController => ProductAdminBO
+//							=> ProductDAO
 	}
 
 	@PostMapping("/sign_up")
