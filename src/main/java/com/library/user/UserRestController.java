@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,12 +67,6 @@ public class UserRestController {
 			) {
 		Map<String, Object> result = new HashMap<>();
 		
-		if (name == "") {
-			result.put("result", "등록 실패");
-			return result;
-		}
-		System.out.println(name + userId + password + email);
-		
 		int row = userBO.addUser(name, userId, password, email);
 		if (row == 1) {
 			result.put("result", "success");
@@ -81,15 +76,15 @@ public class UserRestController {
 		return result;
 	}
 	
-	@RequestMapping("/userId_validation")
+	@GetMapping("/userId_validation")
 	public Map<String, Object> userIdValidation(@RequestParam("userId") String userId) {
 		Map<String, Object> result = new HashMap<>();
 		int cnt = userBO.userIdValid(userId);
 
 		if (cnt > 0) {
-			result.put("result", "true");
+			result.put("result", "taken");
 		} else {
-			result.put("result", "false");
+			result.put("result", "available");
 		}
 		return result;
 	}
