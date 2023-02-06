@@ -27,19 +27,20 @@
 			<div class="sign-up-box">
 				<h1 class="mt-5">로그인</h1>
 
+			<form method="post" action="/user/sign_in" id="signInForm">
 				<label for="userId" class="subject-text my-2 mt-2">
                         아이디
                 </label>
-                <input type="text" id="userId" class="form-control" placeholder="아이디를 입력하세요">
-                <div id="idLengthWarn" class="text-info"><small>아이디를 4자 이상 입력하세요.</small></div>
+                <input type="text" id="userId" name="userId" class="form-control" placeholder="아이디를 입력하세요">
 
 				<label for="password" class="subject-text my-2">
                         비밀번호
                 </label>
-                <input type="password" id="password" class="form-control" placeholder="비밀번호를 입력하세요">
+                <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요">
 
                 
-                <button type="button" id="signUpBtn" class="btn btn-info w-100 mt-3">로그인</button>
+                <button type="submit" id="signInBtn" class="btn btn-info w-100 mt-3">로그인</button>
+                </form>
 				<div class="d-flex justify-content-end my-2">
 					<a href="/user/sign_up_view">회원가입하기</a>
 				</div>
@@ -51,5 +52,40 @@
 		</footer>
 	</div>
 </div>
+
+
+<script>
+$(document).ready(function() {
+	$('#signInForm').on('submit', function() {
+		let userId = $('#userId').val().trim();
+		let password = $('#password').val();
+
+		if (userId == '') {
+			alert("아이디를 입력해주세요");
+			return false;
+		}
+		
+		if (password.length < 1) {
+			alert("비밀번호를 입력해주세요");
+			return false;
+		}
+		alert(userId + " " + password);
+		
+		let url = $(this).attr('action');
+		let params = $(this).serialize();
+		console.log(url + " " + params);
+		
+		$.post(url, params)   // request
+		.done(function(data) {  // response
+			if (data.code == 1) { // 성공
+				alert(data.result);
+				document.location.href = "/main/template";
+			} else { // 실패
+				alert(data.errorMessage);
+			}
+		});
+	});
+});
+</script>
 </body>
 </html>

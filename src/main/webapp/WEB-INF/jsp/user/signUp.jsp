@@ -38,24 +38,26 @@
 	                </label>
 	                <input type="text" id="userId" name="userId" class="form-control" placeholder="아이디를 입력하세요" maxlength="16">
 	                <div id="idLengthWarn" class="text-info d-none"><small>아이디를 4자 이상 입력하세요.</small></div>
+	                <div id="idValCheckWarn" class="text-info d-none"><small>사용중인 아이디입니다.</small></div>
+	                <div id="idValCheckPermit" class="text-info d-none"><small>사용 가능한 아이디입니다.</small></div>
 	
 					<label for="password" class="subject-text my-2">
 	                        비밀번호
 	                </label>
 	                <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요">
-	
+
 					<label for="passwordCheck" class="subject-text my-2">
 	                        비밀번호 확인
 	                </label>
 	                <input type="password" id="passwordCheck" name="passwordCheck" class="form-control" placeholder="비밀번호를 다시 입력하세요">
 	                <div id="passwordValidWarn" class="text-info d-none"><small>비밀번호가 일치하지 않습니다.</small></div>
-	
+
 					<label for="email" class="subject-text my-2">
 	                        이메일
 	                </label>
 	                <input type="text" id="email" name="email" class="form-control" placeholder="이메일 주소를 입력하세요">
 	                <div id="emailValidMessage" class="text-info d-none"><small>정확한 이메일 주소를 입력해주세요.</small></div>
-	                
+
 	                <button type="submit" id="signUpBtn" class="btn btn-info w-100 mt-3">가입하기</button>
                 </form>
 				<div class="d-flex justify-content-end my-2">
@@ -73,21 +75,51 @@
 
 <script>
 $(document).ready(function() {
-	$('#signUpBtn').on('click', function() {
-		var name = $('#name').val();
-		var userId = $('#userId').val();
+	$('#email').on('change', function() {
+		alert("something");
+	});
+	$('#userId').on('change', function() {
+		alert("fdsfs");
+		#('idLengthWarn').addClass("d-none");
+		#('idValCheckWarn').addClass("d-none");
+		#('idValCheckPermit').addClass("d-none");
+
+		var userId = $('#userId').val().trim();
+		if (userId.length < 4) {
+			$('#idLengthWarn').removeClass("d-none");
+		}
+
+		$.ajax({
+			url: "/user/userId_validation",
+			data: {"userId" : userId},
+			success: function(data) {
+				if (data.result == true) {
+					#('idValCheckWarn').removeClass("d-none");
+				} else {
+					#('idValCheckPermit').removeClass("d-none");
+				}
+			},
+			error: function(error) {
+				alert("failed to check userId validation. please inquire to admins.");
+			}
+		});
+	});
+
+	$('#signUpForm').on('click', function() {
+		var name = $('#name').val().trim();
+		var userId = $('#userId').val().trim();
 		var password = $('#password').val();
 		var passwordCheck = $('#passwordCheck').val();
-		var email = $('#email').val();
+		var email = $('#email').val().trim();
 		
 		if (name.length < 1) {
 			alert("이름을 입력해주세요.");
 			return;
-		} 
+		}
 		if (userId.length < 1) {
 			alert("아이디를 입력해주세요.");
 			return;
-		} 
+		}
 		if (password.length < 1 || passwordCheck.length < 1) {
 			alert("비밀번호를 입력해주세요.");
 			return;
@@ -95,15 +127,20 @@ $(document).ready(function() {
 			alert("비밀번호가 일치하지 않습니다.");
 			return;
 		}
-		
 		if (email.length < 1) {
 			alert("이메일 주소를 입력해주세요.");
 			return;
 		}
 		
-		var url = $('#signUpForm').attr("action");
-		var params = $('#signUpForm').serialize();
-		
+		/* if ($('#idCheckOk').hasClass('d-none')) {
+			alert("아이디 중복확인을 다시 해주세요.");
+			return false;
+		} */
+
+		let url = $(this).attr("action");
+		let params = $(this).serialize();
+		console.log(params);
+
 		$.post(url, params)
 		.done(function(data) {
 			if (data.result == "success") {
@@ -115,15 +152,6 @@ $(document).ready(function() {
 		});
 	});
 	
-	$('#userId').on('change', function() {
-		var userId = $('#userId').val().trim();
-		if (userId.length < 4) {
-			$('#idLengthWarn').removeClass("d-none");
-		} else {
-			$('#idLengthWarn').addClass("d-none");
-		}
-	});
-
 	$('#passwordCheck').on('change', function() {
 		var password = $('#password').val();
 		var passwordCheck = $('#passwordCheck').val();

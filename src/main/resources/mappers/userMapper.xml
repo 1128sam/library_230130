@@ -35,4 +35,28 @@
 	<select id="selectUserList" resultType="com.library.user.model.User">
 		SELECT * FROM `user`
 	</select>
+
+	<select id="userIdValid" resultType="int">
+		SELECT COUNT(*) FROM `user`
+			WHERE `userId` = #{userId}
+	</select>
+	
+	<select id="selectUserByUserIdPassword" parameterType="map" resultType="com.library.user.model.User">
+		SELECT
+			`id`
+			, `userId`
+			, `password`
+			, `type`
+			, `name`
+			, `email`
+			, `imageUrl`
+			, `self_vertify_que`
+			, `self_vertify_ans`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`userId` = #{userId} AND `password` = #{password}
+	</select>
 </mapper>

@@ -20,4 +20,12 @@ public class UserBO {
 	public List<User> getUserList() {
 		return userDAO.selectUserList();
 	}
+	
+	public int userIdValid(String userId) {
+		return userDAO.userIdValid(userId);
+	}
+
+	public User getUserByUserIdPassword(String userId, String password) {
+		return userDAO.selectUserByUserIdPassword(userId, password);
+	}
 }
