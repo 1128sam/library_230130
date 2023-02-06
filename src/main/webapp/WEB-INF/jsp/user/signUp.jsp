@@ -116,7 +116,6 @@ $(document).ready(function() {
 		var password = $('#password').val();
 		var passwordCheck = $('#passwordCheck').val();
 		var email = $('#email').val().trim();
-		alert(name + userId + password + passwordCheck + email);
 		
 		if (name.length < 1) {
 			alert("이름을 입력해주세요.");
