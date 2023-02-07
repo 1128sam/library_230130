@@ -12,20 +12,24 @@ import com.library.user.model.User;
 public class UserBO {
 	@Autowired
 	private UserDAO userDAO;
-	
+
 	public int addUser(String name, String userId, String password, String email) {
 		return userDAO.insertUser(name, userId, password, email);
 	}
-	
+
 	public List<User> getUserList() {
 		return userDAO.selectUserList();
 	}
-	
+
 	public int userIdValid(String userId) {
 		return userDAO.userIdValid(userId);
 	}
 
 	public User getUserByUserIdPassword(String userId, String password) {
 		return userDAO.selectUserByUserIdPassword(userId, password);
+	}
+
+	public User getUserInfoById(int userId) {
+		return userDAO.selectUserInfoById(userId);
 	}
 }

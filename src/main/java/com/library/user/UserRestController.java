@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.library.common.EncryptUtils;
 import com.library.user.bo.UserBO;
 import com.library.user.model.User;
 
@@ -26,36 +27,26 @@ public class UserRestController {
 	public Map<String, Object> signIn(@RequestParam("userId") String userId, @RequestParam("password") String password, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
 
-		User user = userBO.getUserByUserIdPassword(userId, password);
+		String encryptPassword = EncryptUtils.md5(password);
+		User user = userBO.getUserByUserIdPassword(userId, encryptPassword);
 		
 		if (user != null) {
-			// 행이 있으면 로그인
-			result.put("code", 1);
-			result.put("result", "성공");
-
 			// 세션에 유저 정보를 담는다.(로그인 상태 유지)
 			HttpSession session = request.getSession();
-			session.setAttribute("userId", user.getId());
 			session.setAttribute("userLoginId", user.getUserId());
+			session.setAttribute("userName", user.getName());	
+			session.setAttribute("userId", user.getId());
 			session.setAttribute("userType", user.getType());
-			session.setAttribute("userImageUrl", user.getImageUrl());
-			session.setAttribute("userName", user.getName());
+//			session.setAttribute("userImageUrl", user.getImageUrl());
+			
+			// 행이 있으면 로그인
+			result.put("code", 1);
+			result.put("result", "successfully logged in");
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "User does not exist.");
 		}
 		return result;
-		
-//		nonJS
-//
-//
-//		admin이 할일이 적은 경우
-//		admin package => AdminController => AdminBO => ProductBO
-//
-//
-//		admin이 할일이 많은 경우
-//		product package => ProductAdminController => ProductAdminBO
-//							=> ProductDAO
 	}
 
 	@PostMapping("/sign_up")
@@ -67,7 +58,8 @@ public class UserRestController {
 			) {
 		Map<String, Object> result = new HashMap<>();
 		
-		int row = userBO.addUser(name, userId, password, email);
+		String encryptPassword = EncryptUtils.md5(password);
+		int row = userBO.addUser(name, userId, encryptPassword, email);
 		if (row == 1) {
 			result.put("result", "success");
 		} else {
@@ -87,6 +79,14 @@ public class UserRestController {
 			result.put("result", "available");
 		}
 		return result;
+	}
+	
+	@GetMapping("/sign_out")
+	public String signOut(HttpSession session) {
+		session.removeAttribute("userLoginId");
+		session.removeAttribute("userName");
+		session.removeAttribute("userId");
+		return "redirect:/user/sign_in_view";
 	}
 	/*
 	 * LomBok

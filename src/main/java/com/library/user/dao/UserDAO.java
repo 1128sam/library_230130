@@ -19,4 +19,6 @@ public interface UserDAO {
 	public int userIdValid(String userId);
 
 	public User selectUserByUserIdPassword(@Param("userId") String userId, @Param("password") String password);
+
+	public User selectUserInfoById(int userId);
 }

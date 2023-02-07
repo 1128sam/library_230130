@@ -90,6 +90,7 @@ $(document).ready(function() {
 		var userId = $('#userId').val().trim();
 		if (userId.length < 4) {
 			$('#idLengthWarn').removeClass("d-none");
+			return;
 		}
 
 		$.ajax({
@@ -137,10 +138,13 @@ $(document).ready(function() {
 			return;
 		}
 		
-		/* if ($('#idCheckOk').hasClass('d-none')) {
-			alert("아이디 중복확인을 다시 해주세요.");
-			return false;
-		} */
+		if ($('#idLengthWarn').hasClass('d-none') == false) {
+			alert("Please confirm your id validation.");
+			return;
+		} else if ($('#idValCheckPermit').hasClass('d-none')) {
+			alert("your userid is currently being used.");
+			return;
+		}
 
 		let url = $(this).attr("action");
 		let params = $(this).serialize();
