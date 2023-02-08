@@ -21,4 +21,12 @@ public interface UserDAO {
 	public User selectUserByUserIdPassword(@Param("userId") String userId, @Param("password") String password);
 
 	public User selectUserInfoById(int userId);
+
+	public int updateUserProfile(
+			@Param("id") int id,
+			@Param("userId") String userId,
+			@Param("password") String password,
+			@Param("question") int question,
+			@Param("selfVerAns") String selfVerAns,
+			@Param("fileAttach") String imageUrl);
 }

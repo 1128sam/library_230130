@@ -18,7 +18,7 @@ header {width:1200px; height:80px;}
 .radio span {vertical-align: middle;}
 [type="radio"] {vertical-align: middle;}
 
-.section1 {width: 1200px; min-height: 400px;}
+.section1 {width: 1200px; min-height: 550px;}
 .popularBooksBox {width: max; height:300px;}
 .imgBox {width:100px; height:120px; background-color:#999;}
 .bookDisplayBox {width: 130px; height: 250px; border: 1px solid;}
@@ -41,3 +41,8 @@ footer{width:1200px; height:90px;}
 .profileBox {height: 300px; width: 1100px; border: 1px solid;}
 .bookInfoBox {height: 250px; width: 1100px; border: 1px solid;}
 .bookImgBox {width:150px; height:180px; background-color:#999;}
+
+/* profileUpdate */
+.profileUpdateBox {height: 500px; width: 1100px; border: 1px solid;}
+.fileAttach {height: 30px; font-size: 15px;}
+.fileAttachBox {min-height:25px;}

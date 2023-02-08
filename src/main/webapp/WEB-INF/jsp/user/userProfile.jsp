@@ -42,7 +42,7 @@
 							USER
 						</c:if>
 					</span>
-					<div class="d-flex justify-content-end align-items-end mm-3"><button type="button" class="btn btn-info">update</button></div>
+					<div class="d-flex justify-content-end align-items-end mm-3"><input type="button" id="profileUpdateBtn" class="btn btn-info" value="update"></div>
 				</div>
 			</div>
 		</section>
@@ -137,4 +137,12 @@ a.isEmpty();
 
 =>
 npe -->
+
+<script>
+$(document).ready(function() {
+	$('#profileUpdateBtn').on('click', function() {
+		location.href = "/user/profile_update_view";
+	});
+});
+</script>
 </html>

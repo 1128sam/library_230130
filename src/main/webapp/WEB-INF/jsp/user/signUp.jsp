@@ -30,12 +30,11 @@
 					<h1 class="d-flex justify-content-center mt-3">회원가입</h1>
 
 					<form id="signUpForm" method="post" action="/user/sign_up">
-						<label for="name" class="subject-text my-2"> 이름 </label> <input
-							type="text" id="name" name="name" class="form-control"
-							placeholder="이름을 입력하세요" maxlength="9"> <label
-							for="userId" class="subject-text my-2"> 아이디 </label> <input
-							type="text" id="userId" name="userId" class="form-control"
-							placeholder="아이디를 입력하세요" maxlength="16">
+						<label for="name" class="subject-text my-2">Your Name</label>
+						<input type="text" id="name" name="name" class="form-control" placeholder="First and last name" maxlength="9">
+						
+						<label for="userId" class="subject-text my-2"> 아이디 </label>
+						<input type="text" id="userId" name="userId" class="form-control" placeholder="at least 6 characters" maxlength="16">
 						<div id="idLengthWarn" class="text-info d-none">
 							<small>아이디를 4자 이상 입력하세요.</small>
 						</div>
@@ -46,10 +45,10 @@
 							<small>사용 가능한 아이디입니다.</small>
 						</div>
 
-						<label for="password" class="subject-text my-2"> 비밀번호 </label> <input
+						<label for="password" class="subject-text my-2">Password</label> <input
 							type="password" id="password" name="password"
 							class="form-control" placeholder="비밀번호를 입력하세요"> <label
-							for="passwordCheck" class="subject-text my-2"> 비밀번호 확인 </label> <input
+							for="passwordCheck" class="subject-text my-2">Re-enter password</label> <input
 							type="password" id="passwordCheck" name="passwordCheck"
 							class="form-control" placeholder="비밀번호를 다시 입력하세요">
 						<div id="passwordValidWarn" class="text-info d-none">
@@ -57,7 +56,7 @@
 						</div>
 
 						<label for="email" class="subject-text my-2"> 이메일 </label> <input
-							type="text" id="email" name="email" class="form-control"
+							type="email" id="email" name="email" class="form-control"
 							placeholder="이메일 주소를 입력하세요">
 						<div id="emailValidMessage" class="text-info d-none">
 							<small>정확한 이메일 주소를 입력해주세요.</small>

@@ -88,6 +88,34 @@ public class UserRestController {
 		session.removeAttribute("userId");
 		return "redirect:/user/sign_in_view";
 	}
+	
+	@GetMapping("/profile_update")
+	public Map<String, Object> profileUpdate(
+			@RequestParam("userId") String userId,
+			@RequestParam("password") String password,
+			@RequestParam("selfVerQue") String selfVerQue,
+			@RequestParam("selfVerAns") String selfVerAns,
+			@RequestParam("fileAttach") String fileAttach,
+			HttpSession session
+			) {
+		Map<String, Object> result = new HashMap<>();
+		int question = 0;
+		String encryptPassword = EncryptUtils.md5(password);
+		if (selfVerQue == "Volvo") {
+			question = 1;
+		}
+
+		int row = userBO.updateUserProfile((int) session.getAttribute("userId"), userId, encryptPassword, question, selfVerAns, fileAttach);
+
+		if (row >= 1) {
+			result.put("code", 1);
+			result.put("result", "successfully updated.");
+		} else {
+			result.put("code", 500);
+			result.put("result", "fail");
+		}
+		return result;
+	}
 	/*
 	 * LomBok
 	 * 

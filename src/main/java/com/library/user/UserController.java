@@ -35,4 +35,9 @@ public class UserController {
 		model.addAttribute("userType", (Integer) session.getAttribute("userType"));
 		return "/user/userProfile";
 	}
+
+	@GetMapping("/profile_update_view")
+	public String profileUpdateView(Model model, HttpSession session) {
+		return "/user/profileUpdate";
+	}
 }

@@ -32,4 +32,8 @@ public class UserBO {
 	public User getUserInfoById(int userId) {
 		return userDAO.selectUserInfoById(userId);
 	}
+
+	public int updateUserProfile(int id, String userId, String password, int question, String selfVerAns, String fileAttach) {
+		return userDAO.updateUserProfile(id, userId, password, question, selfVerAns, fileAttach);
+	}
 }
