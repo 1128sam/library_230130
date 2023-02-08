@@ -80,15 +80,7 @@ public class UserRestController {
 		}
 		return result;
 	}
-	
-	@GetMapping("/sign_out")
-	public String signOut(HttpSession session) {
-		session.removeAttribute("userLoginId");
-		session.removeAttribute("userName");
-		session.removeAttribute("userId");
-		return "redirect:/user/sign_in_view";
-	}
-	
+
 	@GetMapping("/profile_update")
 	public Map<String, Object> profileUpdate(
 			@RequestParam("userId") String userId,
@@ -101,15 +93,15 @@ public class UserRestController {
 		Map<String, Object> result = new HashMap<>();
 		int question = 0;
 		String encryptPassword = EncryptUtils.md5(password);
-		if (selfVerQue == "Volvo") {
-			question = 1;
+		if (selfVerQue.equals("volvo")) {
+			question = 2;
 		}
 
 		int row = userBO.updateUserProfile((int) session.getAttribute("userId"), userId, encryptPassword, question, selfVerAns, fileAttach);
 
 		if (row >= 1) {
 			result.put("code", 1);
-			result.put("result", "successfully updated.");
+			result.put("result", "Successfully updated. Please sign in again.");
 		} else {
 			result.put("code", 500);
 			result.put("result", "fail");

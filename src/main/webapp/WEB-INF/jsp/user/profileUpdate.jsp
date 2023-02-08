@@ -38,7 +38,6 @@
 				</div>
 				<div class="col-6 d-flex justify-content-center">
 				<div class="w-50">
-					<form id="profileUpdateForm" method="post" action="/user/profile_update">
 						<label for="userId" class="subject-text my-2">New UserId</label>
 						<input type="text" id="userId" name="userId" class="form-control" placeholder="아이디를 입력하세요" maxlength="16">
 						<div id="idLengthWarn" class="text-info d-none">
@@ -63,7 +62,7 @@
 						</div>
 
 						<label for="selfVerQue" class="subject-text my-2">Self Vertification Question</label>
-						<select id="selfVerQue" name="cars" class="form-control mb-1">
+						<select id="selfVerQue" name="selfVerQue" class="form-control mb-1">
 						  <option value="selectX" selected>-- OPTIONS --</option>
 						  <option value="volvo">Volvo</option>
 						  <option value="saab">Saab</option>
@@ -75,8 +74,7 @@
 							<span>Profile img.</span>
 							<span class="d-flex justify-content-end"><input type="button" id="fileAttach" class="btn btn-secondary fileAttach form-control" value="file"></span>
 						</div>
-						<button type="submit" id="signUpBtn" class="btn btn-info w-100 mt-3">가입하기</button>
-					</form>
+						<button type="button" id="signUpBtn" class="btn btn-info w-100 mt-3">가입하기</button>
 				</div>
 				</div>
 			</div>
@@ -124,7 +122,7 @@ $(document).ready(function() {
 		});
 	});
 
-	$('#profileUpdateForm').on('submit', function(e) {
+	/* $('#profileUpdateForm').on('submit', function(e) {
 		e.preventDefault();
 
 		let userId = $('#userId').val().trim();
@@ -133,16 +131,16 @@ $(document).ready(function() {
 		let selfVerQue = $('#selfVerQue').val();
 		let selfVerAns = $('#selfVerAns').val().trim();
 		let fileAttach = $('#fileAttach').val();
-		
+
 		if (userId.length < 1) {
-			alert("아이디를 입력해주세요.");
+			alert("Please enter your new userID.");
 			return;
 		}
 		if (password.length < 1 || passwordCheck.length < 1) {
-			alert("비밀번호를 입력해주세요.");
+			alert("Please enter your new password.");
 			return;
 		} else if (password != passwordCheck) {
-			alert("비밀번호가 일치하지 않습니다.");
+			alert("Your password doesn't match.");
 			return;
 		}
 		if (selfVerQue == "selectX") {
@@ -153,18 +151,21 @@ $(document).ready(function() {
 			alert("Please write your answer to self vertification Q.");
 			return;
 		}
-		
+
 		if ($('#idLengthWarn').hasClass('d-none') == false) {
 			alert("Please confirm your id validation.");
 			return;
 		} else if ($('#idValCheckPermit').hasClass('d-none')) {
+			 if ($('#currentIdWarn').hasClass('d-none') == false) {
+			 	return;
+			 }
 			alert("your userid is currently being used.");
 			return;
 		}
-		
+
 		let url = $(this).attr("action");
 		let params = $(this).serialize();
-		console.log(url);
+		console.log(params);
 
 		$.post(url, params)
 		.done(function(data) {
@@ -175,8 +176,66 @@ $(document).ready(function() {
 				alert("가입에 실패했습니다. 다시 시도해주세요.");
 			}
 		});
-	});
+	}); */
 	
+	$('#signUpBtn').on('click', function() {
+
+		let userId = $('#userId').val().trim();
+		let password = $('#password').val();
+		let passwordCheck = $('#passwordCheck').val();
+		let selfVerQue = $('#selfVerQue').val();
+		let selfVerAns = $('#selfVerAns').val().trim();
+		let fileAttach = $('#fileAttach').val();
+
+		if (userId.length < 1) {
+			alert("Please enter your new userID.");
+			return;
+		}
+		if (password.length < 1 || passwordCheck.length < 1) {
+			alert("Please enter your new password.");
+			return;
+		} else if (password != passwordCheck) {
+			alert("Your password doesn't match.");
+			return;
+		}
+		if (selfVerQue == "selectX") {
+			alert("Please choose a self vertification question.");
+			return;
+		}
+		if (selfVerAns.length < 1) {
+			alert("Please write your answer to self vertification Q.");
+			return;
+		}
+
+		if ($('#idLengthWarn').hasClass('d-none') == false) {
+			alert("Please confirm your id validation.");
+			return;
+		} else if ($('#idValCheckPermit').hasClass('d-none')) {
+			 if ($('#currentIdWarn').hasClass('d-none') == false) {
+			 	return;
+			 }
+			alert("your userid is currently being used.");
+			return;
+		}
+
+		$.ajax({
+			type:"get",
+			url: "/user/profile_update",
+			data: {"userId":userId, "password":password, "selfVerQue":selfVerQue, "selfVerAns":selfVerAns, "fileAttach":fileAttach},
+			success: function(data) {
+				if (data.code == 1) {
+					alert(data.result);				
+					location.href="/user/sign_in_view";
+				} else {
+					alert(data.result);
+				}
+			},
+			error: function(error) {
+				alert("failed to check userId validation. please inquire to admins.");
+			}
+		});
+	});
+
 	$('#passwordCheck').on('change', function() {
 		var password = $('#password').val();
 		var passwordCheck = $('#passwordCheck').val();
@@ -185,6 +244,19 @@ $(document).ready(function() {
 			return;
 		} else {
 			$('#passwordValidWarn').addClass("d-none");
+		}
+	});
+
+	$('#password').on('change', function() {
+		var password = $('#password').val();
+		var passwordCheck = $('#passwordCheck').val();
+		if (passwordCheck.length > 0) {
+			if (password != passwordCheck) {
+				$('#passwordValidWarn').removeClass("d-none");
+				return;
+			} else {
+				$('#passwordValidWarn').addClass("d-none");
+			}
 		}
 	});
 });

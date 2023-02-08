@@ -28,5 +28,5 @@ public interface UserDAO {
 			@Param("password") String password,
 			@Param("question") int question,
 			@Param("selfVerAns") String selfVerAns,
-			@Param("fileAttach") String imageUrl);
+			@Param("fileAttach") String fileAttach);
 }

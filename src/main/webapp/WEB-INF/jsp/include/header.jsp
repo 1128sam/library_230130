@@ -9,9 +9,12 @@
 			<a href="/user/sign_in_view" class="mr-3">로그인</a><a href="/user/sign_up_view" class="ml-3">회원가입</a>
 		</div>
 	</c:if>
+	<section class="d-flex align-items-end">
 	<c:if test="${not empty userId}">
-	<div class="d-flex align-items-end">
-			<a href="/user/user_profile_view" class="mr-3">프로필</a><a href="/user/sign_out" class="ml-3">로그아웃</a>
+		<div>
+			<span>Hello <a href="/user/user_profile_view">${userName}</a>!</span><br>
+			<a href="/user/sign_out" class="d-flex justify-content-end">Log out</a>
 		</div>
 	</c:if>
+	</section>
 </div>

@@ -27,24 +27,24 @@
 
 		<section class="signUp d-flex justify-content-center">
 			<div class="sign-up-box">
-				<h1 class="mt-5">로그인</h1>
+				<h1 class="mt-5">Login</h1>
 
 			<form method="post" action="/user/sign_in" id="signInForm">
 				<label for="userId" class="subject-text my-2 mt-2">
-                        아이디
+                        User ID
                 </label>
                 <input type="text" id="userId" name="userId" class="form-control" placeholder="아이디를 입력하세요">
 
 				<label for="password" class="subject-text my-2">
-                        비밀번호
+                        Password
                 </label>
                 <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요">
 
                 
-                <button type="submit" id="signInBtn" class="btn btn-info w-100 mt-3">로그인</button>
+                <button type="submit" id="signInBtn" class="btn btn-info w-100 mt-3">Login</button>
                 </form>
 				<div class="d-flex justify-content-end my-2">
-					<a href="/user/sign_up_view">회원가입하기</a>
+					<a href="/user/sign_up_view">Don't have an account?</a>
 				</div>
 			</div>
 		</section>

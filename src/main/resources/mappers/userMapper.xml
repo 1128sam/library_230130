@@ -81,12 +81,12 @@
 
 	<update id="updateUserProfile" parameterType="map">
 		UPDATE `user`
-			SET `userId`=#{userId}
-			, `password`=#{password}
-			, `imageUrl`=#{imageUrl}
-			, `self_vertify_que`=#{question}
-			, `self_vertify_ans`=#{selfVerAns}
-			, `updatedAt`=NOW()
-		WHERE `id`=#{id}
+			SET `userId` = #{userId}
+			, `password` = #{password}
+			, `imageUrl` = #{fileAttach}
+			, `self_vertify_que` = #{question}
+			, `self_vertify_ans` = #{selfVerAns}
+			, `updatedAt` = NOW()
+		WHERE `id` = #{id}
 	</update>
 </mapper>
