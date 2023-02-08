@@ -104,10 +104,54 @@ public class UserRestController {
 			result.put("result", "Successfully updated. Please sign in again.");
 		} else {
 			result.put("code", 500);
-			result.put("result", "fail");
+			result.put("result", "failed");
 		}
 		return result;
 	}
+	
+	@GetMapping("/email_valid")
+	public Map<String, Object> emailValid(@RequestParam("email") String email, HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		HttpSession session = request.getSession();
+
+		User user = userBO.getUserByEmail(email);
+		if (user != null) {
+			int que = Integer.valueOf(user.getSelf_vertify_que());
+			String question = "failed";
+			if (que == 1) {
+				question = "What is your father's name?";
+			}
+			session.setAttribute("question", question);
+			session.setAttribute("answer", user.getSelf_vertify_ans());
+			session.setAttribute("email", email);
+			result.put("code", 1);
+		} else {
+			result.put("code", 500);
+			result.put("result", "failed");
+		}
+		return result;
+	}
+
+	@GetMapping("/profile_update_view1")
+	public Map<String, Object> profileUpdateView1(@RequestParam("email") String email, HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		HttpSession session = request.getSession();
+
+		User user = userBO.getUserByEmail(email);
+		String userId = user.getUserId();
+		String userName = user.getName();
+		String question = "volvo";
+		String answer = user.getSelf_vertify_ans();
+		
+		session.setAttribute("email", email);
+		session.setAttribute("userId", userId);
+		session.setAttribute("userName", userName);
+		session.setAttribute("question", question);
+		session.setAttribute("answer", answer);
+		result.put("code", 1);
+		return result;
+	}
+	
 	/*
 	 * LomBok
 	 * 

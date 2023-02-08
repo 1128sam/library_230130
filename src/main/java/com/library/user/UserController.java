@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.library.user.bo.UserBO;
+import com.library.user.model.User;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -47,6 +49,25 @@ public class UserController {
 
 	@GetMapping("/profile_update_view")
 	public String profileUpdateView(Model model, HttpSession session) {
+		return "/user/profileUpdate";
+	}
+	
+	@GetMapping("/email_validation_view")
+	public String emailValidView(Model model) {
+		return "/user/emailValid";
+	}
+
+	@GetMapping("/account_restore_view")
+	public String accountRestoreView(Model model) {
+		return "/user/accountRestore";
+	}
+
+	@GetMapping("/profile_update_view0")
+	public String profileUpdateView1(Model model, @RequestParam("email") String email) {
+		User user = userBO.getUserByEmail(email);
+		String userId = user.getUserId();
+		model.addAttribute("email", email);
+		model.addAttribute("userId", userId);
 		return "/user/profileUpdate";
 	}
 }

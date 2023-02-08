@@ -36,4 +36,8 @@ public class UserBO {
 	public int updateUserProfile(int id, String userId, String password, int question, String selfVerAns, String fileAttach) {
 		return userDAO.updateUserProfile(id, userId, password, question, selfVerAns, fileAttach);
 	}
+
+	public User getUserByEmail(String email) {
+		return userDAO.selectUserByEmail(email);
+	}
 }

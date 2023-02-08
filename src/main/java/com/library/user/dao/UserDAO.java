@@ -29,4 +29,6 @@ public interface UserDAO {
 			@Param("question") int question,
 			@Param("selfVerAns") String selfVerAns,
 			@Param("fileAttach") String fileAttach);
+
+	public User selectUserByEmail(String email);
 }

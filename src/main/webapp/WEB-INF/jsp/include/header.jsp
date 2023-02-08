@@ -15,6 +15,8 @@
 			<span>Hello <a href="/user/user_profile_view">${userName}</a>!</span><br>
 			<a href="/user/sign_out" class="d-flex justify-content-end">Log out</a>
 		</div>
+		<%-- <c:if test="${empty id}">d-none</c:if> --%>
+		<!-- I attempted to block the user from using the library when they are reseting their password. -->
 	</c:if>
 	</section>
 </div>

@@ -39,7 +39,7 @@
 				<div class="col-6 d-flex justify-content-center">
 				<div class="w-50">
 						<label for="userId" class="subject-text my-2">New UserId</label>
-						<input type="text" id="userId" name="userId" class="form-control" placeholder="아이디를 입력하세요" maxlength="16">
+						<input type="text" id="userId" name="userId" class="form-control" placeholder="Enter your new user ID." maxlength="16">
 						<div id="idLengthWarn" class="text-info d-none">
 							<small>아이디를 4자 이상 입력하세요.</small>
 						</div>
@@ -63,18 +63,18 @@
 
 						<label for="selfVerQue" class="subject-text my-2">Self Vertification Question</label>
 						<select id="selfVerQue" name="selfVerQue" class="form-control mb-1">
-						  <option value="selectX" selected>-- OPTIONS --</option>
-						  <option value="volvo">Volvo</option>
-						  <option value="saab">Saab</option>
-						  <option value="fiat">Fiat</option>
-						  <option value="audi">Audi</option>
+						  <option value="selectX">-- OPTIONS --</option>
+						  <option value="volvo" <c:if test="${question eq 'volvo'}">selected</c:if>>Volvo</option>
+						  <option value="saab" <c:if test="${question eq 'saab'}">selected</c:if>>Saab</option>
+						  <option value="fiat" <c:if test="${question eq 'fiat'}">selected</c:if>>Fiat</option>
+						  <option value="audi" <c:if test="${question eq 'audi'}">selected</c:if>>Audi</option>
 						</select>
-						<input type="text" id="selfVerAns" name="selfVerAns" class="form-control" placeholder="Answer the Question" maxlength="256">
+						<input type="text" id="selfVerAns" name="selfVerAns" class="form-control" placeholder="Answer the Question" maxlength="256" value="${answer}">
 						<div class="fileAttachBox d-flex justify-content-between">
 							<span>Profile img.</span>
 							<span class="d-flex justify-content-end"><input type="button" id="fileAttach" class="btn btn-secondary fileAttach form-control" value="file"></span>
 						</div>
-						<button type="button" id="signUpBtn" class="btn btn-info w-100 mt-3">가입하기</button>
+						<button type="button" id="updateBtn" class="btn btn-info w-100 mt-3">변경하기</button>
 				</div>
 				</div>
 			</div>
@@ -122,63 +122,7 @@ $(document).ready(function() {
 		});
 	});
 
-	/* $('#profileUpdateForm').on('submit', function(e) {
-		e.preventDefault();
-
-		let userId = $('#userId').val().trim();
-		let password = $('#password').val();
-		let passwordCheck = $('#passwordCheck').val();
-		let selfVerQue = $('#selfVerQue').val();
-		let selfVerAns = $('#selfVerAns').val().trim();
-		let fileAttach = $('#fileAttach').val();
-
-		if (userId.length < 1) {
-			alert("Please enter your new userID.");
-			return;
-		}
-		if (password.length < 1 || passwordCheck.length < 1) {
-			alert("Please enter your new password.");
-			return;
-		} else if (password != passwordCheck) {
-			alert("Your password doesn't match.");
-			return;
-		}
-		if (selfVerQue == "selectX") {
-			alert("Please choose a self vertification question.");
-			return;
-		}
-		if (selfVerAns.length < 1) {
-			alert("Please write your answer to self vertification Q.");
-			return;
-		}
-
-		if ($('#idLengthWarn').hasClass('d-none') == false) {
-			alert("Please confirm your id validation.");
-			return;
-		} else if ($('#idValCheckPermit').hasClass('d-none')) {
-			 if ($('#currentIdWarn').hasClass('d-none') == false) {
-			 	return;
-			 }
-			alert("your userid is currently being used.");
-			return;
-		}
-
-		let url = $(this).attr("action");
-		let params = $(this).serialize();
-		console.log(params);
-
-		$.post(url, params)
-		.done(function(data) {
-			if (data.code == 1) {
-				alert("가입을 환영합니다. 로그인해주세요.");				
-				location.href="/user/sign_in_view";
-			} else {
-				alert("가입에 실패했습니다. 다시 시도해주세요.");
-			}
-		});
-	}); */
-	
-	$('#signUpBtn').on('click', function() {
+	$('#updateBtn').on('click', function() {
 
 		let userId = $('#userId').val().trim();
 		let password = $('#password').val();

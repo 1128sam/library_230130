@@ -62,7 +62,7 @@
 							<small>정확한 이메일 주소를 입력해주세요.</small>
 						</div>
 
-						<button type="submit" id="signUpBtn"
+						<button type="button" id="signUpBtn"
 							class="btn btn-info w-100 mt-3">가입하기</button>
 					</form>
 					<div class="d-flex justify-content-end my-2">
