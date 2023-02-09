@@ -18,7 +18,8 @@ public class MainController {
 	private BookBO bookBO;
 
 	@GetMapping("/template")
-	public String main() {
+	public String main(Model model) {
+		model.addAttribute("viewName", "main/main");
 		return "template/layout";
 	}
 
@@ -34,6 +35,13 @@ public class MainController {
 			List<Book> bookListByCat = bookBO.getBookListByCat(category);
 			model.addAttribute("bookList", bookListByCat);
 		}
-		return "main/searchList0";
+		model.addAttribute("viewName", "main/searchList0");
+		return "template/layout";
+	}
+	
+	@GetMapping("/category_list_view")
+	public String categoryListView(Model model) {
+		model.addAttribute("viewName", "main/distBySection");
+		return "template/layout";
 	}
 }

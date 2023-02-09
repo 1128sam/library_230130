@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,6 @@
 <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
 <body>
-<%-- <jsp:include page="../include/header.jsp" /> --%>
 <div class="container">
 	<div id="wrap" class="bg-light">
 		<header class="d-flex bgTemp">
@@ -26,9 +26,16 @@
 		<div id="menu1" class="bgTemp d-flex justify-content-center">
 			<jsp:include page="../include/nav.jsp" />
 		</div>
+		
+		<c:set var = "name" value="${viewName}"/>
+		<c:if test="${fn:contains(name, '/main')}">
+		<jsp:include page="../include/search.jsp" />
+		</c:if>
 
 			<%-- <jsp:include page="../main/main.jsp" /> --%>
-			<jsp:include page="../main/distBySection.jsp" />
+			<%-- <jsp:include page="../main/distBySection.jsp" /> --%>
+			
+			<jsp:include page="../${viewName}.jsp" />
 
 		<footer class="bgTemp">
 			<jsp:include page="../include/footer.jsp" />

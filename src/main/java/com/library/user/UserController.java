@@ -20,13 +20,15 @@ public class UserController {
 	
 	// http://localhost:8080/user/sign_up_view
 	@GetMapping("/sign_up_view")
-	public String signUpView() {
-		return "user/signUp";
+	public String signUpView(Model model) {
+		model.addAttribute("viewName", "user/signUp");
+		return "template/layout";
 	}
 
 	@GetMapping("/sign_in_view")
 	public String signInView(Model model) {
-		return "user/signIn";
+		model.addAttribute("viewName", "user/signIn");
+		return "template/layout";
 	}
 
 	@GetMapping("/sign_out")
@@ -44,22 +46,26 @@ public class UserController {
 		model.addAttribute("userLoginId", (String) session.getAttribute("userLoginId"));
 		model.addAttribute("userName", (String) session.getAttribute("userName"));
 		model.addAttribute("userType", (Integer) session.getAttribute("userType"));
-		return "/user/userProfile";
+		model.addAttribute("viewName", "user/userProfile");
+		return "template/layout";
 	}
 
 	@GetMapping("/profile_update_view")
 	public String profileUpdateView(Model model, HttpSession session) {
-		return "/user/profileUpdate";
+		model.addAttribute("viewName", "user/profileUpdate");
+		return "template/layout";
 	}
 	
 	@GetMapping("/email_validation_view")
 	public String emailValidView(Model model) {
-		return "/user/emailValid";
+		model.addAttribute("viewName", "user/emailValid");
+		return "template/layout";
 	}
 
 	@GetMapping("/account_restore_view")
 	public String accountRestoreView(Model model) {
-		return "/user/accountRestore";
+		model.addAttribute("viewName", "user/accountRestore");
+		return "template/layout";
 	}
 
 	@GetMapping("/profile_update_view0")
