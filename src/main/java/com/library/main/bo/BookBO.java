@@ -16,4 +16,12 @@ public class BookBO {
 	public List<Book> getBookList() {
 		return bookDAO.selectBookList();
 	}
+	
+	public List<Book> getBookListBySearchSearchType(String search, String searchType) {
+		return bookDAO.selectBookListBySearchSearchType(search, searchType);
+	}
+
+	public List<Book> getBookListByCat(int category) {
+		return bookDAO.selectBookListByCat(category);
+	}
 }

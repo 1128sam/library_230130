@@ -59,6 +59,9 @@
 	</div>
 </div>
 
+<c:if test="${bookList eq null}">
+	<div class="d-flex justify-content-center mt-5">No search results.</div>
+</c:if>
 <c:forEach var="book" items="${bookList}" varStatus="vs">
 		<section class="bookSection mt-4">
 		<div class="d-flex justify-content-center">
@@ -76,23 +79,6 @@
 		</div>
 		</section>
 </c:forEach>
-
-		<section class="bookSection">
-		<div class="d-flex justify-content-center">
-			<div class="bookInfoBox d-flex">
-				<div class="col-3 h-100 d-flex justify-content-center align-items-center">
-					<div class="bookImgBox m-3 d-flex justify-content-center"></div>
-				</div>
-				<div class="col-9">
-					<h4 class="pt-5">서명 2</h4>
-					<span>홍길동2</span><br>
-					<span>
-						...
-					</span>
-				</div>
-			</div>
-		</div>
-		</section>
 
 <footer class="bgTemp">
 			<jsp:include page="../include/footer.jsp" />

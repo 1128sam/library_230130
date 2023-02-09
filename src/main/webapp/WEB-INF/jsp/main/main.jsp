@@ -157,7 +157,37 @@ $(document).ready(function() {
 	$('#searchBtn').on('click', function() {
 		var search = $('#search').val().trim();
 		var searchType = $("input[name='searchType']:checked").val();
-		location.href = "/main/search_list_view";
+		
+		$.ajax({
+			url: "/search/search_engine",
+			data: {"search" : search, "searchType" : searchType},
+			success: function(data) {
+				if (data.code == 1) {
+					location.href = "/main/search_list_view";
+				} else {
+					alert("This shit didn't work.");
+				}
+			},
+			error: function(error) {
+				alert("failed searching. please inquire to admins.");
+			}
+		});
+		
+		/* $.ajax({
+			url: "/get_json",
+			
+			success: function(data) { // data: json으로 구성{"result": "데이터들"}
+				$('#div').append("<div>" + data.result + "</div>");
+			}
+		});
+		
+		$.ajax({
+			url: "/view",
+			
+			success: function(data) { // html 태그들 자체가 내려옴
+				$('#div').html(data); // 이전 내용을 지우고 새로운 내용을 넣는다.
+			}
+		}); */
 	});
 });
 </script>

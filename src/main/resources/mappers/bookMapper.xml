@@ -6,4 +6,63 @@
 <select id="selectBookList" resultType="com.library.main.Book">
 	select * from `book` ORDER BY `id` DESC
 </select>
+
+<select id="selectBookListBySearchSearchType" resultType="com.library.main.Book">
+	SELECT
+		`id`
+		, `isbn`
+		, `title`
+		, `author`
+		, `publisher`
+		, `year`
+		, `imageUrl`
+		, `category`
+		, `status`
+		, `count`
+		, `point`
+		, `createdAt`
+		, `updatedAt`
+	FROM
+		`book`
+	WHERE
+		<if test='searchType != "general"'>
+		<if test='searchType == "title"'> 
+			`title`
+		</if>
+		<if test='searchType == "author"'> 
+			`author`
+		</if>
+		<if test='searchType == "publisher"'> 
+			`publisher`
+		</if>
+		<if test='searchType == "issn"'> 
+			`isbn`
+		</if>
+		LIKE CONCAT('%', #{search}, '%')
+		</if>
+		<if test='searchType == "general"'>
+			`title` LIKE CONCAT('%', #{search}, '%') OR `author` LIKE CONCAT('%', #{search}, '%') OR `publisher` LIKE CONCAT('%', #{search}, '%') OR `isbn` LIKE CONCAT('%', #{search}, '%') OR `title` LIKE CONCAT('%', #{search}, '%')
+		</if>
+</select>
+
+<select id="selectBookListByCat"  resultType="com.library.main.Book">
+	SELECT
+		`id`
+		, `isbn`
+		, `title`
+		, `author`
+		, `publisher`
+		, `year`
+		, `imageUrl`
+		, `category`
+		, `status`
+		, `count`
+		, `point`
+		, `createdAt`
+		, `updatedAt`
+	FROM
+		`book`
+	WHERE
+		`category` = #{category}
+</select>
 </mapper>
