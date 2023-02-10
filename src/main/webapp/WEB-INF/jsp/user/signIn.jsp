@@ -50,7 +50,7 @@ $(document).ready(function() {
 		$.post(url, params)   // request
 		.done(function(data) {  // response
 			if (data.code == 1) { // 성공
-				alert(data.result);
+				// alert(data.result);
 				location.href = "/main/template";
 			} else { // 실패
 				alert(data.errorMessage);

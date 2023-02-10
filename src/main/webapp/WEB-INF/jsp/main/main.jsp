@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 		<section class="section1">
 			<div class="d-flex justify-content-center mt-3">
 				<div class="d-flex col-1"><span class="d-flex justify-content-center align-items-center pl-3"><img src="https://www.pngfind.com/pngs/m/9-95287_double-left-chevron-svg-png-icon-free-download.png" alt="arrowLeft" width="30"></span></div>
@@ -67,53 +69,25 @@
 
 		<section class="section2 d-flex">
 			<div class="col-6 post">
-				<h1 class="ml-2"><i>Information</i></h1>
+				<h1 class="ml-2"><i><a href="/post/post_list_view?type=info">Information</a></i></h1>
 				<table class="table">
+				<c:forEach var="list" items="${noticeList}">
 					<tr>
-						<td class="col-10 infoPost"><a href="#">다음주 웹사이트가 오픈합니다!</a></td>
-						<td class="col-2"><small>02.01</small></td>
+						<td class="col-10 infoPost"><a href="/post/post_view?postId=${list.id}">${list.title}</a></td>
+						<td class="col-2 d-flex justify-content-end"><small><fmt:formatDate value="${list.createdAt}" pattern="MM.d"/></small></td>
 					</tr>
-					<tr>
-						<td class="col-10 infoPost"><a href="#">공지사항 1</a></td>
-						<td class="col-2"><small>02.02</small></td>
-					</tr>
-					<tr>
-						<td class="col-10 infoPost"><a href="#">공지사항 2</a></td>
-						<td class="col-2"><small>02.02</small></td>
-					</tr>
-					<tr>
-						<td class="col-10 infoPost"><a href="#">제목 4</a></td>
-						<td class="col-2"><small>02.02</small></td>
-					</tr>
-					<tr>
-						<td class="col-10 infoPost"><a href="#">제목 5</a></td>
-						<td class="col-2"><small>02.02</small></td>
-					</tr>
+				</c:forEach>
 				</table>
 			</div>
 			<div class="col-6 post">
-				<h1><i>Recommendation</i></h1>
+				<h1 id="RecTitle"><i><a href="/post/post_list_view?type=rec">Recommendation</a></i></h1>
 				<table class="table">
+					<c:forEach var="list" items="${recList}">
 					<tr>
-						<td class="col-10 infoPost"><a href="#">OOO 책 추천합니다.</a></td>
-						<td class="col-2"><small>01.31</small></td>
+						<td class="col-10 infoPost"><a href="/post/post_view?postId=${list.id}">${list.title}</a></td>
+						<td class="col-2 d-flex justify-content-end"><small><fmt:formatDate value="${list.createdAt}" pattern="MM.d"/></small></td>
 					</tr>
-					<tr>
-						<td class="col-10 infoPost"><a href="#">OOOO 정말 인생책!!</a></td>
-						<td class="col-2"><small>02.01</small></td>
-					</tr>
-					<tr>
-						<td class="col-10 infoPost"><a href="#">제목 3</a></td>
-						<td class="col-2"><small>02.02</small></td>
-					</tr>
-					<tr>
-						<td class="col-10 infoPost"><a href="#">제목 4</a></td>
-						<td class="col-2"><small>02.02</small></td>
-					</tr>
-					<tr>
-						<td class="col-10 infoPost"><a href="#">제목 5</a></td>
-						<td class="col-2"><small>02.02</small></td>
-					</tr>
+				</c:forEach>
 				</table>
 			</div>
 </section>
@@ -153,7 +127,15 @@ $(document).ready(function() {
 			success: function(data) { // html 태그들 자체가 내려옴
 				$('#div').html(data); // 이전 내용을 지우고 새로운 내용을 넣는다.
 			}
-		}); */
+		});
 	});
+	
+	append로 넣은거
+	=>
+	$(document).on("click", "#addBtn", function() {
+		alert();
+	})
+	
+	application.yml을 .gitignore(github에 안올리기) */
 });
 </script>

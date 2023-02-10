@@ -61,6 +61,8 @@ npe -->
 		$('input[name=searchType]').change(function() {
 			alert($(this).val());
 		});
+		
+		
 	});
 </script>
 </html>

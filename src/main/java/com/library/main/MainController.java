@@ -10,16 +10,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.library.main.bo.BookBO;
+import com.library.post.bo.PostBO;
+import com.library.post.model.Post;
 
 @RequestMapping("/main")
 @Controller
 public class MainController {
 	@Autowired
 	private BookBO bookBO;
+	@Autowired
+	private PostBO postBO;
 
 	@GetMapping("/template")
 	public String main(Model model) {
 		model.addAttribute("viewName", "main/main");
+		List<Post> noticeList = postBO.getPostNoticeList(5);
+		model.addAttribute("noticeList", noticeList);
+		List<Post> recommendList = postBO.getPostRecommendList(5);
+		model.addAttribute("recList", recommendList);
 		return "template/layout";
 	}
 
@@ -38,7 +46,7 @@ public class MainController {
 		model.addAttribute("viewName", "main/searchList0");
 		return "template/layout";
 	}
-	
+
 	@GetMapping("/category_list_view")
 	public String categoryListView(Model model) {
 		model.addAttribute("viewName", "main/distBySection");
