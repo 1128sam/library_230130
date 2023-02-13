@@ -20,4 +20,39 @@
 	<select id="selectPostById" parameterType="int" resultType="com.library.post.model.Post">
 		select * from `post` where `id` = #{id}
 	</select>
+
+	<insert id="insertPost" parameterType="map">
+		INSERT INTO `post`
+			(
+				`type`
+				, `title`
+				, `userId`
+				, `content`
+				, `filePath`
+				, `createdAt`
+				, `updatedAt`
+			)
+		VALUES
+			(
+				#{type}
+				, #{title}
+				, #{userId}
+				, #{content}
+				, NULL
+				, NOW()
+				, NOW()
+			);
+	</insert>
+	
+	<delete id="deletePost" parameterType="map">
+		DELETE FROM `post`
+		WHERE
+				`id` = #{postId}
+	</delete>
+	
+	<update id="updatePost" parameterType="map">
+		UPDATE `post`
+			SET `title` = #{title}, `content` = #{content}
+		WHERE `id` = #{postId}
+	</update>
 </mapper>

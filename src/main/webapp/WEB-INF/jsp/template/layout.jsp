@@ -27,9 +27,9 @@
 			<jsp:include page="../include/nav.jsp" />
 		</div>
 		
-		<c:set var = "name" value="${viewName}"/>
-		<c:if test="${fn:contains(name, '/main')}">
-		<jsp:include page="../include/search.jsp" />
+		<c:set var="link" value="${viewName}"/>
+		<c:if test="${fn:contains(link, 'main/')}">
+			<jsp:include page="../include/search.jsp" />
 		</c:if>
 
 			<%-- <jsp:include page="../main/main.jsp" /> --%>

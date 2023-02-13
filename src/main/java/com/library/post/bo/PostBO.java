@@ -24,4 +24,16 @@ public class PostBO {
 	public Post getPostById(int id) {
 		return postDAO.selectPostById(id);
 	}
+
+	public int addPost(String title, String content, Integer userId, int type) {
+		return postDAO.insertPost(title, content, userId, type);
+	}
+	
+	public void deletePost(int postId) {
+		postDAO.deletePost(postId);
+	}
+	
+	public int updatePost(int postId, String title, String content) {
+		return postDAO.updatePost(postId, title, content);
+	}
 }

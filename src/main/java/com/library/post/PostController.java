@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.library.post.bo.PostBO;
 import com.library.post.model.Post;
 
+import jakarta.servlet.http.HttpSession;
+
 @RequestMapping("/post")
 @Controller
 public class PostController {
@@ -33,16 +35,24 @@ public class PostController {
 	}
 	
 	@GetMapping("/post_view")
-	public String postView(Model model, @RequestParam("postId") int id) {
+	public String postView(Model model, @RequestParam("postId") int id, HttpSession session) {
 		model.addAttribute("viewName", "/post/postView");
 		Post post = postBO.getPostById(id);
 		model.addAttribute("post", post);
+		model.addAttribute("sessUserId", session.getAttribute("userId"));
 		return "template/layout";
 	}
 
 	@GetMapping("/new_post_view")
 	public String newPostView(Model model) {
 		model.addAttribute("viewName", "/post/newPost");
+		return "template/layout";
+	}
+
+	@GetMapping("/update_post_view")
+	public String updatePostView(Model model, @RequestParam("postId") int postId) {
+		model.addAttribute("viewName", "/post/updatePost");
+		model.addAttribute("post", postBO.getPostById(postId));
 		return "template/layout";
 	}
 }

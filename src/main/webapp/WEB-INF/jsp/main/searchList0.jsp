@@ -21,6 +21,14 @@
 		</div>
 		</section>
 </c:forEach>
+<c:if test="${bookList.isEmpty()}">
+	<div class="section1">
+		<div class="d-flex justify-content-center align-items-center mt-5">
+			<img src="https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061132_960_720.png" width="150" alt="errorImg">
+		</div>
+		<span class="d-flex justify-content-center align-items-center"><h2>There are no search results!</h2></span>
+	</div>
+</c:if>
 <script>
 $(document).ready(function() {
 	$('#searchBtn').on('click', function() {
