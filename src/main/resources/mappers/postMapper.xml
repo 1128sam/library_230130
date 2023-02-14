@@ -38,10 +38,10 @@
 				, #{title}
 				, #{userId}
 				, #{content}
-				, NULL
+				, #{filePath}
 				, NOW()
 				, NOW()
-			);
+			)
 	</insert>
 	
 	<delete id="deletePost" parameterType="map">

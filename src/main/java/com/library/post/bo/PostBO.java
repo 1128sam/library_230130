@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.library.common.FileManagerService;
 import com.library.post.dao.PostDAO;
 import com.library.post.model.Post;
 
@@ -13,6 +14,8 @@ import com.library.post.model.Post;
 public class PostBO {
 	@Autowired
 	private PostDAO postDAO;
+	@Autowired
+	private FileManagerService fms;
 
 	public List<Post> getPostNoticeList(Integer num) {
 		return postDAO.selectPostNoticeList(num);
@@ -26,8 +29,13 @@ public class PostBO {
 		return postDAO.selectPostById(id);
 	}
 
-	public int addPost(String title, String content, Integer userId, int type, MultipartFile file) {
-		return postDAO.insertPost(title, content, userId, type, file);
+	public int addPost(String userName, String title, String content, Integer userId, int type, MultipartFile file) {
+		String imagePath = null;
+		if (file != null) {
+			// only when file exists => image path
+			imagePath = fms.saveFile(userName, file);
+		}
+		return postDAO.insertPost(title, content, userId, type, imagePath);
 	}
 	
 	public void deletePost(int postId) {

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.library.post.model.Post;
 
@@ -18,7 +17,7 @@ public interface PostDAO {
 			@Param("content") String content,
 			@Param("userId") Integer userId,
 			@Param("type") int type,
-			@Param("file") MultipartFile file);
+			@Param("imagePath") String imagePath);
 	public void deletePost(int postId);
 	public int updatePost(@Param("postId") int postId, @Param("title") String title, @Param("content") String content);
 }

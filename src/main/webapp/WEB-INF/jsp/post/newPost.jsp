@@ -117,11 +117,45 @@ $(document).ready(function() {
 			alert("write something.");
 			return;
 		}
+		
+		let file = $('#file').val();
+		let ext = file.split('.').pop().toLowerCase(); // 파일 경로를 .으로 나누고 확장자가 있는 마지막 문자열을 가져온 후 모두 소문자로 변경
+		if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+			alert("gif, png, jpg, jpeg 파일만 업로드 할 수 있습니다.");
+			$('#file').val(''); // 파일을 비운다.
+			return;
+		}
 
-		$.ajax({
+		/* $.ajax({
 			type:"get",
 			url: "/post/add_post",
 			data: {"title":title, "content":content, "type":1},
+			success: function(data) {
+				if (data.code == 1) {
+					location.href="/post/post_list_view?type=rec";
+				} else {
+					alert(data.result);
+				}
+			},
+			error: function(error) {
+				alert("failed to insert. please inquire to admins.");
+			}
+		}); */
+		
+		let formData = new FormData();
+		formData.append("title", title);
+		formData.append("content", content);
+		formData.append("type", 1);
+		formData.append("file", $('#file')[0].files[0]);
+		console.log(formData);
+
+		$.ajax({
+			type:"POST",
+			url: "/post/add_post",
+			data: formData,
+			enctype: "multipart/form-data",
+			processData: false,
+			contentType: false,
 			success: function(data) {
 				if (data.code == 1) {
 					location.href="/post/post_list_view?type=rec";
