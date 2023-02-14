@@ -40,4 +40,8 @@ public class UserBO {
 	public User getUserByEmail(String email) {
 		return userDAO.selectUserByEmail(email);
 	}
+
+	public String getUserNameByUserId(int id) {
+		return userDAO.selectUserNameByUserId(id);
+	}
 }

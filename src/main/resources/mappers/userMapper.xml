@@ -108,4 +108,13 @@
 		WHERE
 			`email` = #{email}
 	</select>
+	
+	<select id="selectUserNameByUserId" parameterType="int" resultType="String">
+		SELECT
+			`userId`
+		FROM
+			`user`
+		WHERE
+			`id` = #{id}
+	</select>
 </mapper>

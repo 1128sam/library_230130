@@ -31,4 +31,6 @@ public interface UserDAO {
 			@Param("fileAttach") String fileAttach);
 
 	public User selectUserByEmail(String email);
+
+	public String selectUserNameByUserId(int id);
 }

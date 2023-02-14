@@ -61,7 +61,11 @@ $(document).ready(function() {
 		.done(function(data) {
 			if (data.code == 1) {
 				alert(data.result);
-				location.href="/post/post_list_view?type=rec";
+				if (data.type == "0") {
+					location.href="/post/post_list_view?type=info";
+				} else if (data.type == "1") {
+					location.href="/post/post_list_view?type=rec";
+				}
 			} else {
 				alert(data.result);
 			}

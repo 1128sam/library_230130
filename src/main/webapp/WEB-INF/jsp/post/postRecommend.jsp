@@ -14,10 +14,10 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="list" items="${list}">
+			<c:forEach var="list" items="${list}" varStatus="vs">
 					<tr>
 						<td><a href="/post/post_view?postId=${list.id}">${list.title}</a></td>
-						<td class="text-center">${list.userId}</td>
+						<td class="text-center">${userNameList.get(vs.index)}</td>
 						<td class="text-center"><fmt:formatDate value="${list.updatedAt}" pattern="yyyy.MM.dd"/></td>
 					</tr>
 				</c:forEach>
@@ -32,7 +32,7 @@
 <script>
 $(document).ready(function() {
 	$('#newRecBtn').on('click', function() {
-		location.href = "/post/new_post_view";
+		location.href = "/post/new_post_view?type=1";
 	});
 });
 </script>
