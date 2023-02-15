@@ -5,12 +5,14 @@
 		<div class="d-flex">
 			<input type="number" id="postId" class="d-none" value="${post.id}">
 			<h2 class="col-10">${post.title}</h2>
-			<span class="col-1">${post.userId}</span>
+			<span class="col-1">${postUserName}</span>
 			<c:if test="${post.userId eq sessUserId}">
 				<div class="col-1"><button type="button" id="postDeleteBtn" class="btn btn-danger">Delete</button><a href="/post/update_post_view?postId=${post.id}" id="postUpdateBtn" class="btn btn-secondary mt-1">Update</a></div>
 			</c:if>
 		</div>
-		<img src="${post.filePath}" alt="image" width="90">
+		<div class="d-flex justify-content-center">
+			<img src="${post.filePath}" alt="image" width="400">
+		</div>
 		<div class="mt-4 ml-3">${post.content}</div>
 	<c:if test="${post.type == 1}">
 		<div class="commentsBorder mt-5">

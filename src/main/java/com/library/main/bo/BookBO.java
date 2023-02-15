@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.library.common.FileManagerService;
 import com.library.main.Book;
 import com.library.main.dao.BookDAO;
 
@@ -12,6 +14,8 @@ import com.library.main.dao.BookDAO;
 public class BookBO {
 	@Autowired
 	private BookDAO bookDAO;
+	@Autowired
+	private FileManagerService fms;
 
 	public List<Book> getBookList() {
 		return bookDAO.selectBookList();
@@ -23,5 +27,17 @@ public class BookBO {
 
 	public List<Book> getBookListByCat(int category) {
 		return bookDAO.selectBookListByCat(category);
+	}
+
+	public int addBook(String userName, String title, String author, String isbn, String publisher, int year, String category, MultipartFile file) {
+		String filePath = null;
+		if (file != null) {
+			filePath = fms.saveFile(userName, file);
+		}
+		return bookDAO.insertBook(title, author, isbn, publisher, year, category, filePath);
+	}
+
+	public Book getBookByBookId(int bookId) {
+		return bookDAO.selectBookByBookId(bookId);
 	}
 }

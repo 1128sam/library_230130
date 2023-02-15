@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileManagerService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	// public static final String FILE_UPLOAD_PATH = "D:\\seowonlee\\0_library_project\\workspace\\images/"; 
-	public static final String FILE_UPLOAD_PATH = "C:\\AseowonLee\\00_library_project\\workspace\\images/"; 
+	public static final String FILE_UPLOAD_PATH = "D:\\seowonlee\\0_library_project\\workspace\\images/"; 
+//	public static final String FILE_UPLOAD_PATH = "C:\\AseowonLee\\00_library_project\\workspace\\images/"; 
 	
 	public String saveFile(String userLoginId, MultipartFile file) {
 		// 파일 디렉토리 예) test_16205468768/sun.png
@@ -27,7 +27,7 @@ public class FileManagerService {
 		if (directory.mkdir() == false) { // make directory
 			return null; // 폴더 만드는데 실패 시 이미지 패스 null
 		}
-		
+
 		// 파일 업로드: byte 단위로 업로드된다.
 		try {
 			byte[] bytes = file.getBytes();

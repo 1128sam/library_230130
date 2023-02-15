@@ -19,7 +19,7 @@
 
 				<div class="file-upload d-flex">
 					<%-- file 태그는 숨겨두고 이미지를 클릭하면 file 태그를 클릭한 것처럼 이벤트를 줄 것이다. --%>
-					<input type="file" id="file" class="d-none" accept=".gif, .jpg, .png, .jpeg">
+					<input type="file" id="file" accept=".jpg,.jpeg,.png,.gif">
 					<%-- 이미지에 마우스 올리면 마우스커서가 링크 커서가 변하도록 a 태그 사용 --%>
 					<a href="#" id="fileUploadBtn"><img width="30" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"></a>
 
@@ -72,11 +72,15 @@ $(document).ready(function() {
 			return;
 		}
 		let file = $('#file').val();
-		let ext = file.split('.').pop().toLowerCase(); // 파일 경로를 .으로 나누고 확장자가 있는 마지막 문자열을 가져온 후 모두 소문자로 변경
-		if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-			alert("gif, png, jpg, jpeg 파일만 업로드 할 수 있습니다.");
-			$('#file').val(''); // 파일을 비운다.
-			return;
+		
+		if (file != '') {
+			alert(file.split(".").pop().toLowerCase());
+			let ext = file.split(".").pop().toLowerCase();
+			if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) {
+				alert("이미지 파일만 업로드 할 수 있습니다.");
+				$('#file').val(""); // 파일을 비운다.
+				return;
+			}
 		}
 		
 		let formData = new FormData();
@@ -173,7 +177,5 @@ $(document).ready(function() {
 		e.preventDefault(); // a 태그의 올라가는 현상 방지
 		$('#file').click(); // input file을 클릭한 것과 같은 효과
 	});
-
-	
 });
 </script>

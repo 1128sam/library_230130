@@ -7,6 +7,7 @@
 <c:forEach var="book" items="${bookList}" varStatus="vs">
 		<section class="bookSection mt-4">
 		<div class="d-flex justify-content-center">
+			<a href="/main/book_info_view?bookId=${book.id}">
 			<div class="bookInfoBox d-flex">
 				<div class="col-3 h-100 d-flex justify-content-center align-items-center">
 					<div class="bookImgBox m-3 d-flex justify-content-center"></div>
@@ -18,6 +19,7 @@
 					<span>publisher : ${book.publisher}</span>
 				</div>
 			</div>
+			</a>
 		</div>
 		</section>
 </c:forEach>

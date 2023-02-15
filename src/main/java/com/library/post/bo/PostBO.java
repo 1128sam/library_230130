@@ -29,13 +29,13 @@ public class PostBO {
 		return postDAO.selectPostById(id);
 	}
 
-	public int addPost(String userName, String title, String content, Integer userId, int type, MultipartFile file) {
-		String imagePath = null;
+	public int addPost(String userLoginId, String title, String content, Integer userId, int type, MultipartFile file) {
+		String filePath = null;
 		if (file != null) {
 			// only when file exists => image path
-			imagePath = fms.saveFile(userName, file);
+			filePath = fms.saveFile(userLoginId, file);
 		}
-		return postDAO.insertPost(title, content, userId, type, imagePath);
+		return postDAO.insertPost(title, content, userId, type, filePath);
 	}
 	
 	public void deletePost(int postId) {

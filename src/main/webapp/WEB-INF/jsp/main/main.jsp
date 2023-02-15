@@ -17,12 +17,18 @@
 	                    </a>
 
 	                    <article class="bookDisplayBox">
-	                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-	                        <div class="ml-3">Title 2</div>
+	                        <div class="imgBox m-3 d-flex justify-content-center">
+	                        	<img src="https://miblart.com/wp-content/uploads/2020/01/crime-and-mystery-cover-scaled-1.jpeg">
+	                        </div>
+	                        <div class="ml-3">Fortress blood</div>
+	                        <div class="ml-3"><small>L.D. Goffigan</small></div>
 	                    </article>
 	                    <article class="bookDisplayBox">
-	                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-	                        <div class="ml-3">Title 3</div>
+	                        <div class="imgBox m-3 d-flex justify-content-center">
+	                        	<img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/yellow-business-leadership-book-cover-design-template-dce2f5568638ad4643ccb9e725e5d6ff_screen.jpg?ts=1637017516">
+	                        </div>
+	                        <div class="ml-3">The Mind of a Leader</div>
+	                        <div class="ml-3"><small>Kevin Andersen</small></div>
 	                    </article>
 	                    <article class="bookDisplayBox">
 	                        <div class="imgBox m-3 d-flex justify-content-center"></div>

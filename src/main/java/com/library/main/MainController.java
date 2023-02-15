@@ -52,4 +52,12 @@ public class MainController {
 		model.addAttribute("viewName", "main/distBySection");
 		return "template/layout";
 	}
+
+	@GetMapping("/book_info_view")
+	public String bookInfoView(Model model, @RequestParam("bookId") int bookId) {
+		Book book = bookBO.getBookByBookId(bookId);
+		model.addAttribute("book", book);
+		model.addAttribute("viewName", "book/bookInfo");
+		return "template/layout";
+	}
 }

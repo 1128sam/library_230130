@@ -56,6 +56,7 @@ public class PostController {
 	public String postView(Model model, @RequestParam("postId") int id, HttpSession session) {
 		model.addAttribute("viewName", "/post/postView");
 		Post post = postBO.getPostById(id);
+		model.addAttribute("postUserName", userBO.getUserNameByUserId(post.getUserId()));
 		model.addAttribute("post", post);
 		model.addAttribute("sessUserId", session.getAttribute("userId"));
 		return "template/layout";

@@ -28,9 +28,9 @@ public class PostRestController {
 	@PostMapping("/add_post")
 	public Map<String, Object> addPost(HttpSession session, @RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("type") int type, @RequestParam(value="file", required=false) MultipartFile file) {
 		Integer userId = (Integer) session.getAttribute("userId");
-		String userName = userBO.getUserNameByUserId(userId); 
+		String userLoginId = userBO.getUserNameByUserId(userId); 
 		Map<String, Object> result = new HashMap<>();
-		int row = postBO.addPost(userName, title, content, userId, type, file);
+		int row = postBO.addPost(userLoginId, title, content, userId, type, file);
 		if (row == 1) {
 			result.put("code", 1);
 			result.put("result", "success");

@@ -14,4 +14,16 @@ public interface BookDAO {
 	public List<Book> selectBookListBySearchSearchType(@Param("search") String search, @Param("searchType") String searchType);
 
 	public List<Book> selectBookListByCat(int category);
+
+	public int insertBook(
+			@Param("title") String title,
+			@Param("author") String author,
+			@Param("isbn") String isbn,
+			@Param("publisher") String publisher,
+			@Param("year") int year,
+			@Param("category") String category,
+			@Param("filePath") String filePath
+			);
+
+	public Book selectBookByBookId(int id);
 }

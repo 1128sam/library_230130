@@ -17,7 +17,7 @@ public interface PostDAO {
 			@Param("content") String content,
 			@Param("userId") Integer userId,
 			@Param("type") int type,
-			@Param("imagePath") String imagePath);
+			@Param("filePath") String filePath);
 	public void deletePost(int postId);
 	public int updatePost(@Param("postId") int postId, @Param("title") String title, @Param("content") String content);
 }

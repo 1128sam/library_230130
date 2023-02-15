@@ -45,7 +45,7 @@
 		</if>
 </select>
 
-<select id="selectBookListByCat"  resultType="com.library.main.Book">
+<select id="selectBookListByCat" resultType="com.library.main.Book">
 	SELECT
 		`id`
 		, `isbn`
@@ -65,4 +65,58 @@
 	WHERE
 		`category` = #{category}
 </select>
+
+<select id="selectBookByBookId" parameterType="int" resultType="com.library.main.Book">
+	SELECT
+		`id`
+		, `isbn`
+		, `title`
+		, `author`
+		, `publisher`
+		, `year`
+		, `imageUrl`
+		, `category`
+		, `status`
+		, `count`
+		, `point`
+		, `createdAt`
+		, `updatedAt`
+	FROM
+		`book`
+	WHERE
+		`id` = #{id}
+</select>
+
+<insert id="insertBook" parameterType="map">
+	INSERT INTO `book`
+		(
+			`isbn`
+			, `title`
+			, `author`
+			, `publisher`
+			, `year`
+			, `imageUrl`
+			, `category`
+			, `status`
+			, `count`
+			, `point`
+			, `createdAt`
+			, `updatedAt`
+		)
+	VALUES
+		(
+			#{isbn}
+			, #{title}
+			, #{author}
+			, #{publisher}
+			, #{year}
+			, #{filePath}
+			, #{category}
+			, 0
+			, 0
+			, NULL
+			, NOW()
+			, NOW()
+		)
+</insert>
 </mapper>
