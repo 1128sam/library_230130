@@ -43,6 +43,7 @@
 		<if test='searchType == "general"'>
 			`title` LIKE CONCAT('%', #{search}, '%') OR `author` LIKE CONCAT('%', #{search}, '%') OR `publisher` LIKE CONCAT('%', #{search}, '%') OR `isbn` LIKE CONCAT('%', #{search}, '%') OR `title` LIKE CONCAT('%', #{search}, '%')
 		</if>
+		order by `updatedAt` DESC
 </select>
 
 <select id="selectBookListByCat" resultType="com.library.main.Book">
@@ -119,4 +120,37 @@
 			, NOW()
 		)
 </insert>
+
+<insert id="insertRentInfoByUserIdBookId" parameterType="map">
+	INSERT INTO `book_status`
+		(
+			`userId`
+			, `bookId`
+			, `borrowedAt`
+			, `dueDate`
+			, `exCount`
+			, `returnedAt`
+			, `point`
+			, `createdAt`
+			, `updatedAt`
+		)
+	VALUES
+		(
+			#{userId}
+			, #{bookId}
+			, NOW()
+			, DATE_ADD(NOW() , INTERVAL 14 DAY)
+			, 0
+			, NULL
+			, NULL
+			, NOW()
+			, NOW()
+		)
+</insert>
+
+<update id="updateBookStatus" parameterType="int">
+	UPDATE `book`
+		SET `status` = 1
+	WHERE `id` = #{bookId}
+</update>
 </mapper>

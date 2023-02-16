@@ -26,4 +26,8 @@ public interface BookDAO {
 			);
 
 	public Book selectBookByBookId(int id);
+	
+	public int insertRentInfoByUserIdBookId(@Param("userId") int userId, @Param("bookId") int bookId);
+
+	public void updateBookStatus(int bookId);
 }

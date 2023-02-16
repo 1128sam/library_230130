@@ -40,7 +40,6 @@ footer{width:1200px; height:90px;}
 /* profile */
 .profileBox {height: 300px; width: 1100px; border: 1px solid;}
 .bookInfoBox {height: 250px; width: 1100px; border: 1px solid;}
-.bookInfoBox2 {height: 450px; width: 1100px; border: 1px solid;}
 .bookImgBox {width:150px; height:180px; background-color:#999;}
 
 /* profileUpdate */
@@ -61,3 +60,7 @@ footer{width:1200px; height:90px;}
 .commentBox {width: 1000px; height:100px; border: 0.5px solid;}
 /* newPost */
 .newPostBox {width: 1000px; height:500px;}
+
+/* bookInfo */
+.bookInfoBox2 {height: 800px; width: 1100px; border: 1px solid;}
+.bookStatusBox {height: 350px; width: 1000px;}

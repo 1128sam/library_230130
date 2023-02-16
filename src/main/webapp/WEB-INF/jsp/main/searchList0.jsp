@@ -10,7 +10,12 @@
 			<a href="/main/book_info_view?bookId=${book.id}">
 			<div class="bookInfoBox d-flex">
 				<div class="col-3 h-100 d-flex justify-content-center align-items-center">
+					<c:if test="${book.imageUrl eq null}">
 					<div class="bookImgBox m-3 d-flex justify-content-center"></div>
+					</c:if>
+					<c:if test="${book.imageUrl ne null}">
+					<img src="${book.imageUrl}" alt="bookCoverImg" width="150">
+					</c:if>
 				</div>
 				<div class="col-9">
 					<h4 class="pt-5">${book.title}</h4>

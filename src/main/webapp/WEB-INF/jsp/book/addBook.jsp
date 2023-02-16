@@ -38,8 +38,7 @@ $(document).ready(function() {
 	$('#file').on('change', function(e) {
 		let fileName = e.target.files[0].name; // 07_30_01.png
 		//alert(fileName);
-		
-		// 확장자 유효성 확인
+
 		let ext = fileName.split(".").pop().toLowerCase();
 		if (ext != 'jpg' && ext != 'jpeg' && ext != 'gif' && ext != 'png') {
 			alert("이미지 파일만 업로드 할 수 있습니다.");
@@ -47,10 +46,10 @@ $(document).ready(function() {
 			$("#fileName").text(''); // 파일 이름 비우기
 			return;
 		}
-		
+
 		$('#fileName').text(fileName);
 	});
-	
+
 	$('#newBookBtn').on('click', function() {
 		let title = $('#title').val().trim();
 		if (title == '') {
@@ -74,18 +73,13 @@ $(document).ready(function() {
 		}
 		let year = $('#year').val().trim();
 		if (year == '') {
-			alert("write something.");
+			alert("write the year.");
 			return;
 		}
 		let category = $('#category').val().trim();
-		if (category == '') {
-			alert("write something.");
-			return;
-		}
 		let file = $('#file').val();
-		
+
 		if (file != '') {
-			alert(file.split(".").pop().toLowerCase());
 			let ext = file.split(".").pop().toLowerCase();
 			if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) {
 				alert("이미지 파일만 업로드 할 수 있습니다.");
@@ -93,7 +87,7 @@ $(document).ready(function() {
 				return;
 			}
 		}
-		
+
 		let formData = new FormData();
 		formData.append("title", title);
 		formData.append("author", author);
@@ -102,7 +96,6 @@ $(document).ready(function() {
 		formData.append("year", year);
 		formData.append("category", category);
 		formData.append("file", $('#file')[0].files[0]);
-		console.log(formData);
 
 		$.ajax({
 			type:"POST",

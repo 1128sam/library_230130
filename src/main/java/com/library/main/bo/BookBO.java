@@ -40,4 +40,12 @@ public class BookBO {
 	public Book getBookByBookId(int bookId) {
 		return bookDAO.selectBookByBookId(bookId);
 	}
+
+	public int addRentInfo(int userId, int bookId) {
+		return bookDAO.insertRentInfoByUserIdBookId(userId, bookId);
+	}
+
+	public void updateBookStatus(int bookId) {
+		bookDAO.updateBookStatus(bookId);
+	}
 }

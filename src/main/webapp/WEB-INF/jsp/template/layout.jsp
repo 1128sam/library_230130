@@ -28,7 +28,7 @@
 		</div>
 		
 		<c:set var="link" value="${viewName}"/>
-		<c:if test="${fn:contains(link, 'main/')}">
+		<c:if test="${fn:contains(link, 'main/') || fn:contains(link, 'book/bookInfo')}">
 			<jsp:include page="../include/search.jsp" />
 		</c:if>
 
@@ -55,14 +55,4 @@ a.isEmpty();
 
 =>
 npe -->
-
-<script>
-	$(document).ready(function() {
-		$('input[name=searchType]').change(function() {
-			alert($(this).val());
-		});
-		
-		
-	});
-</script>
 </html>

@@ -13,6 +13,8 @@ import com.library.main.bo.BookBO;
 import com.library.post.bo.PostBO;
 import com.library.post.model.Post;
 
+import jakarta.servlet.http.HttpSession;
+
 @RequestMapping("/main")
 @Controller
 public class MainController {
@@ -54,8 +56,14 @@ public class MainController {
 	}
 
 	@GetMapping("/book_info_view")
-	public String bookInfoView(Model model, @RequestParam("bookId") int bookId) {
+	public String bookInfoView(HttpSession session, Model model, @RequestParam("bookId") int bookId) {
 		Book book = bookBO.getBookByBookId(bookId);
+		if (book.getStatus() == 1) {
+			String borrowedUser = bookBO.getBorrowedUserByBookId(bookId);
+			if (borrowedUser.equals(session.getAttribute("userId"))) {
+				model.addAttribute("borrowedUser", borrowedUser);
+			}
+		}
 		model.addAttribute("book", book);
 		model.addAttribute("viewName", "book/bookInfo");
 		return "template/layout";
