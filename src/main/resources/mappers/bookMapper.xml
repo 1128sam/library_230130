@@ -154,7 +154,43 @@
 	WHERE `id` = #{bookId}
 </update>
 
-<select id="selectBorrowedUserIdByBookId" parameterType="int">
-	SELECT `userId` FROM `book_status` where `bookId`=#{bookId}
+<select id="selectBookStatusByBookId" parameterType="int" resultType="com.library.main.BookStatus">
+	SELECT * FROM `book_status`
+			WHERE `bookId` = #{bookId} AND `returnedAt` is null
+</select>
+
+<update id="returnBookByBookId" parameterType="int">
+	UPDATE `book`
+		SET `status` = 0, `count` = `count` + 1
+	WHERE `id` = #{bookId}
+</update>
+<update id="updateBookStatusAsReturned" parameterType="int">
+	UPDATE `book_status`
+		SET `returnedAt` = NOW()
+	WHERE `bookId` = #{bookId}
+</update>
+
+<select id="selectBookIdListByUserId" parameterType="int" resultType="Integer">
+	SELECT
+		`bookId`
+	FROM
+		`book_status`
+	WHERE
+		<if test="userId1 != 0">
+			`userId` = #{userId1}
+			AND `returnedAt` is null
+		</if>
+		<if test="userId2 != 0">
+			`userId` = #{userId2}
+			AND `returnedAt` is not null ORDER BY `returnedAt` DESC
+		</if>
+</select>
+
+<select id="selectBorrowedBookCntByUserId" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM `book_status` WHERE `userId` = #{userId} AND `returnedAT` IS NULL
+</select>
+
+<select id="selectDueDateByBookId" parameterType="map" resultType="date">
+	SELECT `dueDate` FROM `book_status` WHERE `bookId` = #{bookId} AND `returnedAT` IS NULL AND `userId` = #{userId}
 </select>
 </mapper>

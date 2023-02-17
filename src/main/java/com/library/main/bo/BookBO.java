@@ -1,5 +1,6 @@
 package com.library.main.bo;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.library.common.FileManagerService;
 import com.library.main.Book;
+import com.library.main.BookStatus;
 import com.library.main.dao.BookDAO;
 
 @Service
@@ -49,7 +51,29 @@ public class BookBO {
 		bookDAO.updateBookStatus(bookId);
 	}
 
-	public String getBorrowedUserIdByBookId(int bookId) {
-		return bookDAO.selectBorrowedUserIdByBookId(bookId);
+	// borrowing
+	public BookStatus getBookStatusByBookId(int bookId) {
+		return bookDAO.selectBookStatusByBookId(bookId);
+	}
+
+	// returning
+	public int returnBookByBookId(int bookId) {
+		return bookDAO.returnBookByBookId(bookId);
+	}
+	public void updateBookStatusAsReturned(int bookId) {
+		bookDAO.updateBookStatusAsReturned(bookId);
+	}
+
+	public List<Integer> getBookIdListByUserId(Integer userId1, Integer userId2) {
+		return bookDAO.selectBookIdListByUserId(userId1, userId2);
+	}
+
+//	getting the number of currently borrowed books of a certain user to stop the user from borrowing more than three books at once
+	public int getBorrowedBookCntByUserId(int userId) {
+		return bookDAO.selectBorrowedBookCntByUserId(userId);
+	}
+
+	public Date getDueDateByBookId(int userId, int bookId) {
+		return bookDAO.selectDueDateByBookId(userId, bookId);
 	}
 }

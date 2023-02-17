@@ -1,11 +1,13 @@
 package com.library.main.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.library.main.Book;
+import com.library.main.BookStatus;
 
 @Repository
 public interface BookDAO {
@@ -31,5 +33,15 @@ public interface BookDAO {
 
 	public void updateBookStatus(int bookId);
 
-	public String selectBorrowedUserIdByBookId(int bookId);
+	public BookStatus selectBookStatusByBookId(int bookId);
+
+	public int returnBookByBookId(int bookId);
+
+	public void updateBookStatusAsReturned(int bookId);
+
+	public List<Integer> selectBookIdListByUserId(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
+
+	public int selectBorrowedBookCntByUserId(int userId);
+
+	public Date selectDueDateByBookId(@Param("userId") int userId, @Param("bookId") int bookId);
 }

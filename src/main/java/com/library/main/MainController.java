@@ -59,10 +59,11 @@ public class MainController {
 	public String bookInfoView(HttpSession session, Model model, @RequestParam("bookId") int bookId) {
 		Book book = bookBO.getBookByBookId(bookId);
 		if (book.getStatus() == 1) {
-			String borrowedUser = bookBO.getBorrowedUserIdByBookId(bookId);
-			if (borrowedUser.equals(session.getAttribute("userId"))) {
-				model.addAttribute("borrowedUser", borrowedUser);
+			BookStatus bs = bookBO.getBookStatusByBookId(bookId);
+			if (bs.getUserId() == (int) session.getAttribute("userId")) {
+				model.addAttribute("borrowedUser", bs.getUserId());
 			}
+			model.addAttribute("dueDate", bs.getDueDate());
 		}
 		model.addAttribute("book", book);
 		model.addAttribute("viewName", "book/bookInfo");

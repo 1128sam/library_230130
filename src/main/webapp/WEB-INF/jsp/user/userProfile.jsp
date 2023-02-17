@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 		<c:if test="${empty userId}">
 			<jsp:include page="../main/main.jsp" />
 		</c:if>
@@ -30,20 +31,22 @@
 				<span>Available: </span>
 			</div>
 		</div>
-		<section class="section1 d-flex justify-content-center mt-2">
+		<c:forEach var="book" items="${borrowedBookList}" varStatus="vs">
+		<section class="bookSection d-flex justify-content-center mt-2">
 			<div class="bookInfoBox d-flex">
 				<div class="col-3 h-100 d-flex justify-content-center align-items-center">
-					<div class="bookImgBox m-3 d-flex justify-content-center"></div>
+					<img src="${book.imageUrl}" alt="borrowedBookImg" width="150">
 				</div>
 				<div class="col-9">
-					<h4 class="pt-5">서명 1</h4>
-					<span>홍길동</span><br>
-					<span>
-						...
-					</span>
+					<h4 class="pt-5">${book.title}</h4>
+					<span>${book.author}</span><br>
+					<span>${book.isbn}</span><br>
+					<span>${book.publisher}</span><br>
+					<span class="d-flex justify-content-end align-items-end"><fmt:formatDate value="${dueDateList.get(vs.index)}" pattern="MM.dd"/> (O Days Left)</span>
 				</div>
 			</div>
 		</section>
+		</c:forEach>
 		
 		<div class="temp d-flex mr-5">
 			<h1 class="pl-5 col-11"><i>Reservation</i></h1>
@@ -70,28 +73,19 @@
 				<div class="col-10 section1">
 					<h1><i>Recently Returned Books</i></h1>
 						<div class="popularBooksBox d-flex justify-content-between pt-2">
+					<c:forEach var="book" items="${returnedBookList}">
 							<article class="bookDisplayBox">
-		                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-		                        <div class="ml-3">Title 1</div>
+								<c:if test="${book.imageUrl ne null}">
+		                        <div class="d-flex justify-content-center mt-1"><img src="${book.imageUrl}" alt="bookImg" width="100"></div>
+		                        </c:if>
+		                        <c:if test="${book.imageUrl eq null}">
+		                        	<div class="imgBox m-3 d-flex justify-content-center"></div>
+		                        </c:if>
+		                        <div class="ml-3 mt-1">${book.title}</div>
+		                        <span class="ml-3 text-secondary"><small>${book.author}</small></span>
 		                    </article>
-	
-		                    <article class="bookDisplayBox">
-		                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-		                        <div class="ml-3">Title 2</div>
-		                    </article>
-		                    <article class="bookDisplayBox">
-		                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-		                        <div class="ml-3">Title 3</div>
-		                    </article>
-		                    <article class="bookDisplayBox">
-		                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-		                        <div class="ml-3">Title 4</div>
-		                    </article>
-		                    <article class="bookDisplayBox">
-		                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-		                        <div class="ml-3">Title 5</div>
-		                    </article>
-					</div>
+	                </c:forEach>
+						</div>
 				</div>
 			</div>
 
