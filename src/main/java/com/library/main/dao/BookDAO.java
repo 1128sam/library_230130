@@ -30,4 +30,6 @@ public interface BookDAO {
 	public int insertRentInfoByUserIdBookId(@Param("userId") int userId, @Param("bookId") int bookId);
 
 	public void updateBookStatus(int bookId);
+
+	public String selectBorrowedUserIdByBookId(int bookId);
 }

@@ -34,6 +34,7 @@
 						<div class="d-flex justify-content-end">
 							<c:if test="${book.status eq 0}"><button type="button" id="borrowBtn" class="btn btn-success">대출하기</button></c:if>
 							<c:if test="${book.status eq 1}"><button type="button" id="reserveBtn" class="mx-4 btn btn-primary">예약하기</button></c:if>
+							<c:if test="${book.status eq 1 && borrowedUser ne null}"><button type="button" id="returnBtn" class="mx-4 btn btn-primary">반납하기</button></c:if>
 							<c:if test="${userType eq 0}"><button type="button" id="modifyBtn" class="btn btn-secondary">수정하기</button></c:if>
 						</div>
 				</div>

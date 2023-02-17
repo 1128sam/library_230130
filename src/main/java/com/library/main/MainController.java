@@ -59,7 +59,7 @@ public class MainController {
 	public String bookInfoView(HttpSession session, Model model, @RequestParam("bookId") int bookId) {
 		Book book = bookBO.getBookByBookId(bookId);
 		if (book.getStatus() == 1) {
-			String borrowedUser = bookBO.getBorrowedUserByBookId(bookId);
+			String borrowedUser = bookBO.getBorrowedUserIdByBookId(bookId);
 			if (borrowedUser.equals(session.getAttribute("userId"))) {
 				model.addAttribute("borrowedUser", borrowedUser);
 			}

@@ -13,7 +13,7 @@
 		<div class="d-flex justify-content-center">
 			<img src="${post.filePath}" alt="image" width="400">
 		</div>
-		<div class="mt-4 ml-3">${post.content}</div>
+		<p class="mt-4 ml-3">${post.content}</p>
 	<c:if test="${post.type == 1}">
 		<div class="commentsBorder mt-5">
 			<div class="commentBox my-4">

@@ -48,4 +48,8 @@ public class BookBO {
 	public void updateBookStatus(int bookId) {
 		bookDAO.updateBookStatus(bookId);
 	}
+
+	public String getBorrowedUserIdByBookId(int bookId) {
+		return bookDAO.selectBorrowedUserIdByBookId(bookId);
+	}
 }

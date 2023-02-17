@@ -153,4 +153,8 @@
 		SET `status` = 1
 	WHERE `id` = #{bookId}
 </update>
+
+<select id="selectBorrowedUserIdByBookId" parameterType="int">
+	SELECT `userId` FROM `book_status` where `bookId`=#{bookId}
+</select>
 </mapper>
