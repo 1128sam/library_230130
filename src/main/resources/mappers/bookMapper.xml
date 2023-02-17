@@ -167,7 +167,7 @@
 <update id="updateBookStatusAsReturned" parameterType="int">
 	UPDATE `book_status`
 		SET `returnedAt` = NOW()
-	WHERE `bookId` = #{bookId}
+	WHERE `bookId` = #{bookId} limit 5
 </update>
 
 <select id="selectBookIdListByUserId" parameterType="int" resultType="Integer">
@@ -191,6 +191,6 @@
 </select>
 
 <select id="selectDueDateByBookId" parameterType="map" resultType="date">
-	SELECT `dueDate` FROM `book_status` WHERE `bookId` = #{bookId} AND `returnedAT` IS NULL AND `userId` = #{userId}
+	SELECT `dueDate` FROM `book_status` WHERE `bookId` = #{bookId} AND `returnedAT` IS NULL AND `userId` = #{userId} limit 3
 </select>
 </mapper>
