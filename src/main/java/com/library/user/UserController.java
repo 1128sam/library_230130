@@ -101,7 +101,10 @@ public class UserController {
 	}
 
 	@GetMapping("/account_restore_view")
-	public String accountRestoreView(Model model) {
+	public String accountRestoreView(Model model, HttpSession session) {
+		// taking the real answer to valid-check with the inputed answer.(evaluating in view page)
+		session.setAttribute("email", session.getAttribute("email"));
+		session.setAttribute("legitAns", userBO.getUserByEmail((String) session.getAttribute("email")).getSelf_vertify_ans());
 		model.addAttribute("viewName", "user/accountRestore");
 		return "template/layout";
 	}
