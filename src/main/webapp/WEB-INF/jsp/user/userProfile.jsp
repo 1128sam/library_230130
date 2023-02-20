@@ -33,6 +33,7 @@
 		</div>
 		<c:forEach var="book" items="${borrowedBookList}" varStatus="vs">
 		<section class="bookSection d-flex justify-content-center mt-2">
+		<a href="/main/book_info_view?bookId=${book.id}">
 			<div class="bookInfoBox d-flex">
 				<div class="col-3 h-100 d-flex justify-content-center align-items-center">
 					<img src="${book.imageUrl}" alt="borrowedBookImg" width="150">
@@ -45,6 +46,7 @@
 					<span class="d-flex justify-content-end align-items-end"><fmt:formatDate value="${dueDateList.get(vs.index)}" pattern="MM.dd"/> (O Days Left)</span>
 				</div>
 			</div>
+		</a>
 		</section>
 		</c:forEach>
 		

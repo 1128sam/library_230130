@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.library.main.Book;
-import com.library.main.BookStatus;
+import com.library.main.model.Book;
+import com.library.main.model.BookStatus;
 
 @Repository
 public interface BookDAO {

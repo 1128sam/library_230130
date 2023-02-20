@@ -5,19 +5,24 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.library.main.Book;
 import com.library.main.bo.BookBO;
+import com.library.main.model.Book;
 import com.library.user.bo.UserBO;
 import com.library.user.model.User;
 
 import jakarta.servlet.http.HttpSession;
 
+@SpringBootApplication
+@EnableScheduling
 @RequestMapping("/user")
 @Controller
 public class UserController {
@@ -25,7 +30,12 @@ public class UserController {
 	public UserBO userBO;
 	@Autowired
 	public BookBO bookBO;
-	
+
+	@Scheduled(cron = "40 24 17 20 2 1")
+    public void run() {
+        System.out.println("현재 시간은 " + new Date());
+    }
+
 	// http://localhost:8080/user/sign_up_view
 	@GetMapping("/sign_up_view")
 	public String signUpView(Model model) {

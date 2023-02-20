@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.library.main.bo.BookBO;
+import com.library.main.model.Book;
+import com.library.main.model.BookStatus;
 import com.library.post.bo.PostBO;
 import com.library.post.model.Post;
 

@@ -31,10 +31,13 @@
 						<div class="d-flex my-2"><h4>반납기한 : </h4><span class="d-flex align-items-center ml-3"><fmt:formatDate value="${dueDate}" pattern="MM.dd(E)" /></span></div>
 						<div class="d-flex my-2">
 							<h4>예약상태 : </h4>
-							<c:if test="${book.status eq 0}"><span class="d-flex align-items-center ml-3">가능</span></c:if>
-							<c:if test="${book.status eq 1}"><span class="d-flex align-items-center ml-3">불가</span></c:if>
+							<c:if test="${book.status eq 0}"><span class="d-flex align-items-center ml-3"></span></c:if>
+							<c:if test="${book.status eq 1}"><span class="d-flex align-items-center ml-3">가능</span></c:if>
 						</div>
 						<div class="d-flex my-2"><h4>예약인원 : </h4><span class="d-flex align-items-center ml-3">0</span></div>
+						<c:if test="${userType eq 0}">
+							<div class="d-flex my-2"><h4>대여자 : </h4><span class="d-flex align-items-center ml-3">${borrowedUser}</span></div>
+						</c:if>
 						<div class="d-flex mt-4"><h4>평점 : </h4><img src="https://cdn.searchenginejournal.com/wp-content/uploads/2021/08/a-guide-to-star-ratings-on-google-and-how-they-work-6123be39b9f2d-sej.jpg" class="ml-1" width="100"></div>
 						<div class="d-flex justify-content-end">
 							<c:if test="${book.status eq 0}"><button type="button" id="borrowBtn" class="btn btn-success">대출하기</button></c:if>

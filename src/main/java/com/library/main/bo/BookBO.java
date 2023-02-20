@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.library.common.FileManagerService;
-import com.library.main.Book;
-import com.library.main.BookStatus;
 import com.library.main.dao.BookDAO;
+import com.library.main.model.Book;
+import com.library.main.model.BookStatus;
 
 @Service
 public class BookBO {

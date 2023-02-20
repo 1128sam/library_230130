@@ -3,11 +3,11 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="com.library.main.dao.BookDAO">
-<select id="selectBookList" resultType="com.library.main.Book">
+<select id="selectBookList" resultType="com.library.main.model.Book">
 	select * from `book` ORDER BY `id` DESC
 </select>
 
-<select id="selectBookListBySearchSearchType" resultType="com.library.main.Book">
+<select id="selectBookListBySearchSearchType" resultType="com.library.main.model.Book">
 	SELECT
 		`id`
 		, `isbn`
@@ -46,7 +46,7 @@
 		order by `updatedAt` DESC
 </select>
 
-<select id="selectBookListByCat" resultType="com.library.main.Book">
+<select id="selectBookListByCat" resultType="com.library.main.model.Book">
 	SELECT
 		`id`
 		, `isbn`
@@ -67,7 +67,7 @@
 		`category` = #{category}
 </select>
 
-<select id="selectBookByBookId" parameterType="int" resultType="com.library.main.Book">
+<select id="selectBookByBookId" parameterType="int" resultType="com.library.main.model.Book">
 	SELECT
 		`id`
 		, `isbn`
@@ -154,7 +154,7 @@
 	WHERE `id` = #{bookId}
 </update>
 
-<select id="selectBookStatusByBookId" parameterType="int" resultType="com.library.main.BookStatus">
+<select id="selectBookStatusByBookId" parameterType="int" resultType="com.library.main.model.BookStatus">
 	SELECT * FROM `book_status`
 			WHERE `bookId` = #{bookId} AND `returnedAt` is null
 </select>
