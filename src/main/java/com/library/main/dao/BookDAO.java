@@ -2,6 +2,7 @@ package com.library.main.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -44,4 +45,7 @@ public interface BookDAO {
 	public int selectBorrowedBookCntByUserId(int userId);
 
 	public Date selectDueDateByBookId(@Param("userId") int userId, @Param("bookId") int bookId);
+
+	public List<BookStatus> selectOverdueBookStatusByBookId(Date date);
+	public List<Integer> selectOverDueSmthIdByDate(@Param("type") String type, Date date);
 }

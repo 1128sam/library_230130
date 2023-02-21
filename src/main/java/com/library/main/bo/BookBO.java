@@ -2,6 +2,7 @@ package com.library.main.bo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,5 +76,16 @@ public class BookBO {
 
 	public Date getDueDateByBookId(int userId, int bookId) {
 		return bookDAO.selectDueDateByBookId(userId, bookId);
+	}
+
+	public List<BookStatus> getOverdueBookStatusByBookId(Date date) {
+		return bookDAO.selectOverdueBookStatusByBookId(date);
+	}
+	// getting the userId list of the users who didn't return their books on time
+	public List<Integer> getOverDueUserIdByDate(Date date) {
+		return bookDAO.selectOverDueSmthIdByDate("userId", date);
+	}
+	public List<Integer> getOverDueBookIdByDate(Date date) {
+		return bookDAO.selectOverDueSmthIdByDate("bookId", date);
 	}
 }

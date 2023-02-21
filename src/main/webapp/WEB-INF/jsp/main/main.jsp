@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 		<section class="section1">
 			<div class="d-flex justify-content-center mt-3">
 				<div class="d-flex col-1"><span class="d-flex justify-content-center align-items-center pl-3"><img src="https://www.pngfind.com/pngs/m/9-95287_double-left-chevron-svg-png-icon-free-download.png" alt="arrowLeft" width="30"></span></div>

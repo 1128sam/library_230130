@@ -31,11 +31,6 @@ public class UserController {
 	@Autowired
 	public BookBO bookBO;
 
-	@Scheduled(cron = "40 24 17 20 2 1")
-    public void run() {
-        System.out.println("현재 시간은 " + new Date());
-    }
-
 	// http://localhost:8080/user/sign_up_view
 	@GetMapping("/sign_up_view")
 	public String signUpView(Model model) {
