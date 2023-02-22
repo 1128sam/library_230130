@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.library.main.bo.BookBO;
 import com.library.main.model.Book;
@@ -39,9 +40,15 @@ public class AdminController {
 	}
 
 	@GetMapping("/overdue_user_view")
-	public String overDueUserListView(Model model) {
+	public String overDueUserListView(Model model, @RequestParam(value="isPassedCheck", required=false) String isPassedCheck) {
+		List<BookStatus> overdueBookStatusList = new ArrayList<>();
 		// (userId) (bookId)
-		List<BookStatus> overdueBookStatusList = bookBO.getOverdueBookStatusByBookId(new Date());// from `book_status`
+		if (isPassedCheck == "" || isPassedCheck == null) { // 안거르고
+			overdueBookStatusList = bookBO.getOverdueBookStatusByBookId(""); // from `book_status`
+		} else { // 반납기한 지난것들만
+			overdueBookStatusList = bookBO.getOverdueBookStatusByBookId(isPassedCheck);
+		}
+
 		model.addAttribute("nowDate", new Date());
 		model.addAttribute("overdueBookStatusList", overdueBookStatusList);
 		List<User> overdueUserList = new ArrayList<>();

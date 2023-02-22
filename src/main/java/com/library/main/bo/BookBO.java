@@ -2,7 +2,6 @@ package com.library.main.bo;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,8 +77,18 @@ public class BookBO {
 		return bookDAO.selectDueDateByBookId(userId, bookId);
 	}
 
-	public List<BookStatus> getOverdueBookStatusByBookId(Date date) {
-		return bookDAO.selectOverdueBookStatusByBookId(date);
+	public List<BookStatus> getOverdueBookStatusByBookId(String isPassedCheck) {
+		int tmp;
+		Date date;
+		if (isPassedCheck == "" || isPassedCheck == null || isPassedCheck.isBlank() || isPassedCheck.isEmpty()) {
+			date = new Date();
+			tmp = 1;
+		} else {
+			date = new Date(0);
+			tmp = 0;
+		}
+		System.out.println("tmp: " + tmp + ", date: " + date);
+		return bookDAO.selectOverdueBookStatusByBookId(tmp, date);
 	}
 	// getting the userId list of the users who didn't return their books on time
 	public List<Integer> getOverDueUserIdByDate(Date date) {

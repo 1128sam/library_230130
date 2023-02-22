@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="section1">
+	<div class="radio bg-warning w-50 d-flex justify-content-center">
+		<label><input type="checkbox" id="isPassDueDate" value="O">  passed</label>
+	</div>
 	<table class="table">
 		<thead>
 			<tr>
@@ -34,3 +37,34 @@
 		</tbody>
 	</table>
 </div>
+
+<script>
+$(document).ready(function() {
+	$('#isPassDueDate').on('change', function() {
+		var cb = document.querySelector('#isPassDueDate');
+		if (cb.checked) {
+			var isPassedCheck = "passed";
+			alert(isPassedCheck);
+		} else if (!cb.checked) {
+			alert("canceled");
+			var isPassedCheck = null;
+		}
+
+		$.ajax({
+			url: "#",
+			data: {"isPassedCheck" : isPassedCheck},
+			success: function(data) {
+				location.href="/admin/overdue_user_view?isPassedCheck=passed"
+			},
+			error: function(error) {
+				alert("failed filtering. please inquire to admins.");
+			}
+		});
+	});
+});
+/* if (data.code == 1) {
+	location.href = "/main/search_list_view";
+} else {
+	alert("This shit didn't work.");
+} */
+</script>
