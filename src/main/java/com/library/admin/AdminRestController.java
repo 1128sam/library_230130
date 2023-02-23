@@ -49,7 +49,7 @@ public class AdminRestController {
 	}
 
 //	@Scheduled(cron = "0 0 6 * * *")
-	// at 6am everyday, the admin is going to inform the users to return their books.
+////	 at 6am everyday, the admin is going to inform the users to return their books.
 //    public void returnBookAlert(Model model) {
 //		List<Integer> overdueUserIdList = bookBO.getOverDueUserIdByDate(new Date());
 //		List<User> overdueUserList = new ArrayList<>();

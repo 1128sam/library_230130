@@ -29,6 +29,10 @@ public class AdminController {
 
 	@GetMapping("/admin_view")
 	public String adminView(HttpSession session, Model model) {
+		if ((Integer) session.getAttribute("userType") != 0 || (Integer) session.getAttribute("userType") == null) {
+			model.addAttribute("viewName", "main/main");
+			return "template/layout";
+		}
 		model.addAttribute("viewName", "admin/admin");
 		return "template/layout";
 	}
@@ -47,6 +51,7 @@ public class AdminController {
 			overdueBookStatusList = bookBO.getOverdueBookStatusByBookId(""); // from `book_status`
 		} else { // 반납기한 지난것들만
 			overdueBookStatusList = bookBO.getOverdueBookStatusByBookId(isPassedCheck);
+			model.addAttribute("checked", "checked");
 		}
 
 		model.addAttribute("nowDate", new Date());

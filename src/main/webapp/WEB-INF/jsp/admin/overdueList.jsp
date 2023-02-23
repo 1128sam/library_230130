@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="section1">
 	<div class="radio bg-warning w-50 d-flex justify-content-center">
-		<label><input type="checkbox" id="isPassDueDate" value="O">  passed</label>
+		<label><input type="checkbox" id="isPassDueDate" value="O" <c:if test="${checked ne null}">checked</c:if>>  passed</label>
 	</div>
 	<table class="table">
 		<thead>
@@ -17,7 +17,7 @@
 		<tbody>
 		<c:forEach var="bookList" items="${overdueBookList}" varStatus="vs">
 			<tr>
-				<td class="col-8"><a href="/post/post_view?postId=${bookList.id}">${bookList.title}</a></td>
+				<td class="col-8"><a href="/main/book_info_view?bookId=${bookList.id}">${bookList.title}</a></td>
 				<td class="col-2"><small><fmt:formatDate value="${overdueBookStatusList.get(vs.index).dueDate}" pattern="MM.d"/></small></td>
 				<td class="col-1">${overdueUserList.get(vs.index).getUserId()}</td>
 
@@ -50,21 +50,29 @@ $(document).ready(function() {
 			var isPassedCheck = null;
 		}
 
-		$.ajax({
-			url: "#",
-			data: {"isPassedCheck" : isPassedCheck},
-			success: function(data) {
-				location.href="/admin/overdue_user_view?isPassedCheck=passed"
-			},
-			error: function(error) {
-				alert("failed filtering. please inquire to admins.");
-			}
-		});
+		if (isPassedCheck != null) {
+			$.ajax({
+				url: "/admin/overdue_user_view?isPassedCheck=passed",
+				data: {"isPassedCheck" : isPassedCheck},
+				success: function(data) {
+					location.href="/admin/overdue_user_view?isPassedCheck=passed"
+				},
+				error: function(error) {
+					alert("failed filtering. please inquire to admins.");
+				}
+			});
+		} else {
+			$.ajax({
+				url: "/admin/overdue_user_view",
+				data: {"isPassedCheck" : isPassedCheck},
+				success: function(data) {
+					location.href="/admin/overdue_user_view"
+				},
+				error: function(error) {
+					alert("failed filtering. please inquire to admins.");
+				}
+			});
+		}
 	});
 });
-/* if (data.code == 1) {
-	location.href = "/main/search_list_view";
-} else {
-	alert("This shit didn't work.");
-} */
 </script>

@@ -100,6 +100,8 @@
 
 <script>
 $(document).ready(function() {
+		window.open('../main/popup','popup','width=1200,height=500');    
+
 	$('#searchBtn').on('click', function() {
 		var search = $('#search').val().trim();
 		var searchType = $("input[name='searchType']:checked").val();
@@ -117,6 +119,7 @@ $(document).ready(function() {
 			error: function(error) {
 				alert("failed searching. please inquire to admins.");
 			}
+		});
 		});
 		
 		/* $.ajax({

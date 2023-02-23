@@ -91,10 +91,14 @@ public class BookBO {
 		return bookDAO.selectOverdueBookStatusByBookId(tmp, date);
 	}
 	// getting the userId list of the users who didn't return their books on time
-	public List<Integer> getOverDueUserIdByDate(Date date) {
-		return bookDAO.selectOverDueSmthIdByDate("userId", date);
-	}
-	public List<Integer> getOverDueBookIdByDate(Date date) {
-		return bookDAO.selectOverDueSmthIdByDate("bookId", date);
+//	public List<Integer> getOverDueUserIdByDate(Date date) {
+//		return bookDAO.selectOverDueSmthIdByDate("userId", date);
+//	}
+//	public List<Integer> getOverDueBookIdByDate(Date date) {
+//		return bookDAO.selectOverDueSmthIdByDate("bookId", date);
+//	}
+
+	public List<BookStatus> getOverdueBookStatusByUserId(int userId) {
+		return bookDAO.selectOverdueBookStatusByUserId(userId);
 	}
 }

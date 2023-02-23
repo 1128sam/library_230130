@@ -49,6 +49,7 @@ public class UserController {
 		session.removeAttribute("userLoginId");
 		session.removeAttribute("userName");
 		session.removeAttribute("userId");
+		session.setAttribute("userType", -1);
 		return "redirect:/user/sign_in_view";
 	}
 
@@ -63,6 +64,7 @@ public class UserController {
 			borrowedBookList.add(bookBO.getBookByBookId(borrowedBookIdList.get(i)));
 			dueDateList.add(bookBO.getDueDateByBookId(userId1, borrowedBookIdList.get(i)));
 		}
+		model.addAttribute("nowDate", new Date());
 		model.addAttribute("borrowedBookList", borrowedBookList);
 		model.addAttribute("dueDateList", dueDateList);
 

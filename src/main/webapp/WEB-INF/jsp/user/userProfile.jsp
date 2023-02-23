@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 		<c:if test="${empty userId}">
 			<jsp:include page="../main/main.jsp" />
 		</c:if>
@@ -26,9 +26,9 @@
 		</c:if>
 		
 		<div class="temp d-flex mr-5">
-			<h1 class="pl-5 col-11"><i>Currently borrowed books</i></h1>
-			<div class="col-1 d-flex align-items-end justify-content-end">
-				<span>Available: </span>
+			<h1 class="pl-5 col-10"><i>Currently borrowed books</i></h1>
+			<div class="col-2 d-flex align-items-end justify-content-end">
+				<span>Available : ${3 - fn:length(borrowedBookList)}</span>
 			</div>
 		</div>
 		<c:forEach var="book" items="${borrowedBookList}" varStatus="vs">
@@ -43,7 +43,15 @@
 					<span>${book.author}</span><br>
 					<span>${book.isbn}</span><br>
 					<span>${book.publisher}</span><br>
-					<span class="d-flex justify-content-end align-items-end"><fmt:formatDate value="${dueDateList.get(vs.index)}" pattern="MM.dd"/> (O Days Left)</span>
+					<fmt:formatNumber var="days" type="number" value="${Math.floor((dueDateList.get(vs.index).getTime() - nowDate.getTime()) / (1000 * 60 * 60 * 24)) + 1}"/>
+					<span class="d-flex justify-content-end align-items-end"><fmt:formatDate value="${dueDateList.get(vs.index)}" pattern="MM.dd"/>
+					<c:if test="${days > 0}">
+						<span class="ml-2">(${days} Days Left)</span>
+					</c:if>
+					<c:if test="${days < 0}">
+						<span class="ml-2 text-danger">(${-days} Days Passed)</span>
+					</c:if>
+					</span>
 				</div>
 			</div>
 		</a>

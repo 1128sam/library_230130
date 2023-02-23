@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <section class="signUp d-flex justify-content-center">
 	<div class="sign-up-box">
 		<h1 class="mt-5">Login</h1>
@@ -34,25 +33,23 @@ $(document).ready(function() {
 		let password = $('#password').val();
 
 		if (userId == '') {
-			alert("아이디를 입력해주세요");
+			alert("please enter your user ID.");
 			return false;
 		}
-		
+
 		if (password.length < 1) {
-			alert("비밀번호를 입력해주세요");
+			alert("Please enter your password.");
 			return false;
 		}
-		
+
 		let url = $(this).attr("action");
 		let params = $(this).serialize();
-		console.log(url + " " + params);
-		
+
 		$.post(url, params)   // request
 		.done(function(data) {  // response
-			if (data.code == 1) { // 성공
-				// alert(data.result);
+			if (data.code == 1) { // success
 				location.href = "/main/template";
-			} else { // 실패
+			} else { // fail
 				alert(data.errorMessage);
 			}
 		});

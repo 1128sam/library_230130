@@ -213,8 +213,13 @@
 		</if>
 </select>
 
-<select id="selectOverDueUserIdByDate" parameterType="date" resultType="Integer">
+<!-- <select id="selectOverDueUserIdByDate" parameterType="date" resultType="Integer">
 	SELECT #{type} FROM `book_status`
 		WHERE `returnedAt` is null
+</select> -->
+
+<select id="selectOverdueBookStatusByUserId" parameterType="int" resultType="com.library.main.model.BookStatus">
+	SELECT * FROM `book_status`
+		WHERE `returnedAt` is null AND `userId` = #{userId}
 </select>
 </mapper>
