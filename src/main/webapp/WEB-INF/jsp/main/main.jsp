@@ -100,7 +100,9 @@
 
 <script>
 $(document).ready(function() {
-		window.open('../main/popup','popup','width=1200,height=500');    
+	if ('<%=session.getAttribute("overdueBookStatusList")%>' != "null") { /* if there are no obsl list on session, it doesn't show the popup screen */
+		window.open('../main/popup','popup','width=1400,height=600');    
+	}
 
 	$('#searchBtn').on('click', function() {
 		var search = $('#search').val().trim();

@@ -42,4 +42,9 @@ public class TestController {
 	public List<Map<String, Object>> test4() {
 		return testDAO.selectUser();
 	}
+
+	@GetMapping("/emailtest")
+	public String emailTest() {
+		return "test/emailTest";
+	}
 }

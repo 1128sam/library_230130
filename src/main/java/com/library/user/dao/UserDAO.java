@@ -22,6 +22,8 @@ public interface UserDAO {
 
 	public User selectUserInfoById(int userId);
 
+	public User selectUserListByUserId(int userId);
+
 	public int updateUserProfile(
 			@Param("id") int id,
 			@Param("userId") String userId,

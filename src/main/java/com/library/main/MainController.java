@@ -38,26 +38,30 @@ public class MainController {
 		model.addAttribute("noticeList", noticeList);
 		List<Post> recommendList = postBO.getPostRecommendList(5);
 		model.addAttribute("recList", recommendList);
-		model.addAttribute("overdueBookStatusList", (List<BookStatus>) session.getAttribute("overdueBookStatusList"));
+		List<BookStatus> bsl = (List<BookStatus>) session.getAttribute("overdueBookStatusList");
+		if (bsl.size() > 0) { // if the user has no books to return, we have nothing to alert, so I am going to show the list to the users who has books to return.
+			model.addAttribute("overdueBookStatusList", bsl);
+		}
 		return "template/layout";
 	}
-	
+
 	@GetMapping("/popup")
 	public String popUpView(Model model, HttpSession session) {
 		List<BookStatus> bsl = (List<BookStatus>) session.getAttribute("overdueBookStatusList");
 		// overdueBookStatusList is set in session only once throughout the whole algorithm, and it is added as List<BookStatus>, which doesn't violate structural stability
 		model.addAttribute("overdueBookStatusList", bsl);
 		model.addAttribute("nowDate", new Date());
-		model.addAttribute("overdueBookStatusList", bsl);
-		List<User> overdueUserList = new ArrayList<>();
-		List<Book> overdueBookList = new ArrayList<>();
-		for (int i = 0; i < bsl.size(); i++) {
-			overdueUserList.add(userBO.getUserInfoById(bsl.get(i).getUserId()));
-			overdueBookList.add(bookBO.getBookByBookId(Integer.valueOf(bsl.get(i).getBookId())));
-		}
+		List<User> overdueUserList = userBO.getUserById(session);
+		List<Book> overdueBookList = bookBO.getBookByBookId2(session);
 		model.addAttribute("overdueUserList", overdueUserList);
 		model.addAttribute("overdueBookList", overdueBookList);
-		session.removeAttribute("overdueBookStatusList");
+//		List<User> overdueUserList = new ArrayList<>();
+//		List<Book> overdueBookList = new ArrayList<>();
+//		for (int i = 0; i < bsl.size(); i++) {
+//			overdueUserList.add(userBO.getUserInfoById(bsl.get(i).getUserId(), session));
+//			overdueBookList.add(bookBO.getBookByBookId(Integer.valueOf(bsl.get(i).getBookId())));
+//		}
+		session.removeAttribute("overdueBookStatusList"); // removing obsl from session to avoid any future errors until the user logs in again.
         return "/include/popup";
 	}
 

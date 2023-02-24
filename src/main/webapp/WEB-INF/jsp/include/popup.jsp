@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
 <body>
-<div class="section1 bg-white">
+<div class="section1 bg-white d-flex align-items-center">
 	<table class="table">
 		<thead>
 			<tr>

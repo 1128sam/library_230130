@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.library.main.bo.BookBO;
+import com.library.main.model.Book;
+import com.library.main.model.BookStatus;
 import com.library.user.bo.UserBO;
 import com.library.user.model.User;
 
@@ -50,12 +52,10 @@ public class AdminRestController {
 
 //	@Scheduled(cron = "0 0 6 * * *")
 ////	 at 6am everyday, the admin is going to inform the users to return their books.
-//    public void returnBookAlert(Model model) {
-//		List<Integer> overdueUserIdList = bookBO.getOverDueUserIdByDate(new Date());
-//		List<User> overdueUserList = new ArrayList<>();
-//		for (int i = 0; i < overdueUserIdList.size(); i++) {
-//			overdueUserList.add(userBO.getUserInfoById(overdueUserIdList.get(i)));
-//		}
+//    public void returnBookAlert(Model model, HttpSession session) {
+//		List<BookStatus> overdueBookStatusList = bookBO.getOverdueBookStatusByBookId("passed"); // calling bookstatuses of books that have passed the due date
+//		List<User> overdueUserList = userBO.getUserById(session);
+//		List<Book> overdueBookList = bookBO.getBookByBookId2(session);
 //        System.out.println("현재 시간은 " + new Date());
 //    }
 }
