@@ -35,7 +35,6 @@
 
 		<footer class="bgTemp">
 			<jsp:include page="../include/footer.jsp" />
-			<button type="button" id="testbtn">test</button>
 		</footer>
 	</div>
 </div>

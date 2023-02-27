@@ -39,7 +39,7 @@ public class MainController {
 		List<Post> recommendList = postBO.getPostRecommendList(5);
 		model.addAttribute("recList", recommendList);
 		List<BookStatus> bsl = (List<BookStatus>) session.getAttribute("overdueBookStatusList");
-		if (bsl.size() > 0) { // if the user has no books to return, we have nothing to alert, so I am going to show the list to the users who has books to return.
+		if (bsl.size() > 0 || bsl != null) { // if the user has no books to return, we have nothing to alert, so I am going to show the list to the users who has books to return.
 			model.addAttribute("overdueBookStatusList", bsl);
 		}
 		return "template/layout";
@@ -55,12 +55,6 @@ public class MainController {
 		List<Book> overdueBookList = bookBO.getBookByBookId2(session);
 		model.addAttribute("overdueUserList", overdueUserList);
 		model.addAttribute("overdueBookList", overdueBookList);
-//		List<User> overdueUserList = new ArrayList<>();
-//		List<Book> overdueBookList = new ArrayList<>();
-//		for (int i = 0; i < bsl.size(); i++) {
-//			overdueUserList.add(userBO.getUserInfoById(bsl.get(i).getUserId(), session));
-//			overdueBookList.add(bookBO.getBookByBookId(Integer.valueOf(bsl.get(i).getBookId())));
-//		}
 		session.removeAttribute("overdueBookStatusList"); // removing obsl from session to avoid any future errors until the user logs in again.
         return "/include/popup";
 	}

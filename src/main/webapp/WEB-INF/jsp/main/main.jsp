@@ -101,7 +101,10 @@
 <script>
 $(document).ready(function() {
 	if ('<%=session.getAttribute("overdueBookStatusList")%>' != "null") { /* if there are no obsl list on session, it doesn't show the popup screen */
-		window.open('../main/popup','popup','width=1400,height=600');    
+		if (<%=session.getAttribute("overdueBookStatusList")%> == null) {
+			break;
+		}
+		window.open('../main/popup','popup','width=1400,height=600');   
 	}
 
 	$('#searchBtn').on('click', function() {

@@ -52,10 +52,13 @@ public class AdminRestController {
 
 //	@Scheduled(cron = "0 0 6 * * *")
 ////	 at 6am everyday, the admin is going to inform the users to return their books.
-//    public void returnBookAlert(Model model, HttpSession session) {
-//		List<BookStatus> overdueBookStatusList = bookBO.getOverdueBookStatusByBookId("passed"); // calling bookstatuses of books that have passed the due date
-//		List<User> overdueUserList = userBO.getUserById(session);
-//		List<Book> overdueBookList = bookBO.getBookByBookId2(session);
+//    public void returnBookAlert() {
+//		sendEmailReturnAlert();
 //        System.out.println("현재 시간은 " + new Date());
 //    }
+//
+//	public Map<String, Object> sendEmailReturnAlert(HttpSession session) {
+//		Map<String, Object> result = new HashMap<>();
+//		return result;
+//	}
 }
