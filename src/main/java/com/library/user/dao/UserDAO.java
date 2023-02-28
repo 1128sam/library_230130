@@ -30,7 +30,7 @@ public interface UserDAO {
 			@Param("password") String password,
 			@Param("question") int question,
 			@Param("selfVerAns") String selfVerAns,
-			@Param("fileAttach") String fileAttach);
+			@Param("filePath") String filePath);
 
 	public User selectUserByEmail(String email);
 

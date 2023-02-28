@@ -56,6 +56,15 @@ public class BookBO {
 		return overdueBookList;
 	}
 
+	public List<Book> getBookByBookId3() {
+		List<BookStatus> bsl = bookDAO.selectOverdueBookStatus();
+		List<Book> overdueBookList = new ArrayList<>();
+		for (int i = 0; i < bsl.size(); i++) {
+			overdueBookList.add(getBookByBookId(Integer.valueOf(bsl.get(i).getBookId())));
+		}
+		return overdueBookList;
+	}
+
 	public int addRentInfo(int userId, int bookId) {
 		return bookDAO.insertRentInfoByUserIdBookId(userId, bookId);
 	}
@@ -114,4 +123,8 @@ public class BookBO {
 	public List<BookStatus> getOverdueBookStatusByUserId(int userId) {
 		return bookDAO.selectOverdueBookStatusByUserId(userId);
 	}
+
+//	public List<BookStatus> getOverdueBookStatus() {
+//		return bookDAO.selectOverdueBookStatus();
+//	}
 }

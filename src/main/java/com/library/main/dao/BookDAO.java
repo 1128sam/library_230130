@@ -50,4 +50,6 @@ public interface BookDAO {
 //	public List<Integer> selectOverDueSmthIdByDate(@Param("type") String type, Date date);
 
 	public List<BookStatus> selectOverdueBookStatusByUserId(int userId);
+
+	public List<BookStatus> selectOverdueBookStatus();
 }

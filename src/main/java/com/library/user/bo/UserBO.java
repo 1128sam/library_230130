@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.library.common.FileManagerService;
+import com.library.main.dao.BookDAO;
 import com.library.main.model.BookStatus;
 import com.library.user.dao.UserDAO;
 import com.library.user.model.User;
@@ -16,6 +19,10 @@ import jakarta.servlet.http.HttpSession;
 public class UserBO {
 	@Autowired
 	private UserDAO userDAO;
+	@Autowired
+	private BookDAO bookDAO;
+	@Autowired
+	private FileManagerService fms;
 
 	public int addUser(String name, String userId, String password, String email) {
 		return userDAO.insertUser(name, userId, password, email);
@@ -43,6 +50,15 @@ public class UserBO {
 //		return userDAO.selectUserInfoById(userId);
 	}
 
+	public List<User> getUserByUserId2() {
+		List<BookStatus> bsl = bookDAO.selectOverdueBookStatus(); // duedate passed bookstatuses
+		List<User> overdueUserList = new ArrayList<>();
+		for (int i = 0; i < bsl.size(); i++) {
+			overdueUserList.add(getUserInfoById(bsl.get(i).getUserId()));
+		}
+		return overdueUserList;
+	}
+
 	public User getUserInfoById(int userId) {
 		return userDAO.selectUserInfoById(userId);
 	}
@@ -51,8 +67,13 @@ public class UserBO {
 		return userDAO.selectUserListByUserId(userId);
 	}
 
-	public int updateUserProfile(int id, String userId, String password, int question, String selfVerAns, String fileAttach) {
-		return userDAO.updateUserProfile(id, userId, password, question, selfVerAns, fileAttach);
+	public int updateUserProfile(int id, String userId, String password, int question, String selfVerAns, MultipartFile file) {
+		String filePath = null;
+		if (file != null) {
+			// only when file exists => image path
+			filePath = fms.saveFile(userId, file);
+		}
+		return userDAO.updateUserProfile(id, userId, password, question, selfVerAns, filePath);
 	}
 
 	public User getUserByEmail(String email) {

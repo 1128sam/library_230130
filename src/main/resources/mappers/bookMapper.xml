@@ -222,4 +222,9 @@
 	SELECT * FROM `book_status`
 		WHERE `returnedAt` is null AND `userId` = #{userId}
 </select>
+
+<select id="selectOverdueBookStatus" resultType="com.library.main.model.BookStatus">
+	SELECT * FROM `book_status`
+		WHERE `returnedAt` is null AND `dueDate` <![CDATA[ < ]]> NOW()
+</select>
 </mapper>

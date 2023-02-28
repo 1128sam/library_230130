@@ -45,9 +45,18 @@
 						</select>
 						<input type="text" id="selfVerAns" name="selfVerAns" class="form-control" placeholder="Answer the Question" maxlength="256" value="${answer}">
 						<div class="fileAttachBox d-flex justify-content-between">
-							<span>Profile img.</span>
-							<span class="d-flex justify-content-end"><input type="button" id="fileAttach" class="btn btn-secondary fileAttach form-control" value="file"></span>
+							<div class="file-upload d-flex">
+							<%-- file 태그는 숨겨두고 이미지를 클릭하면 file 태그를 클릭한 것처럼 이벤트를 줄 것이다. --%>
+							<input type="file" id="file" accept=".jpg,.jpeg,.png,.gif">
+							<%-- 이미지에 마우스 올리면 마우스커서가 링크 커서가 변하도록 a 태그 사용 --%>
+							<a href="#" id="fileUploadBtn"><img width="30" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"></a>
+		
+							<%-- 업로드 된 임시 파일 이름 저장될 곳 --%>
+							<div id="fileName" class="ml-2">
+							</div>
 						</div>
+						</div>
+						
 						<button type="button" id="updateBtn" class="btn btn-info w-100 mt-3">변경하기</button>
 				</div>
 				</div>
@@ -91,6 +100,24 @@ $(document).ready(function() {
 		});
 	});
 
+	$('#file').on('change', function(e) {
+		//alert("파일 선택");
+		let fileName = e.target.files[0].name; // 07_30_01.png
+		//alert(fileName);
+		
+		// 확장자 유효성 확인
+		let ext = fileName.split(".").pop().toLowerCase();
+		if (ext != 'jpg' && ext != 'jpeg' && ext != 'gif' && ext != 'png') {
+			alert("이미지 파일만 업로드 할 수 있습니다.");
+			$('#file').val(''); // 파일 태그에 실제 파일 제거
+			$("#fileName").text(''); // 파일 이름 비우기
+			return;
+		}
+		
+		// 유효성 통과한 이미지는 상자에 업로드 된 파일 이름 노출
+		$('#fileName').text(fileName);
+	});
+
 	$('#updateBtn').on('click', function() {
 
 		let userId = $('#userId').val().trim();
@@ -98,7 +125,17 @@ $(document).ready(function() {
 		let passwordCheck = $('#passwordCheck').val();
 		let selfVerQue = $('#selfVerQue').val();
 		let selfVerAns = $('#selfVerAns').val().trim();
-		let fileAttach = $('#fileAttach').val();
+		let file = $('#file').val();
+		
+		if (file != '') {
+			alert(file.split(".").pop().toLowerCase());
+			let ext = file.split(".").pop().toLowerCase();
+			if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) {
+				alert("이미지 파일만 업로드 할 수 있습니다.");
+				$('#file').val(""); // 파일을 비운다.
+				return;
+			}
+		}
 
 		if (userId.length < 1) {
 			alert("Please enter your new userID.");
@@ -134,7 +171,7 @@ $(document).ready(function() {
 		$.ajax({
 			type:"get",
 			url: "/user/profile_update",
-			data: {"userId":userId, "password":password, "selfVerQue":selfVerQue, "selfVerAns":selfVerAns, "fileAttach":fileAttach},
+			data: {"userId":userId, "password":password, "selfVerQue":selfVerQue, "selfVerAns":selfVerAns, "file":$('#file')[0].files[0]},
 			success: function(data) {
 				if (data.code == 1) {
 					alert(data.result);				

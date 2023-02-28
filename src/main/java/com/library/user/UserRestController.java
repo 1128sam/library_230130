@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.library.common.EncryptUtils;
 import com.library.main.bo.BookBO;
@@ -97,7 +98,7 @@ public class UserRestController {
 			@RequestParam("password") String password,
 			@RequestParam("selfVerQue") String selfVerQue,
 			@RequestParam("selfVerAns") String selfVerAns,
-			@RequestParam("fileAttach") String fileAttach,
+			@RequestParam(value="file", required=false) MultipartFile file,
 			HttpSession session
 			) {
 		Map<String, Object> result = new HashMap<>();
@@ -107,7 +108,7 @@ public class UserRestController {
 			question = 2;
 		}
 
-		int row = userBO.updateUserProfile((int) session.getAttribute("userId"), userId, encryptPassword, question, selfVerAns, fileAttach);
+		int row = userBO.updateUserProfile((int) session.getAttribute("userId"), userId, encryptPassword, question, selfVerAns, file);
 
 		if (row >= 1) {
 			result.put("code", 1);
