@@ -1,6 +1,5 @@
 package com.library.main;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.library.main.bo.BookBO;
 import com.library.main.model.Book;
+import com.library.main.model.BookRegister;
 import com.library.main.model.BookStatus;
 import com.library.post.bo.PostBO;
 import com.library.post.model.Post;
@@ -39,7 +39,7 @@ public class MainController {
 		List<Post> recommendList = postBO.getPostRecommendList(5);
 		model.addAttribute("recList", recommendList);
 		List<BookStatus> bsl = (List<BookStatus>) session.getAttribute("overdueBookStatusList");
-		if (bsl.size() > 0 || bsl != null) { // if the user has no books to return, we have nothing to alert, so I am going to show the list to the users who has books to return.
+		if (bsl != null) { // if the user has no books to return, we have nothing to alert, so I am going to show the list to the users who has books to return.
 			model.addAttribute("overdueBookStatusList", bsl);
 		}
 		return "template/layout";
@@ -64,7 +64,6 @@ public class MainController {
 			@RequestParam(value="bookList", required=false) List<Book> bookList,
 			@RequestParam(value="category", required=false) Integer category
 			) {
-//		List<Book> bookList = bookBO.getBookList();
 		if (category == null) {
 			model.addAttribute("bookList", bookList);
 		} else {
@@ -86,8 +85,23 @@ public class MainController {
 		Book book = bookBO.getBookByBookId(bookId);
 		if (book.getStatus() == 1) {
 			BookStatus bs = bookBO.getBookStatusByBookId(bookId);
-			if (bs.getUserId() == (int) session.getAttribute("userId")) {
-				model.addAttribute("borrowedUser", bs.getUserId());
+			if (bs.getUserId() == (int) session.getAttribute("userId") || (Integer) session.getAttribute("userType") == 0) {
+				model.addAttribute("borrowedUser", userBO.getUserNameByUserId(bs.getUserId()));
+			}
+			model.addAttribute("dueDate", bs.getDueDate());
+		} else if (book.getStatus() == 2) {
+			List<BookRegister> br = bookBO.getRegisteredBookByBookId(bookId);
+			model.addAttribute("registerNum", br.size());
+			for (int i = 0; i < br.size(); i++) {
+				if (br.get(i).getUserId() == (int) session.getAttribute("userId")) {
+					model.addAttribute("registeredUser", br.get(i).getUserId());
+				}
+			}
+			BookStatus bs = bookBO.getBookStatusByBookId(bookId);
+			// either when the userId of the borrowed user and signed in user is same or when signed in user is admin, this adds borrowedUser attribute to model
+			// to show admin who currently has the book.
+			if (bs.getUserId() == (int) session.getAttribute("userId") || (Integer) session.getAttribute("userType") == 0) {
+				model.addAttribute("borrowedUser", userBO.getUserNameByUserId(bs.getUserId()));
 			}
 			model.addAttribute("dueDate", bs.getDueDate());
 		}

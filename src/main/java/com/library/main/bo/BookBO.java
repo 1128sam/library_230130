@@ -11,8 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.library.common.FileManagerService;
 import com.library.main.dao.BookDAO;
 import com.library.main.model.Book;
+import com.library.main.model.BookRegister;
 import com.library.main.model.BookStatus;
-import com.library.user.model.User;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -69,8 +69,11 @@ public class BookBO {
 		return bookDAO.insertRentInfoByUserIdBookId(userId, bookId);
 	}
 
-	public void updateBookStatus(int bookId) {
-		bookDAO.updateBookStatus(bookId);
+	public void updateBookStatusAs1(int bookId) {
+		bookDAO.updateBookStatusAs1(bookId);
+	}
+	public void updateBookStatusAs2(int bookId) {
+		bookDAO.updateBookStatusAs2(bookId);
 	}
 
 	// borrowing
@@ -112,19 +115,22 @@ public class BookBO {
 		System.out.println("tmp: " + tmp + ", date: " + date);
 		return bookDAO.selectOverdueBookStatusByBookId(tmp, date);
 	}
-	// getting the userId list of the users who didn't return their books on time
-//	public List<Integer> getOverDueUserIdByDate(Date date) {
-//		return bookDAO.selectOverDueSmthIdByDate("userId", date);
-//	}
-//	public List<Integer> getOverDueBookIdByDate(Date date) {
-//		return bookDAO.selectOverDueSmthIdByDate("bookId", date);
-//	}
 
 	public List<BookStatus> getOverdueBookStatusByUserId(int userId) {
 		return bookDAO.selectOverdueBookStatusByUserId(userId);
 	}
 
-//	public List<BookStatus> getOverdueBookStatus() {
-//		return bookDAO.selectOverdueBookStatus();
-//	}
+	// registering for book - inserts into `book_status`
+	public int registerBookByUserIdBookId(int userId, int bookId) {
+		return bookDAO.registerBookByUserIdBookId(userId, bookId);
+	}
+
+	// getting number of people who registered for the book
+	public List<BookRegister> getRegisteredBookByBookId(int bookId) {
+		return bookDAO.selectRegisteredBookByBookId(bookId);
+	}
+
+	public void cancelRegisteration(int userId, int bookId) {
+		bookDAO.deleteRegisteration(userId, bookId);
+	}
 }

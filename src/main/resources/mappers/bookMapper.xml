@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
- "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="com.library.main.dao.BookDAO">
 <select id="selectBookList" resultType="com.library.main.model.Book">
@@ -148,9 +147,14 @@
 		)
 </insert>
 
-<update id="updateBookStatus" parameterType="int">
+<update id="updateBookStatusAs1" parameterType="int">
 	UPDATE `book`
 		SET `status` = 1
+	WHERE `id` = #{bookId}
+</update>
+<update id="updateBookStatusAs2" parameterType="int">
+	UPDATE `book`
+		SET `status` = 2
 	WHERE `id` = #{bookId}
 </update>
 
@@ -213,11 +217,6 @@
 		</if>
 </select>
 
-<!-- <select id="selectOverDueUserIdByDate" parameterType="date" resultType="Integer">
-	SELECT #{type} FROM `book_status`
-		WHERE `returnedAt` is null
-</select> -->
-
 <select id="selectOverdueBookStatusByUserId" parameterType="int" resultType="com.library.main.model.BookStatus">
 	SELECT * FROM `book_status`
 		WHERE `returnedAt` is null AND `userId` = #{userId}
@@ -227,4 +226,31 @@
 	SELECT * FROM `book_status`
 		WHERE `returnedAt` is null AND `dueDate` <![CDATA[ < ]]> NOW()
 </select>
+
+<insert id="registerBookByUserIdBookId" parameterType="map">
+	INSERT INTO `book_register`
+		(
+			`userId`,
+			`bookId`,
+			`reservedAt`,
+			`createdAt`
+		)
+	VALUES
+		(
+			#{userId}
+			, #{bookId}
+			, NOW()
+			, NOW()
+		)
+</insert>
+
+<select id="selectRegisteredBookByBookId" parameterType="int" resultType="com.library.main.model.BookRegister">
+	SELECT * FROM `book_register`
+		WHERE `bookId` = #{bookId}
+</select>
+
+<delete id="deleteRegisteration" parameterType="map">
+	DELETE FROM `book_register`
+		WHERE `userId` = #{userId} AND `bookId` = #{bookId} ORDER BY `createdAt` LIMIT 1;
+</delete>
 </mapper>

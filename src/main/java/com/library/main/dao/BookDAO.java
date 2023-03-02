@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.library.main.model.Book;
+import com.library.main.model.BookRegister;
 import com.library.main.model.BookStatus;
 
 @Repository
@@ -32,7 +33,8 @@ public interface BookDAO {
 	
 	public int insertRentInfoByUserIdBookId(@Param("userId") int userId, @Param("bookId") int bookId);
 
-	public void updateBookStatus(int bookId);
+	public void updateBookStatusAs1(int bookId);
+	public void updateBookStatusAs2(int bookId);
 
 	public BookStatus selectBookStatusByBookId(int bookId);
 
@@ -47,9 +49,14 @@ public interface BookDAO {
 	public Date selectDueDateByBookId(@Param("userId") int userId, @Param("bookId") int bookId);
 
 	public List<BookStatus> selectOverdueBookStatusByBookId(@Param("tmp") int tmp, @Param("date") Date date);
-//	public List<Integer> selectOverDueSmthIdByDate(@Param("type") String type, Date date);
 
 	public List<BookStatus> selectOverdueBookStatusByUserId(int userId);
 
 	public List<BookStatus> selectOverdueBookStatus();
+
+	public int registerBookByUserIdBookId(@Param("userId") int userId, @Param("bookId") int bookId);
+
+	public List<BookRegister> selectRegisteredBookByBookId(int bookId);
+
+	public void deleteRegisteration(@Param("userId") int userId, @Param("bookId") int bookId);
 }

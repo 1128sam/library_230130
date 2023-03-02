@@ -169,7 +169,7 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-			type:"get",
+			type:"GET",
 			url: "/user/profile_update",
 			data: {"userId":userId, "password":password, "selfVerQue":selfVerQue, "selfVerAns":selfVerAns, "file":$('#file')[0].files[0]},
 			success: function(data) {

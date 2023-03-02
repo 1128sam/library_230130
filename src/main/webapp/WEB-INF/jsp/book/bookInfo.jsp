@@ -33,16 +33,18 @@
 							<h4>예약상태 : </h4>
 							<c:if test="${book.status eq 0}"><span class="d-flex align-items-center ml-3"></span></c:if>
 							<c:if test="${book.status eq 1}"><span class="d-flex align-items-center ml-3">가능</span></c:if>
+							<c:if test="${book.status eq 2}"><span class="d-flex align-items-center ml-3">예약중</span></c:if>
 						</div>
-						<div class="d-flex my-2"><h4>예약인원 : </h4><span class="d-flex align-items-center ml-3">0</span></div>
+						<div class="d-flex my-2"><h4>예약인원 : </h4><span class="d-flex align-items-center ml-3" id="resNum">${registerNum}</span></div>
 						<c:if test="${userType eq 0}">
 							<div class="d-flex my-2"><h4>대여자 : </h4><span class="d-flex align-items-center ml-3">${borrowedUser}</span></div>
 						</c:if>
 						<div class="d-flex mt-4"><h4>평점 : </h4><img src="https://cdn.searchenginejournal.com/wp-content/uploads/2021/08/a-guide-to-star-ratings-on-google-and-how-they-work-6123be39b9f2d-sej.jpg" class="ml-1" width="100"></div>
 						<div class="d-flex justify-content-end">
 							<c:if test="${book.status eq 0}"><button type="button" id="borrowBtn" class="btn btn-success">대출하기</button></c:if>
-							<c:if test="${book.status eq 1 && borrowedUser eq null}"><button type="button" id="reserveBtn" class="mx-4 btn btn-primary">예약하기</button></c:if>
-							<c:if test="${borrowedUser ne null}"><button type="button" id="returnBtn" class="mx-4 btn btn-primary">반납하기</button></c:if>
+							<c:if test="${book.status eq 1 || book.status eq 2 && borrowedUser eq null && registeredUser eq null}"><button type="button" id="reserveBtn" class="mx-4 btn btn-primary">Reserve</button></c:if>
+							<c:if test="${book.status eq 2 && registeredUser ne null}"><button type="button" id="cancelReserveBtn" class="mx-4 btn btn-danger">Cancel Reservation</button></c:if>
+							<c:if test="${borrowedUser == userName}"><button type="button" id="returnBtn" class="mx-4 btn btn-primary">반납하기</button></c:if>
 							<c:if test="${userType eq 0}"><button type="button" id="modifyBtn" class="btn btn-secondary">수정하기</button></c:if>
 						</div>
 				</div>
@@ -67,6 +69,12 @@
 
 <script>
 $(document).ready(function() {
+	let resNum = $('#resNum').val();
+	if (resNum > 2) {
+		$('#reserveBtn').addClass("d-none");
+		$('#cancelReserveBtn').addClass("d-none");
+	}
+
 	$('#borrowBtn').on('click', function(e) {
 		e.preventDefault();
 		let bookId = $('#bookId').val();
@@ -100,7 +108,64 @@ $(document).ready(function() {
 	});
 
 	$('#reserveBtn').on('click', function() {
-		alert("대출 예약하기");
+		let userId = <%= (Integer) session.getAttribute("userId") %>;
+		if (userId == null) {
+			alert("Your session has expired. Please log in again.");
+			location.href = "/user/sign_in_view";
+			return;
+		}
+		let bookId = $('#bookId').val();
+
+		$.ajax({
+			url: "/book/register_book",
+			data: {"userId" : userId, "bookId":bookId},
+			success: function(data) {
+				if (data.code == 1) {
+					alert(data.result);
+					location.href = "/main/book_info_view?bookId=" + bookId;
+				} else if (data.code == 2) {
+					alert(data.result + data.registerNum);
+					location.href = "/main/book_info_view?bookId=" + bookId;
+				} else if (data.code == 401) {
+					alert(data.result);
+				} else {
+					alert("failed. Please retry.");
+				}
+			},
+			error: function(error) {
+				alert("failed to borrow. please inquire to admins.");
+			}
+		});
+	});
+
+	$('#cancelReserveBtn').on('click', function() {
+		let userId = <%= (Integer) session.getAttribute("userId") %>;
+		if (userId == null) {
+			alert("Your session has expired. Please log in again.");
+			location.href = "/user/sign_in_view";
+			return;
+		}
+		let bookId = $('#bookId').val();
+
+		$.ajax({
+			type: "DELETE",
+			url: "/book/cancel_register_book",
+			data: {"userId" : userId, "bookId":bookId},
+			success: function(data) {
+				if (data.code == 1) {
+					alert(data.result);
+					location.reload();
+				}  else if (data.code == 401) {
+					alert(data.result);
+					location.reload();
+				} else {
+					alert("failed. Please retry.");
+				}
+			},
+			error: function(error) {
+				alert("failed to borrow. please inquire to admins.");
+			}
+		});
 	});
 
 	$('#modifyBtn').on('click', function() {

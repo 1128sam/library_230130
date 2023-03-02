@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +45,7 @@ public class UserRestController {
 			session.setAttribute("userType", user.getType());
 //			session.setAttribute("userImageUrl", user.getImageUrl());
 			List<BookStatus> bsl = bookBO.getOverdueBookStatusByUserId(user.getId());
-			if (bsl != null || bsl.size() < 1) {
+			if (bsl != null) {
 				session.setAttribute("overdueBookStatusList", bsl);
 			}
 
