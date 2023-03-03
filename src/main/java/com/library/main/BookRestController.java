@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.library.email.mail.MailService;
+import com.library.email.model.ReservedMail;
 import com.library.main.bo.BookBO;
 import com.library.main.model.Book;
+import com.library.user.bo.UserBO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -21,6 +24,10 @@ import jakarta.servlet.http.HttpSession;
 public class BookRestController {
 	@Autowired
 	private BookBO bookBO;
+	@Autowired
+	private UserBO userBO;
+	@Autowired
+	private MailService ms;
 
 	@GetMapping("/rent_book")
 	public Map<String, Object> rentBook(HttpSession session, Model model, @RequestParam("bookId") int bookId) {
@@ -64,6 +71,17 @@ public class BookRestController {
 			int row = bookBO.returnBookByBookId(bookId);
 			if (row == 1) {
 				bookBO.updateBookStatusAsReturned(bookId);
+				if (bookBO.getNextRegisteredBookByBookId(bookId) != null) {
+					// sending a mail to a user who have reserved for the book
+					int userId = bookBO.getNextRegisteredBookByBookId(bookId).getUserId();
+					ReservedMail lrm = new ReservedMail();
+					lrm.setAddress(userBO.getUserInfoById(userId).getEmail());
+					lrm.setTitle("The book you reserved has been returned: " + bookBO.getBookByBookId(bookId).getTitle() + " - " + bookBO.getBookByBookId(bookId).getAuthor());
+					lrm.setContent("The book you reserved has been returned: " + bookBO.getBookByBookId(bookId).getTitle() + " - " + bookBO.getBookByBookId(bookId).getAuthor()
+							+ "\n\nYour registeration will be canceled in 3 days.");
+					ms.sendMailToReserved(lrm);
+					bookBO.updateBookRegisterByUserIdBookId(userId, bookId); // changes `informedAt` column to NOW()
+				}
 				result.put("code", 1);
 				result.put("result", "successfully returned.");
 			} else {
@@ -87,17 +105,17 @@ public class BookRestController {
 				result.put("code", 401);
 				result.put("result", "failed to register.");
 			}
-		} else if (bookBO.getBookByBookId(bookId).getStatus() == 2) { // borrowed + someone registered for the book
+		} else if (bookBO.getBookByBookId(bookId).getStatus() == 2) { // borrowed + someone reserved for the book
 			int row = bookBO.registerBookByUserIdBookId(userId, bookId); // success/fail
 			if (row == 1) {
 				result.put("code", 2);
-				int num = bookBO.getRegisteredBookByBookId(bookId).size() - 1;
-				if (num == 1) {
+				int cnt = bookBO.getRegisteredBookCountByBookId(bookId) - 1;
+				if (cnt == 1) {
 					result.put("result", "successfully registered. ");
-					result.put("registerNum", num + " person is registered before you.");
-				} else if (num > 1) {
+					result.put("registerNum", cnt + " person is registered before you.");
+				} else {
 					result.put("result", "successfully registered. ");
-					result.put("registerNum", num + " people are in front of you.");
+					result.put("registerNum", cnt + " people are in front of you.");
 				}
 			} else {
 				result.put("code", 402);

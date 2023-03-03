@@ -42,9 +42,9 @@
 						<div class="d-flex mt-4"><h4>평점 : </h4><img src="https://cdn.searchenginejournal.com/wp-content/uploads/2021/08/a-guide-to-star-ratings-on-google-and-how-they-work-6123be39b9f2d-sej.jpg" class="ml-1" width="100"></div>
 						<div class="d-flex justify-content-end">
 							<c:if test="${book.status eq 0}"><button type="button" id="borrowBtn" class="btn btn-success">대출하기</button></c:if>
-							<c:if test="${book.status eq 1 || book.status eq 2 && borrowedUser eq null && registeredUser eq null}"><button type="button" id="reserveBtn" class="mx-4 btn btn-primary">Reserve</button></c:if>
+							<c:if test="${(book.status eq 1 || book.status eq 2) && borrowedUser eq null && registeredUser eq null}"><button type="button" id="reserveBtn" class="mx-4 btn btn-primary">Reserve</button></c:if>
 							<c:if test="${book.status eq 2 && registeredUser ne null}"><button type="button" id="cancelReserveBtn" class="mx-4 btn btn-danger">Cancel Reservation</button></c:if>
-							<c:if test="${borrowedUser == userName}"><button type="button" id="returnBtn" class="mx-4 btn btn-primary">반납하기</button></c:if>
+							<c:if test="${borrowedUser eq userLoginId}"><button type="button" id="returnBtn" class="mx-4 btn btn-danger">반납하기</button></c:if>
 							<c:if test="${userType eq 0}"><button type="button" id="modifyBtn" class="btn btn-secondary">수정하기</button></c:if>
 						</div>
 				</div>
@@ -198,7 +198,7 @@ $(document).ready(function() {
 				}
 			},
 			error: function(error) {
-				alert("failed to borrow. please inquire to admins.");
+				alert("failed to return. please inquire to admins.");
 			}
 		});
 	});

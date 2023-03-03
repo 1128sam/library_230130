@@ -6,7 +6,7 @@ public class BookRegister {
 	private int id;
 	private int userId;
 	private int bookId;
-	private Date reservedAt;
+	private Date informedAt;
 	private Date createdAt;
 
 	public int getId() {
@@ -33,12 +33,12 @@ public class BookRegister {
 		this.bookId = bookId;
 	}
 
-	public Date getReservedAt() {
-		return reservedAt;
+	public Date getInformedAt() {
+		return informedAt;
 	}
 
-	public void setReservedAt(Date reservedAt) {
-		this.reservedAt = reservedAt;
+	public void setInformedAt(Date informedAt) {
+		this.informedAt = informedAt;
 	}
 
 	public Date getCreatedAt() {

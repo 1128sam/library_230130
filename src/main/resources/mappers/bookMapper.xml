@@ -162,15 +162,19 @@
 	SELECT * FROM `book_status`
 			WHERE `bookId` = #{bookId} AND `returnedAt` is null
 </select>
+<select id="selectNextRegisteredBookByBookId" parameterType="int" resultType="com.library.main.model.BookRegister">
+	SELECT * FROM `book_register`
+		WHERE `bookId` = #{bookId} AND `informedAt` is null ORDER BY `createdAt` DESC LIMIT 1 
+</select>
 
 <update id="returnBookByBookId" parameterType="int">
 	UPDATE `book`
-		SET `status` = 0, `count` = `count` + 1
+		SET `status` = 0, `count` = `count` + 1, `updatedAt` = NOW()
 	WHERE `id` = #{bookId}
 </update>
 <update id="updateBookStatusAsReturned" parameterType="int">
 	UPDATE `book_status`
-		SET `returnedAt` = NOW()
+		SET `returnedAt` = NOW(), `updatedAt`=NOW()
 	WHERE `bookId` = #{bookId} limit 5
 </update>
 
@@ -232,25 +236,56 @@
 		(
 			`userId`,
 			`bookId`,
-			`reservedAt`,
+			`informedAt`,
 			`createdAt`
 		)
 	VALUES
 		(
 			#{userId}
 			, #{bookId}
-			, NOW()
+			, NULL
 			, NOW()
 		)
 </insert>
 
-<select id="selectRegisteredBookByBookId" parameterType="int" resultType="com.library.main.model.BookRegister">
+<!-- <select id="selectRegisteredBookListByBookId" parameterType="int" resultType="com.library.main.model.BookRegister">
+	SELECT * FROM `book_register`
+		WHERE `bookId` = #{bookId} ORDER BY `createdAt` LIMIT 1
+</select> -->
+
+<delete id="deleteRegisteration" parameterType="map">
+	DELETE FROM `book_register`
+		WHERE `userId` = #{userId} AND `bookId` = #{bookId} ORDER BY `createdAt` LIMIT 1
+</delete>
+
+<update id="updateBookRegisterByUserIdBookId" parameterType="map">
+	UPDATE `book_register`
+		SET `informedAt` = NOW()
+	WHERE `userId` = #{userId} AND `bookId` = #{bookId}
+</update>
+
+<select id="selectRegisteredBookListByBookId" parameterType="int" resultType="com.library.main.model.BookRegister">
 	SELECT * FROM `book_register`
 		WHERE `bookId` = #{bookId}
 </select>
 
-<delete id="deleteRegisteration" parameterType="map">
-	DELETE FROM `book_register`
-		WHERE `userId` = #{userId} AND `bookId` = #{bookId} ORDER BY `createdAt` LIMIT 1;
-</delete>
+<select id="selectRegisteredBookListPassedDate" resultType="com.library.main.model.BookRegister">
+	SELECT * FROM `book_register`
+		WHERE DATE_ADD(`informedAt`, INTERVAL 3 DAY) <![CDATA[ < ]]> NOW()
+</select>
+
+<select id="selectRegisteredBookCountByBookId" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM `book_register`
+		WHERE `bookId` = #{bookId`} 
+</select>
+
+<select id="selectBookStatus1Week" resultType="com.library.main.model.BookStatus">
+	SELECT * FROM `book_status`
+		WHERE `dueDate` = DATE_ADD(DATE_FORMAT(now(), '%Y-%m-%d'), INTERVAL 7 DAY)
+</select>
+
+<select id="selectBookStatusListOrderByReturnedAt5" resultType="com.library.main.model.BookStatus">
+	SELECT * FROM `book_status`
+		WHERE `returnedAt` is not null GROUP BY `bookId` ORDER BY `returnedAt` DESC LIMIT 5
+</select>
 </mapper>

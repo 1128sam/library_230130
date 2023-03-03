@@ -56,7 +56,19 @@ public interface BookDAO {
 
 	public int registerBookByUserIdBookId(@Param("userId") int userId, @Param("bookId") int bookId);
 
-	public List<BookRegister> selectRegisteredBookByBookId(int bookId);
+	public BookRegister selectNextRegisteredBookByBookId(int bookId);
 
 	public void deleteRegisteration(@Param("userId") int userId, @Param("bookId") int bookId);
+
+	public void updateBookRegisterByUserIdBookId(@Param("userId") int userId, @Param("bookId") int bookId);
+
+	public List<BookRegister> selectRegisteredBookListByBookId(int bookId);
+
+	public List<BookRegister> selectRegisteredBookListPassedDate();
+
+	public int selectRegisteredBookCountByBookId(int bookId);
+
+	public List<BookStatus> selectBookStatus1Week();
+
+	public List<BookStatus> selectBookStatusListOrderByReturnedAt5();
 }

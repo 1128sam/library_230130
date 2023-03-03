@@ -1,16 +1,15 @@
 package com.library.email;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.library.email.mail.MailService;
 import com.library.email.model.Addressee;
+import com.library.email.model.ReservedMail;
 import com.library.main.bo.BookBO;
 import com.library.main.model.Book;
 import com.library.main.model.BookStatus;
@@ -45,6 +44,21 @@ public class MailRestController {
 			mail.setAddress(ul.get(i).getEmail());
 			mail.setTitle("Books to return: ");
 			ms.sendMail(mail);
+		}
+	}
+
+	@Scheduled(cron = "0 10 6 * * *")
+	public void sendAlertMailOneWeek() {
+		List<BookStatus> bsl = bookBO.getBookStatus1Week();
+		for (int i = 0; i < bsl.size(); i++) {
+			int userId = bsl.get(i).getUserId();
+			int bookId = Integer.valueOf(bsl.get(i).getBookId());
+			ReservedMail lrm = new ReservedMail();
+			lrm.setAddress(userBO.getUserInfoById(userId).getEmail());
+			lrm.setTitle("You have one week left to return your borrowed book: " + bookBO.getBookByBookId(bookId).getTitle() + " - " + bookBO.getBookByBookId(bookId).getAuthor());
+			lrm.setContent("You have one week left to return your borrowed book: " + bookBO.getBookByBookId(bookId).getTitle() + " - " + bookBO.getBookByBookId(bookId).getAuthor()
+					+ "\n\nPlease return your book on time.");
+			ms.sendAlertMail1Week(lrm);
 		}
 	}
 }

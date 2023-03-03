@@ -6,6 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 import com.library.email.model.Addressee;
+import com.library.email.model.ReservedMail;
 import com.library.main.model.Book;
 
 @Component
@@ -47,6 +48,26 @@ public class MailService {
 				+ title3 + link3 + author3
 				);
 
+		mailSender.send(message);
+	}
+
+	public void sendMailToReserved(ReservedMail rm) {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom("digitallibalert@gmail.com");
+		message.setTo(rm.getAddress());
+		message.setSubject(rm.getTitle());
+		message.setText(rm.getContent());
+
+		mailSender.send(message);
+	}
+
+	public void sendAlertMail1Week(ReservedMail rm) {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom("digitallibalert@gmail.com");
+		message.setTo(rm.getAddress());
+		message.setSubject(rm.getTitle());
+		message.setText(rm.getContent());
+		
 		mailSender.send(message);
 	}
 }

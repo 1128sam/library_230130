@@ -1,7 +1,9 @@
 package com.library.main;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +44,13 @@ public class MainController {
 		if (bsl != null) { // if the user has no books to return, we have nothing to alert, so I am going to show the list to the users who has books to return.
 			model.addAttribute("overdueBookStatusList", bsl);
 		}
+
+		List<BookStatus> recent5 = bookBO.getBookStatusListOrderByReturnedAt5().stream().distinct().collect(Collectors.toList());;
+		List<Book> book5 = new ArrayList<>();
+		for (int i = 0; i < recent5.size(); i++) {
+			book5.add(bookBO.getBookByBookId(Integer.valueOf(recent5.get(i).getBookId())));
+		}
+		model.addAttribute("recent5", book5);
 		return "template/layout";
 	}
 
@@ -82,6 +91,10 @@ public class MainController {
 
 	@GetMapping("/book_info_view")
 	public String bookInfoView(HttpSession session, Model model, @RequestParam("bookId") int bookId) {
+		if (session.getAttribute("userId") == null) {
+			model.addAttribute("viewName", "/user/signIn");
+			return "template/layout";
+		}
 		Book book = bookBO.getBookByBookId(bookId);
 		if (book.getStatus() == 1) {
 			BookStatus bs = bookBO.getBookStatusByBookId(bookId);
@@ -90,7 +103,7 @@ public class MainController {
 			}
 			model.addAttribute("dueDate", bs.getDueDate());
 		} else if (book.getStatus() == 2) {
-			List<BookRegister> br = bookBO.getRegisteredBookByBookId(bookId);
+			List<BookRegister> br = bookBO.getRegisteredBookListByBookId(bookId);
 			model.addAttribute("registerNum", br.size());
 			for (int i = 0; i < br.size(); i++) {
 				if (br.get(i).getUserId() == (int) session.getAttribute("userId")) {

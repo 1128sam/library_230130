@@ -126,11 +126,34 @@ public class BookBO {
 	}
 
 	// getting number of people who registered for the book
-	public List<BookRegister> getRegisteredBookByBookId(int bookId) {
-		return bookDAO.selectRegisteredBookByBookId(bookId);
+	public BookRegister getNextRegisteredBookByBookId(int bookId) {
+		return bookDAO.selectNextRegisteredBookByBookId(bookId);
 	}
 
 	public void cancelRegisteration(int userId, int bookId) {
 		bookDAO.deleteRegisteration(userId, bookId);
+	}
+
+	public void updateBookRegisterByUserIdBookId(int userId, int bookId) {
+		bookDAO.updateBookRegisterByUserIdBookId(userId, bookId);
+	}
+
+	public List<BookRegister> getRegisteredBookListByBookId(int bookId) {
+		return bookDAO.selectRegisteredBookListByBookId(bookId);
+	}
+	public List<BookRegister> getRegisteredBookListPassedDate() {
+		return bookDAO.selectRegisteredBookListPassedDate();
+	}
+
+	public int getRegisteredBookCountByBookId(int bookId) {
+		return bookDAO.selectRegisteredBookCountByBookId(bookId);
+	}
+
+	public List<BookStatus> getBookStatus1Week() {
+		return bookDAO.selectBookStatus1Week();
+	}
+
+	public List<BookStatus> getBookStatusListOrderByReturnedAt5() {
+		return bookDAO.selectBookStatusListOrderByReturnedAt5();
 	}
 }

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 		<section class="section1">
 			<div class="d-flex justify-content-center mt-3">
-				<div class="d-flex col-1"><span class="d-flex justify-content-center align-items-center pl-3"><img src="https://www.pngfind.com/pngs/m/9-95287_double-left-chevron-svg-png-icon-free-download.png" alt="arrowLeft" width="30"></span></div>
+				<!-- <div class="d-flex col-1"><span class="d-flex justify-content-center align-items-center pl-3"><img src="https://www.pngfind.com/pngs/m/9-95287_double-left-chevron-svg-png-icon-free-download.png" alt="arrowLeft" width="30"></span></div> -->
 				<div class="col-10 mt-5">
 					<h1><i>Popular</i></h1>
 					<div class="popularBooksBox d-flex justify-content-between pt-2">
@@ -47,27 +47,19 @@
 				<div class="col-10 section1">
 					<h1><i>Recently Returned Books</i></h1>
 						<div class="popularBooksBox d-flex justify-content-between pt-2">
+						<c:forEach var="list" items="${recent5}" varStatus="vs">
+						<a href="/main/book_info_view?bookId=${list.id}">
 							<article class="bookDisplayBox">
-		                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-		                        <div class="ml-3">Title 1</div>
+							<c:if test="${list.imageUrl ne null}">
+								<img src="${list.imageUrl}" alt="book${vs}" width="100" height="120" class="d-flex justify-content-center m-3">
+							</c:if>
+							<c:if test="${list.imageUrl eq null}">
+								<div class="imgBox m-3 d-flex justify-content-center"></div>
+							</c:if>
+		                        <div class="ml-3">${list.title}</div>
 		                    </article>
-	
-		                    <article class="bookDisplayBox">
-		                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-		                        <div class="ml-3">Title 2</div>
-		                    </article>
-		                    <article class="bookDisplayBox">
-		                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-		                        <div class="ml-3">Title 3</div>
-		                    </article>
-		                    <article class="bookDisplayBox">
-		                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-		                        <div class="ml-3">Title 4</div>
-		                    </article>
-		                    <article class="bookDisplayBox">
-		                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-		                        <div class="ml-3">Title 5</div>
-		                    </article>
+	                    </a>
+	                   </c:forEach>
 					</div>
 				</div>
 			</div>
