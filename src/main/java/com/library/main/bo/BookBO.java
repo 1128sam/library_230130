@@ -82,8 +82,8 @@ public class BookBO {
 	}
 
 	// returning
-	public int returnBookByBookId(int bookId) {
-		return bookDAO.returnBookByBookId(bookId);
+	public int returnBookByBookId(int bookId, Float point) {
+		return bookDAO.returnBookByBookId(bookId, point);
 	}
 	public void updateBookStatusAsReturned(int bookId) {
 		bookDAO.updateBookStatusAsReturned(bookId);
@@ -155,5 +155,9 @@ public class BookBO {
 
 	public List<BookStatus> getBookStatusListOrderByReturnedAt5() {
 		return bookDAO.selectBookStatusListOrderByReturnedAt5();
+	}
+
+	public List<Book> getBookOrderByCount5(int type) {
+		return bookDAO.selectBookOrderByCount5(type);
 	}
 }

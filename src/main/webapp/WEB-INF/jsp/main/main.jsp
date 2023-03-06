@@ -5,41 +5,47 @@
 		<section class="section1">
 			<div class="d-flex justify-content-center mt-3">
 				<!-- <div class="d-flex col-1"><span class="d-flex justify-content-center align-items-center pl-3"><img src="https://www.pngfind.com/pngs/m/9-95287_double-left-chevron-svg-png-icon-free-download.png" alt="arrowLeft" width="30"></span></div> -->
-				<div class="col-10 mt-5">
+				<div class="col-10 mt-3">
 					<h1><i>Popular</i></h1>
 					<div class="popularBooksBox d-flex justify-content-between pt-2">
-						<a href="#">
-							<article id="" class="bookDisplayBox">
-		                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-		                        <div class="ml-3">Title 1</div>
-		                        <!-- <div class="text-secondary ml-3"><del>리처드 도킨스</del></div> -->
-	                    	</article>
+					<c:forEach var="book" items="${popular5}" varStatus="vs">
+						<a href="/main/book_info_view?bookId=${book.id}">
+							<article class="bookDisplayBox">
+							<c:if test="${book.imageUrl ne null}">
+								<img src="${book.imageUrl}" alt="book${vs}" width="100" height="120" class="d-flex justify-content-center m-3">
+							</c:if>
+							<c:if test="${book.imageUrl eq null}">
+								<div class="imgBox m-3 d-flex justify-content-center"></div>
+							</c:if>
+		                        <div class="ml-3">${book.title}</div>
+		                        <small class="ml-3 text-secondary">${book.author}</small>
+		                    </article>
 	                    </a>
-
-	                    <article class="bookDisplayBox">
-	                        <div class="imgBox m-3 d-flex justify-content-center">
-	                        	<img src="https://miblart.com/wp-content/uploads/2020/01/crime-and-mystery-cover-scaled-1.jpeg">
-	                        </div>
-	                        <div class="ml-3">Fortress blood</div>
-	                        <div class="ml-3"><small>L.D. Goffigan</small></div>
-	                    </article>
-	                    <article class="bookDisplayBox">
-	                        <div class="imgBox m-3 d-flex justify-content-center">
-	                        	<img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/yellow-business-leadership-book-cover-design-template-dce2f5568638ad4643ccb9e725e5d6ff_screen.jpg?ts=1637017516">
-	                        </div>
-	                        <div class="ml-3">The Mind of a Leader</div>
-	                        <div class="ml-3"><small>Kevin Andersen</small></div>
-	                    </article>
-	                    <article class="bookDisplayBox">
-	                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-	                        <div class="ml-3">Title 4</div>
-	                    </article>
-	                    <article class="bookDisplayBox">
-	                        <div class="imgBox m-3 d-flex justify-content-center"></div>
-	                        <div class="ml-3">Title 5</div>
-	                    </article>
+	                   </c:forEach>
 					</div>
 				</div>
+				</div>
+				<div class="d-flex justify-content-center mt-1">
+					<div class="col-10 mt-1">
+						<h1><i>High Ratings</i></h1>
+						<div class="popularBooksBox d-flex justify-content-between pt-2">
+						<c:forEach var="book" items="${rating5}" varStatus="vs">
+							<a href="/main/book_info_view?bookId=${book.id}">
+								<article class="bookDisplayBox">
+								<c:if test="${book.imageUrl ne null}">
+									<img src="${book.imageUrl}" alt="book${vs}" width="100" height="120" class="d-flex justify-content-center m-3">
+								</c:if>
+								<c:if test="${book.imageUrl eq null}">
+									<div class="imgBox m-3 d-flex justify-content-center"></div>
+								</c:if>
+			                        <div class="ml-3">${book.title}</div>
+			                        <small class="ml-3 text-secondary">${book.author}</small><br>
+			                        <small class="ml-3">${book.point}</small>
+			                    </article>
+		                    </a>
+		                   </c:forEach>
+						</div>
+					</div>
 				<!-- <div class="d-flex col-1"><span class="d-flex justify-content-center align-items-center pl-3"><img src="right_arrow.png" alt="arrowRight" width="30"></span></div> -->
 				</div>
 
@@ -57,6 +63,7 @@
 								<div class="imgBox m-3 d-flex justify-content-center"></div>
 							</c:if>
 		                        <div class="ml-3">${list.title}</div>
+		                        <small class="ml-3 text-secondary">${list.author}</small>
 		                    </article>
 	                    </a>
 	                   </c:forEach>

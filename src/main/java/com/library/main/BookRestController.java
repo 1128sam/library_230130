@@ -64,11 +64,11 @@ public class BookRestController {
 	}
 
 	@GetMapping("/return_book")
-	public Map<String, Object> returnBook(HttpSession session, Model model, @RequestParam("bookId") int bookId) {
+	public Map<String, Object> returnBook(HttpSession session, Model model, @RequestParam("bookId") int bookId, @RequestParam(value="point", required=false) Float point) {
 		Map<String, Object> result = new HashMap<>();
 		Book book = bookBO.getBookByBookId(bookId);
 		if (book.getStatus() == 1 || book.getStatus() == 2) {
-			int row = bookBO.returnBookByBookId(bookId);
+			int row = bookBO.returnBookByBookId(bookId, point);
 			if (row == 1) {
 				bookBO.updateBookStatusAsReturned(bookId);
 				if (bookBO.getNextRegisteredBookByBookId(bookId) != null) {

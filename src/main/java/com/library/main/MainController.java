@@ -51,6 +51,10 @@ public class MainController {
 			book5.add(bookBO.getBookByBookId(Integer.valueOf(recent5.get(i).getBookId())));
 		}
 		model.addAttribute("recent5", book5);
+		List<Book> popular5 = bookBO.getBookOrderByCount5(0);
+		model.addAttribute("popular5", popular5);
+		List<Book> rating5 = bookBO.getBookOrderByCount5(1);
+		model.addAttribute("rating5", rating5);
 		return "template/layout";
 	}
 

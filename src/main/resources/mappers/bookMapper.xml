@@ -114,7 +114,7 @@
 			, #{category}
 			, 0
 			, 0
-			, NULL
+			, 0
 			, NOW()
 			, NOW()
 		)
@@ -167,15 +167,18 @@
 		WHERE `bookId` = #{bookId} AND `informedAt` is null ORDER BY `createdAt` DESC LIMIT 1 
 </select>
 
-<update id="returnBookByBookId" parameterType="int">
+<update id="returnBookByBookId" parameterType="map">
 	UPDATE `book`
 		SET `status` = 0, `count` = `count` + 1, `updatedAt` = NOW()
+		<if test="point != 0">
+			, `point` = (`point`*(`count`-1) + #{point}) / `count`
+		</if>
 	WHERE `id` = #{bookId}
 </update>
 <update id="updateBookStatusAsReturned" parameterType="int">
 	UPDATE `book_status`
 		SET `returnedAt` = NOW(), `updatedAt`=NOW()
-	WHERE `bookId` = #{bookId} limit 5
+	WHERE `bookId` = #{bookId}
 </update>
 
 <select id="selectBookIdListByUserId" parameterType="int" resultType="Integer">
@@ -287,5 +290,16 @@
 <select id="selectBookStatusListOrderByReturnedAt5" resultType="com.library.main.model.BookStatus">
 	SELECT * FROM `book_status`
 		WHERE `returnedAt` is not null GROUP BY `bookId` ORDER BY `returnedAt` DESC LIMIT 5
+</select>
+
+<select id="selectBookOrderByCount5" parameterType="int" resultType="com.library.main.model.Book">
+	SELECT * FROM `book`
+		<if test="type == 0">
+			ORDER BY `count`
+		</if>
+		<if test="type == 1">
+			ORDER BY `point`
+		</if>
+		DESC LIMIT 5
 </select>
 </mapper>

@@ -38,7 +38,7 @@ public interface BookDAO {
 
 	public BookStatus selectBookStatusByBookId(int bookId);
 
-	public int returnBookByBookId(int bookId);
+	public int returnBookByBookId(@Param("bookId") int bookId, @Param("point") Float point);
 
 	public void updateBookStatusAsReturned(int bookId);
 
@@ -71,4 +71,6 @@ public interface BookDAO {
 	public List<BookStatus> selectBookStatus1Week();
 
 	public List<BookStatus> selectBookStatusListOrderByReturnedAt5();
+
+	public List<Book> selectBookOrderByCount5(int type);
 }

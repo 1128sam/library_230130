@@ -18,7 +18,7 @@ header {width:1200px; height:80px;}
 .radio span {vertical-align: middle;}
 [type="radio"] {vertical-align: middle;}
 
-.section1 {width: 1200px; min-height: 550px;}
+.section1 {width: 1200px; min-height: 450px;}
 .popularBooksBox {width: max; height:300px;}
 .imgBox {width:100px; height:120px; background-color:#999;}
 .bookDisplayBox {width: 130px; height: 250px; border: 1px solid;}
