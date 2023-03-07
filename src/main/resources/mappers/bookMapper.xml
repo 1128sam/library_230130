@@ -200,6 +200,9 @@
 <select id="selectBorrowedBookCntByUserId" parameterType="int" resultType="int">
 	SELECT COUNT(*) FROM `book_status` WHERE `userId` = #{userId} AND `returnedAT` IS NULL
 </select>
+<select id="selectRegisteredBookCntByUserId" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM `book_register` WHERE `userId` = #{userId}
+</select>
 
 <select id="selectDueDateByBookId" parameterType="map" resultType="date">
 	SELECT `dueDate` FROM `book_status` WHERE `bookId` = #{bookId} AND `returnedAT` IS NULL AND `userId` = #{userId} limit 3
@@ -272,6 +275,11 @@
 		WHERE `bookId` = #{bookId}
 </select>
 
+<select id="selectRegisteredBookListByUserId" parameterType="int" resultType="com.library.main.model.BookRegister">
+	SELECT * FROM `book_register`
+		WHERE `userId` = #{userId}
+</select>
+
 <select id="selectRegisteredBookListPassedDate" resultType="com.library.main.model.BookRegister">
 	SELECT * FROM `book_register`
 		WHERE DATE_ADD(`informedAt`, INTERVAL 3 DAY) <![CDATA[ < ]]> NOW()
@@ -298,6 +306,7 @@
 			ORDER BY `count`
 		</if>
 		<if test="type == 1">
+			WHERE `count` > 1
 			ORDER BY `point`
 		</if>
 		DESC LIMIT 5

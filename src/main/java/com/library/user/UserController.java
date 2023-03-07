@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,10 +76,14 @@ public class UserController {
 		}
 		model.addAttribute("returnedBookList", returnedBookList);
 
+		List<Book> brl = bookBO.getBookListByUserId(userId2);
+		model.addAttribute("brl", brl);
+
 		model.addAttribute("userId", (Integer) session.getAttribute("userId"));
 		model.addAttribute("userLoginId", (String) session.getAttribute("userLoginId"));
 		model.addAttribute("userName", (String) session.getAttribute("userName"));
 		model.addAttribute("userType", (Integer) session.getAttribute("userType"));
+		model.addAttribute("userImageUrl", session.getAttribute("userImageUrl"));
 		model.addAttribute("viewName", "user/userProfile");
 		return "template/layout";
 	}

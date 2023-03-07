@@ -25,17 +25,23 @@ public class PostController {
 	private UserBO userBO;
 
 	@GetMapping("/post_list_view")
-	public String postListView(Model model, @RequestParam("type") String type, HttpSession session) {
+	public String postListView(Model model, @RequestParam("type") String type, HttpSession session, @RequestParam("page") int page) {
 		Integer userType = userBO.getUserInfoById((Integer) session.getAttribute("userId")).getType();
 		model.addAttribute("userType", userType);
 		if (type.equals("info")) {
 			model.addAttribute("viewName", "post/postNotice");
+			/*
+			 * int max = postBO.getPostCnt(); if (page * 10 >= max) {
+			 * model.addAttribute("postMax", max); } List<Post> noticeList =
+			 * postBO.getPostNoticeList2(page);
+			 */
 			List<Post> noticeList = postBO.getPostNoticeList(0);
+			model.addAttribute("page", page);
 			model.addAttribute("list", noticeList);
 			List<String> userNameList = new ArrayList<String>();
 			for (int i = 0; i < noticeList.size(); i++) {
-				userNameList.add(userBO.getUserNameByUserId(noticeList.get(i).getUserId()));
 				// get userNames and insert them into userNameList using postId
+				userNameList.add(userBO.getUserNameByUserId(noticeList.get(i).getUserId()));
 			}
 			model.addAttribute("userNameList", userNameList);
 		} else if (type.equals("rec")) {

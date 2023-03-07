@@ -11,10 +11,12 @@
 			</c:if>
 		</div>
 		<div class="d-flex justify-content-center">
-			<img src="${post.filePath}" alt="image" width="400">
+			<c:if test="${post.filePath ne null}">
+				<img src="${post.filePath}" alt="image" width="400">
+			</c:if>
 		</div>
 		<p class="mt-4 ml-3">${post.content}</p>
-	<c:if test="${post.type == 1}">
+	<%-- <c:if test="${post.type == 1}">
 		<div class="commentsBorder mt-5">
 			<div class="commentBox my-4">
 				<span class="m-2">userId1</span><br>
@@ -33,7 +35,7 @@
 		<textarea id="newComment" name="newComment" rows="3" cols="120"></textarea>
 		<button type="button" id="commentUploadBtn" class="btn btn-info mb-4">게시하기</button>
 		</c:if>
-	</c:if>
+	</c:if> --%>
 	</div>
 </div>
 

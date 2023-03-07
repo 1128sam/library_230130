@@ -128,7 +128,6 @@ $(document).ready(function() {
 		let file = $('#file').val();
 		
 		if (file != '') {
-			alert(file.split(".").pop().toLowerCase());
 			let ext = file.split(".").pop().toLowerCase();
 			if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) {
 				alert("이미지 파일만 업로드 할 수 있습니다.");
@@ -161,17 +160,27 @@ $(document).ready(function() {
 			alert("Please confirm your id validation.");
 			return;
 		} else if ($('#idValCheckPermit').hasClass('d-none')) {
-			 if ($('#currentIdWarn').hasClass('d-none') == false) {
+			 /* if ($('#currentIdWarn').hasClass('d-none') == false) {
 			 	return;
-			 }
+			 } */
 			alert("your userid is currently being used.");
 			return;
 		}
+		alert(userId + " " + password + " " + passwordCheck + " " + selfVerQue + " " + selfVerAns + " " + file);
+		let formData = new FormData();
+		formData.append("userId", userId);
+		formData.append("password", password);
+		formData.append("selfVerQue", selfVerQue);
+		formData.append("selfVerAns", selfVerAns);
+		formData.append("file", $('#file')[0].files[0]);
 
 		$.ajax({
-			type:"GET",
+			type:"POST",
 			url: "/user/profile_update",
-			data: {"userId":userId, "password":password, "selfVerQue":selfVerQue, "selfVerAns":selfVerAns, "file":$('#file')[0].files[0]},
+			data: formData,
+			enctype: "multipart/form-data",
+			processData: false,
+			contentType: false,
 			success: function(data) {
 				if (data.code == 1) {
 					alert(data.result);				

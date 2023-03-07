@@ -45,6 +45,7 @@ public interface BookDAO {
 	public List<Integer> selectBookIdListByUserId(@Param("userId1") Integer userId1, @Param("userId2") Integer userId2);
 
 	public int selectBorrowedBookCntByUserId(int userId);
+	public int selectRegisteredBookCntByUserId(int userId);
 
 	public Date selectDueDateByBookId(@Param("userId") int userId, @Param("bookId") int bookId);
 
@@ -63,6 +64,7 @@ public interface BookDAO {
 	public void updateBookRegisterByUserIdBookId(@Param("userId") int userId, @Param("bookId") int bookId);
 
 	public List<BookRegister> selectRegisteredBookListByBookId(int bookId);
+	public List<BookRegister> selectRegisteredBookListByUserId(int userId);
 
 	public List<BookRegister> selectRegisteredBookListPassedDate();
 

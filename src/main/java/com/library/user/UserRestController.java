@@ -43,7 +43,9 @@ public class UserRestController {
 			session.setAttribute("userName", user.getName());	
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userType", user.getType());
-//			session.setAttribute("userImageUrl", user.getImageUrl());
+			if (user.getImageUrl() != null || user.getImageUrl() != "") {
+				session.setAttribute("userImageUrl", user.getImageUrl());
+			}
 			List<BookStatus> bsl = bookBO.getOverdueBookStatusByUserId(user.getId());
 			if (bsl != null) {
 				session.setAttribute("overdueBookStatusList", bsl);
@@ -91,7 +93,7 @@ public class UserRestController {
 		return result;
 	}
 
-	@GetMapping("/profile_update")
+	@PostMapping("/profile_update")
 	public Map<String, Object> profileUpdate(
 			@RequestParam("userId") String userId,
 			@RequestParam("password") String password,

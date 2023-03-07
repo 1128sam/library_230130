@@ -23,6 +23,16 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<%-- <div class="d-flex justify-content-center">
+			<div class="d-flex col-2 justify-content-between">
+				<c:if test="${page != 1}">
+					<a href="/post/post_list_view?type=info&page=${page - 1}">이전</a>
+				</c:if>
+				<c:if test="${postMax ne null}">
+					<a href="/post/post_list_view?type=info&page=${page + 1}">다음</a>
+				</c:if>
+			</div>
+		</div> --%>
 		<c:if test="${userType eq 0}">
 			<div class="d-flex justify-content-end mt-5"><input type="button" id="newInfoBtn" class="btn btn-info" value="New Post"></div>
 		</c:if>

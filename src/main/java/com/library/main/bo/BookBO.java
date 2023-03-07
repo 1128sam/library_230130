@@ -97,6 +97,9 @@ public class BookBO {
 	public int getBorrowedBookCntByUserId(int userId) {
 		return bookDAO.selectBorrowedBookCntByUserId(userId);
 	}
+	public int getRegisteredBookCntByUserId(int userId) {
+		return bookDAO.selectRegisteredBookCntByUserId(userId);
+	}
 
 	public Date getDueDateByBookId(int userId, int bookId) {
 		return bookDAO.selectDueDateByBookId(userId, bookId);
@@ -140,6 +143,17 @@ public class BookBO {
 
 	public List<BookRegister> getRegisteredBookListByBookId(int bookId) {
 		return bookDAO.selectRegisteredBookListByBookId(bookId);
+	}
+	public List<BookRegister> getRegisteredBookListByUserId(int userId) {
+		return bookDAO.selectRegisteredBookListByUserId(userId);
+	}
+	public List<Book> getBookListByUserId(int userId) {
+		List<Book> temp = new ArrayList<>();
+		List<BookRegister> brl = getRegisteredBookListByUserId(userId);
+		for (int i = 0; i < brl.size(); i++) {
+			temp.add(getBookByBookId(brl.get(i).getBookId()));
+		}
+		return temp;
 	}
 	public List<BookRegister> getRegisteredBookListPassedDate() {
 		return bookDAO.selectRegisteredBookListPassedDate();

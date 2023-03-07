@@ -88,7 +88,7 @@ $(document).ready(function() {
 		formData.append("content", content);
 		formData.append("type", 0);
 		formData.append("file", $('#file')[0].files[0]);
-		console.log(formData);
+		/* console.log(formData); */
 
 		$.ajax({
 			type:"POST",

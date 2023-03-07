@@ -95,6 +95,13 @@ public class BookRestController {
 	@GetMapping("/register_book")
 	public Map<String, Object> registerBook(HttpSession session, Model model, @RequestParam("userId") int userId, @RequestParam("bookId") int bookId) {
 		Map<String, Object> result = new HashMap<>();
+		int statusCnt = bookBO.getRegisteredBookCntByUserId((int) session.getAttribute("userId"));
+		if (statusCnt > 2) {
+			result.put("code", 403);
+			result.put("result", "You have reached the maximum numbers of books you can reserve.");
+			return result;
+		}
+
 		if (bookBO.getBookByBookId(bookId).getStatus() == 1) { // borrowed, no registeration
 			int row = bookBO.registerBookByUserIdBookId(userId, bookId);
 			if (row == 1) {

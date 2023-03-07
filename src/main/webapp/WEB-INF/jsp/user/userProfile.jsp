@@ -9,7 +9,12 @@
 		<section class="section1 d-flex justify-content-center mt-5">
 			<div class="profileBox d-flex">
 				<div class="col-3 h-100 d-flex justify-content-center align-items-center">
+				<c:if test="${userImageUrl eq null}">
 					<img src="https://i.pinimg.com/originals/ca/52/e6/ca52e6e168595f767c2121a68cc227b0.jpg" alt="profile img" width="200">
+				</c:if>
+				<c:if test="${userImageUrl ne null}">
+					<img src="${userImageUrl}" alt="profile img" width="200">
+				</c:if>
 				</div>
 				<div class="col-9">
 					<h4 class="pt-5">${userLoginId}</h4>
@@ -36,7 +41,12 @@
 		<a href="/main/book_info_view?bookId=${book.id}">
 			<div class="bookInfoBox d-flex">
 				<div class="col-3 h-100 d-flex justify-content-center align-items-center">
+				<c:if test="${book.imageUrl ne null}">
 					<img src="${book.imageUrl}" alt="borrowedBookImg" width="150">
+				</c:if>
+				<c:if test="${book.imageUrl eq null}">
+					<div class="bookImgBox"></div>
+				</c:if>
 				</div>
 				<div class="col-9">
 					<h4 class="pt-5">${book.title}</h4>
@@ -59,28 +69,34 @@
 		</c:forEach>
 		
 		<div class="temp d-flex mr-5">
-			<h1 class="pl-5 col-11"><i>Reservation</i></h1>
-			<div class="col-1 d-flex align-items-end justify-content-end">
-				<span>Available: </span>
+			<h1 class="pl-5 col-10"><i>Reservation</i></h1>
+			<div class="col-2 d-flex align-items-end justify-content-end">
+				<span>Available : ${3 - fn:length(brl)}</span>
 			</div>
 		</div>
 		<section class="section1 d-flex justify-content-center">
+		<c:forEach var="book" items="${brl}">
+			<section class="bookSection d-flex justify-content-center mt-2">
+		<a href="/main/book_info_view?bookId=${book.id}">
 			<div class="bookInfoBox d-flex">
 				<div class="col-3 h-100 d-flex justify-content-center align-items-center">
-					<div class="bookImgBox m-3 d-flex justify-content-center"></div>
+					<img src="${book.imageUrl}" alt="borrowedBookImg" width="150">
 				</div>
 				<div class="col-9">
-					<h4 class="pt-5">서명 1</h4>
-					<span>홍길동</span><br>
-					<span>
-						...
-					</span>
+					<h4 class="pt-5">${book.title}</h4>
+					<span>${book.author}</span><br>
+					<span>${book.isbn}</span><br>
+					<span>${book.publisher}</span><br>
 				</div>
 			</div>
+		</a>
+		</section>
+			</c:forEach>
 		</section>
 		
 		<div class="d-flex justify-content-center">
 				<div class="col-10 section1">
+				<c:if test="${returnedBookList eq null}">
 					<h1><i>Recently Returned Books</i></h1>
 						<div class="popularBooksBox d-flex justify-content-between pt-2">
 					<c:forEach var="book" items="${returnedBookList}">
@@ -96,6 +112,7 @@
 		                    </article>
 	                </c:forEach>
 						</div>
+					</c:if>
 				</div>
 			</div>
 

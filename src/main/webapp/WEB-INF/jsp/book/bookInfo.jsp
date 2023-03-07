@@ -44,11 +44,17 @@
 							<c:if test="${book.status eq 0}"><button type="button" id="borrowBtn" class="btn btn-success">대출하기</button></c:if>
 							<c:if test="${(book.status eq 1 || book.status eq 2) && borrowedUser eq null && registeredUser eq null}"><button type="button" id="reserveBtn" class="mx-4 btn btn-primary">Reserve</button></c:if>
 							<c:if test="${book.status eq 2 && registeredUser ne null}"><button type="button" id="cancelReserveBtn" class="mx-4 btn btn-danger">Cancel Reservation</button></c:if>
-							<c:if test="${borrowedUser eq userLoginId}"><button type="button" id="returnBtn1" class="mx-4 btn btn-danger">반납하기</button></c:if>
+							<c:if test="${borrowedUser eq userLoginId}">
+								<button type="button" id="returnBtn1" class="mx-4 btn btn-danger">반납하기</button>
+								<div class="d-flex justify-content-end" id="returnConfirm">
+									<input type="number" min='0' max="5" name="point" id="point" class="form-control d-none" placeholder="1 to 5">
+									<button type="button" id="returnBtn2" class="d-none mx-4 btn btn-danger">반납하기</button>
+								</div>
+							</c:if>
 							<c:if test="${userType eq 0}"><button type="button" id="modifyBtn" class="btn btn-secondary">수정하기</button></c:if>
 						</div>
 						<button type="button" class="d-none btn btn-success">수정하기</button>
-						<div class="d-flex justify-content-end" id="returnConfirm"><input type="number" min='0' max="5" name="point" id="point" class="form-control d-flex col-2" placeholder="1 to 5"></div>
+						
 				</div>
 					<div class="d-flex justify-content-end align-items-start mr-5"><img src="https://cdn.pixabay.com/photo/2016/01/20/18/35/x-1152114_960_720.png" width="35"></div>
 			</div>
@@ -71,17 +77,25 @@
 
 <script>
 $(document).ready(function() {
-	/* $('#returnBtn1').on('click', function() {
-		$('#returnConfirm').fadeOut();
-	}); */
+	$('#returnBtn1').on('click', function() {
+		$('#point').removeClass("d-none");
+		$('#returnBtn1').addClass("d-none");
+		$('#returnBtn2').removeClass("d-none");
+	});
 
-	$('#returnBtn1').on('click', function(e) {
+	$('#returnBtn2').on('click', function(e) {
 		e.preventDefault();
 		/* var confirm = confirm("return?"); */
 		alert("return?");
 		let bookId = $('#bookId').val();
 		let point = $('input[name=point]').val();
-		alert(point);
+		if (point == "") {
+			alert("Please enter your rating of this book.");
+			return;
+		} else if (point < 0.1 || point > 5) {
+			alert("Your ratings should be between 1 to 5.");
+			return;
+		}
 
 		$.ajax({
 			url: "/book/return_book",
@@ -167,6 +181,8 @@ $(document).ready(function() {
 					alert(data.result + data.registerNum);
 					location.href = "/main/book_info_view?bookId=" + bookId;
 				} else if (data.code == 401) {
+					alert(data.result);
+				} else if (data.code == 403) {
 					alert(data.result);
 				} else {
 					alert("failed. Please retry.");

@@ -87,8 +87,7 @@
 		UPDATE `user`
 			SET `userId` = #{userId}
 			, `password` = #{password}
-			, `imageUrl` = #{fileAttach}
-			, `imageUrl` = #{imagePath}
+			, `imageUrl` = #{filePath}
 			, `self_vertify_que` = #{question}
 			, `self_vertify_ans` = #{selfVerAns}
 			, `updatedAt` = NOW()

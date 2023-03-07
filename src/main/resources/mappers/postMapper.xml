@@ -5,9 +5,18 @@
 <mapper namespace="com.library.post.dao.PostDAO">
 	<select id="selectPostNoticeList" parameterType="int" resultType="com.library.post.model.Post">
 		select * from `post` where `type` = 0 order by `updatedAt` desc
-		<if test="num == 5">
+		<if test="num == 5 || num == 10">
 			limit #{limit}
 		</if>
+	</select>
+	<select id="selectPostNoticeList2" parameterType="int" resultType="com.library.post.model.Post">
+		select * from `post` where `type` = 0 order by `createdAt` DESC LIMIT #{min}, #{min + 10}
+	</select>
+	<select id="selectPostIdByPage" parameterType="int" resultType="com.library.post.model.Post">
+		select * from `post` where `type` = 0 order by `createdAt` DESC LIMIT 0, 5
+	</select>
+	<select id="selectPostCnt" resultType="int">
+		select COUNT(*) from `post`
 	</select>
 
 	<select id="selectPostRecommendList" parameterType="int" resultType="com.library.post.model.Post">

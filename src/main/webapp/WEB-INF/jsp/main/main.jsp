@@ -74,7 +74,7 @@
 
 		<section class="section2 d-flex">
 			<div class="col-6 post">
-				<h1 class="ml-2"><i><a href="/post/post_list_view?type=info">Information</a></i></h1>
+				<h1 class="ml-2"><i><a href="/post/post_list_view?type=info&page=1">Information</a></i></h1>
 				<table class="table">
 				<c:forEach var="list" items="${noticeList}">
 					<tr>
@@ -85,7 +85,7 @@
 				</table>
 			</div>
 			<div class="col-6 post">
-				<h1 id="RecTitle"><i><a href="/post/post_list_view?type=rec">Recommendation</a></i></h1>
+				<h1 id="RecTitle"><i><a href="/post/post_list_view?type=rec&page=1">Recommendation</a></i></h1>
 				<table class="table">
 					<c:forEach var="list" items="${recList}">
 					<tr>

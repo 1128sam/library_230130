@@ -10,6 +10,10 @@ import com.library.post.model.Post;
 @Repository
 public interface PostDAO {
 	public List<Post> selectPostNoticeList(Integer num);
+
+	/* public List<Post> selectPostNoticeList2(int min); */
+	public int selectPostCnt();
+	public Post selectPostIdByPage(int page);
 	public List<Post> selectPostRecommendList(Integer num);
 	public Post selectPostById(int id);
 	public int insertPost(
