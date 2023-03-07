@@ -2,46 +2,46 @@
 	pageEncoding="UTF-8"%>
 <section class="signUp d-flex justify-content-center">
 	<div class="sign-up-box">
-		<h1 class="d-flex justify-content-center mt-3">회원가입</h1>
+		<h1 class="d-flex justify-content-center mt-3">Sign Up</h1>
 
 		<form id="signUpForm" method="post" action="/user/sign_up">
 			<label for="name" class="subject-text my-2">Your Name</label>
 			<input type="text" id="name" name="name" class="form-control" placeholder="First and last name" maxlength="9">
 			
-			<label for="userId" class="subject-text my-2"> 아이디 </label>
+			<label for="userId" class="subject-text my-2">User ID</label>
 			<input type="text" id="userId" name="userId" class="form-control" placeholder="at least 6 characters" maxlength="16">
 			<div id="idLengthWarn" class="text-info d-none">
-				<small>아이디를 4자 이상 입력하세요.</small>
+				<small>User Id should be longer than 4 characters.</small>
 			</div>
 			<div id="idValCheckWarn" class="text-info d-none">
-				<small>사용중인 아이디입니다.</small>
+				<small class="text-danger">In use.</small>
 			</div>
 			<div id="idValCheckPermit" class="text-info d-none">
-				<small>사용 가능한 아이디입니다.</small>
+				<small>This user ID is available.</small>
 			</div>
 
 			<label for="password" class="subject-text my-2">Password</label> <input
 				type="password" id="password" name="password"
-				class="form-control" placeholder="비밀번호를 입력하세요"> <label
+				class="form-control" placeholder="Enter your Password"> <label
 				for="passwordCheck" class="subject-text my-2">Re-enter password</label> <input
 				type="password" id="passwordCheck" name="passwordCheck"
-				class="form-control" placeholder="비밀번호를 다시 입력하세요">
-			<div id="passwordValidWarn" class="text-info d-none">
-				<small>비밀번호가 일치하지 않습니다.</small>
+				class="form-control">
+			<div id="passwordValidWarn" class="text-danger d-none">
+				<small>Password doesn't match.</small>
 			</div>
 
-			<label for="email" class="subject-text my-2"> 이메일 </label> <input
+			<label for="email" class="subject-text my-2">Email</label> <input
 				type="email" id="email" name="email" class="form-control"
-				placeholder="이메일 주소를 입력하세요">
-			<div id="emailValidMessage" class="text-info d-none">
-				<small>정확한 이메일 주소를 입력해주세요.</small>
+				placeholder="Enter your email address.">
+			<div id="emailValidMessage" class="text-danger d-none">
+				<small>Enter a valid email address.</small>
 			</div>
 
 			<button type="submit" id="signUpBtn"
-				class="btn btn-info w-100 mt-3">가입하기</button>
+				class="btn btn-info w-100 mt-3">Sign in</button>
 		</form>
 		<div class="d-flex justify-content-end my-2">
-			<a href="/user/sign_in_view">로그인하기</a>
+			<a href="/user/sign_in_view">Log in</a>
 		</div>
 	</div>
 </section>
@@ -86,22 +86,22 @@ $(document).ready(function() {
 		var email = $('#email').val().trim();
 		
 		if (name.length < 1) {
-			alert("이름을 입력해주세요.");
+			alert("Enter your name.");
 			return;
 		}
 		if (userId.length < 1) {
-			alert("아이디를 입력해주세요.");
+			alert("Enter your User ID.");
 			return;
 		}
 		if (password.length < 1 || passwordCheck.length < 1) {
-			alert("비밀번호를 입력해주세요.");
+			alert("Enter your password.");
 			return;
 		} else if (password != passwordCheck) {
-			alert("비밀번호가 일치하지 않습니다.");
+			alert("Your password doesn't match.");
 			return;
 		}
 		if (email.length < 1) {
-			alert("이메일 주소를 입력해주세요.");
+			alert("Please enter your email address.");
 			return;
 		}
 		
@@ -120,10 +120,10 @@ $(document).ready(function() {
 		$.post(url, params)
 		.done(function(data) {
 			if (data.result == "success") {
-				alert("가입을 환영합니다. 로그인해주세요.");				
+				alert("Successfully signed in. Please log in.");				
 				location.href="/user/sign_in_view";
 			} else {
-				alert("가입에 실패했습니다. 다시 시도해주세요.");
+				alert("Failed to sign in. Please retry.");
 			}
 		});
 	});

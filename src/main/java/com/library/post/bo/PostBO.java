@@ -21,15 +21,18 @@ public class PostBO {
 		return postDAO.selectPostNoticeList(num);
 	}
 
-	/*
-	 * public List<Post> getPostNoticeList2(int min) { return
-	 * postDAO.selectPostNoticeList2((min-1) * 10); }
-	 */
+	
+	public List<Post> getPostNoticeList2(int min, int type) {
+		int min1 = (min-1) * 10;
+		int max = min*10;
+		return postDAO.selectPostNoticeList2(min1, max, type);
+	}
+	 
 	public Post getPostIdByPage(int page) {
 		return postDAO.selectPostIdByPage(page);
 	}
-	public int getPostCnt() {
-		return postDAO.selectPostCnt();
+	public int getPostCnt(int type) {
+		return postDAO.selectPostCnt(type);
 	}
 
 	public List<Post> getPostRecommendList(Integer num) {

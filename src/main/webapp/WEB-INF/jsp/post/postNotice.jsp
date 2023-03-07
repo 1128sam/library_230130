@@ -8,9 +8,9 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th class="col-10">제목</th>
-					<th class="text-center col-1">글쓴이</th>
-					<th class="text-center col-1">날짜</th>
+					<th class="col-10">Title</th>
+					<th class="text-center col-1">Writer</th>
+					<th class="text-center col-1">Date</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,16 +23,16 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<%-- <div class="d-flex justify-content-center">
+		<div class="d-flex justify-content-center">
 			<div class="d-flex col-2 justify-content-between">
 				<c:if test="${page != 1}">
-					<a href="/post/post_list_view?type=info&page=${page - 1}">이전</a>
+					<a href="/post/post_list_view?type=info&page=${page - 1}"><< Previous</a>
 				</c:if>
-				<c:if test="${postMax ne null}">
-					<a href="/post/post_list_view?type=info&page=${page + 1}">다음</a>
+				<c:if test="${postMax eq null}">
+					<a href="/post/post_list_view?type=info&page=${page + 1}">Next >></a>
 				</c:if>
 			</div>
-		</div> --%>
+		</div>
 		<c:if test="${userType eq 0}">
 			<div class="d-flex justify-content-end mt-5"><input type="button" id="newInfoBtn" class="btn btn-info" value="New Post"></div>
 		</c:if>

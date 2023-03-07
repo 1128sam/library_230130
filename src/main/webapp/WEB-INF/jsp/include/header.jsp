@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-end col-2">
 	<c:if test="${empty userId}">
 		<div class="d-flex align-items-end">
-			<a href="/user/sign_in_view" class="mr-3">로그인</a><a href="/user/sign_up_view" class="ml-3">회원가입</a>
+			<a href="/user/sign_in_view" class="mr-3">Log in</a><a href="/user/sign_up_view" class="ml-3">Sign Up</a>
 		</div>
 	</c:if>
 	<section class="d-flex align-items-end">

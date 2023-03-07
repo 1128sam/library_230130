@@ -11,8 +11,8 @@ import com.library.post.model.Post;
 public interface PostDAO {
 	public List<Post> selectPostNoticeList(Integer num);
 
-	/* public List<Post> selectPostNoticeList2(int min); */
-	public int selectPostCnt();
+	public List<Post> selectPostNoticeList2(@Param("min1") int min1, @Param("max") int max, @Param("type") int type);
+	public int selectPostCnt(int type);
 	public Post selectPostIdByPage(int page);
 	public List<Post> selectPostRecommendList(Integer num);
 	public Post selectPostById(int id);

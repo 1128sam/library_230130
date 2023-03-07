@@ -99,7 +99,7 @@ $(document).ready(function() {
 			contentType: false,
 			success: function(data) {
 				if (data.code == 1) {
-					location.href="/post/post_list_view?type=info";
+					location.href="/post/post_list_view?type=info&page=1";
 				} else {
 					alert(data.result);
 				}

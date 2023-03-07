@@ -17,43 +17,46 @@
 					</c:if>
 				</div>
 				<div class="col-9 mt-5">
-						<div class="d-flex"><h4>대출상태 : </h4>
+						<div class="d-flex"><h4>Status : </h4>
 							<c:if test="${book.status eq 0}">
-								<span class="d-flex align-items-center ml-3 text-success">가능</span>
+								<span class="d-flex align-items-center ml-3 text-success">Available</span>
 							</c:if>
 							<c:if test="${book.status eq 1}">
-								<span class="d-flex align-items-center ml-3 text-warning">대여중</span>
+								<span class="d-flex align-items-center ml-3 text-warning">Borrowed</span>
 							</c:if>
 							<c:if test="${book.status eq 2}">
-								<span class="d-flex align-items-center ml-3 text-danger">예약중</span>
+								<span class="d-flex align-items-center ml-3 text-danger">In Reservation</span>
 							</c:if>
 						</div>
-						<div class="d-flex my-2"><h4>반납기한 : </h4><span class="d-flex align-items-center ml-3"><fmt:formatDate value="${dueDate}" pattern="MM.dd(E)" /></span></div>
-						<div class="d-flex my-2">
+						<c:if test="${borrowedUser eq userLoginId}">
+							<div class="d-flex my-2"><h4>Return Date : </h4><span class="d-flex align-items-center ml-3"><fmt:formatDate value="${dueDate}" pattern="MM.dd(E)" /></span></div>
+						</c:if>
+						<%-- <div class="d-flex my-2">
 							<h4>예약상태 : </h4>
 							<c:if test="${book.status eq 0}"><span class="d-flex align-items-center ml-3"></span></c:if>
 							<c:if test="${book.status eq 1}"><span class="d-flex align-items-center ml-3">가능</span></c:if>
 							<c:if test="${book.status eq 2}"><span class="d-flex align-items-center ml-3">예약중</span></c:if>
-						</div>
-						<div class="d-flex my-2"><h4>예약인원 : </h4><span class="d-flex align-items-center ml-3" id="resNum">${registerNum}</span></div>
+						</div> --%>
+						<div class="d-flex my-2"><h4>Reservation Number : </h4><span class="d-flex align-items-center ml-3" id="resNum">${registerNum}</span></div>
 						<c:if test="${userType eq 0}">
-							<div class="d-flex my-2"><h4>대여자 : </h4><span class="d-flex align-items-center ml-3">${borrowedUser}</span></div>
+							<div class="d-flex my-2"><h4>Borrower : </h4><span class="d-flex align-items-center ml-3">${borrowedUser}</span></div>
 						</c:if>
-						<div class="d-flex mt-4"><h4>평점 : </h4><img src="https://cdn.searchenginejournal.com/wp-content/uploads/2021/08/a-guide-to-star-ratings-on-google-and-how-they-work-6123be39b9f2d-sej.jpg" class="ml-1" width="100"></div>
+						<div class="d-flex mt-4"><h4>Rating : <c:if test="${book.point ne 0}">${book.point}</c:if></h4></div>
+						<!-- <img src="https://cdn.searchenginejournal.com/wp-content/uploads/2021/08/a-guide-to-star-ratings-on-google-and-how-they-work-6123be39b9f2d-sej.jpg" class="ml-1" width="100"> -->
 						<div class="d-flex justify-content-end">
 							<c:if test="${book.status eq 0}"><button type="button" id="borrowBtn" class="btn btn-success">대출하기</button></c:if>
 							<c:if test="${(book.status eq 1 || book.status eq 2) && borrowedUser eq null && registeredUser eq null}"><button type="button" id="reserveBtn" class="mx-4 btn btn-primary">Reserve</button></c:if>
 							<c:if test="${book.status eq 2 && registeredUser ne null}"><button type="button" id="cancelReserveBtn" class="mx-4 btn btn-danger">Cancel Reservation</button></c:if>
 							<c:if test="${borrowedUser eq userLoginId}">
-								<button type="button" id="returnBtn1" class="mx-4 btn btn-danger">반납하기</button>
+								<button type="button" id="returnBtn1" class="mx-4 btn btn-danger">Return</button>
 								<div class="d-flex justify-content-end" id="returnConfirm">
 									<input type="number" min='0' max="5" name="point" id="point" class="form-control d-none" placeholder="1 to 5">
-									<button type="button" id="returnBtn2" class="d-none mx-4 btn btn-danger">반납하기</button>
+									<button type="button" id="returnBtn2" class="d-none mx-4 btn btn-danger">Return</button>
 								</div>
 							</c:if>
-							<c:if test="${userType eq 0}"><button type="button" id="modifyBtn" class="btn btn-secondary">수정하기</button></c:if>
+							<c:if test="${userType eq 0}"><button type="button" id="modifyBtn" class="btn btn-secondary">Edit</button></c:if>
 						</div>
-						<button type="button" class="d-none btn btn-success">수정하기</button>
+						<button type="button" class="d-none btn btn-success">Edit</button>
 						
 				</div>
 					<div class="d-flex justify-content-end align-items-start mr-5"><img src="https://cdn.pixabay.com/photo/2016/01/20/18/35/x-1152114_960_720.png" width="35"></div>
@@ -63,11 +66,11 @@
 			<div class="bookStatusBox ml-5">
 				<div class="d-flex align-items-center">
 					<div>
-						<h4 class="font-weight-normal">저자 : ${book.author}</h4>
+						<h4 class="font-weight-normal">Author : ${book.author}</h4>
 						<h4 class="font-weight-normal">ISBN : ${book.isbn}</h4>
-						<h4 class="font-weight-normal">출판사 : ${book.publisher}</h4>
-						<h4 class="font-weight-normal">날짜 : ${book.year}</h4>
-						<h4 class="font-weight-normal">분류 : ${book.category}</h4>
+						<h4 class="font-weight-normal">Publisher : ${book.publisher}</h4>
+						<h4 class="font-weight-normal">Date : ${book.year}</h4>
+						<h4 class="font-weight-normal">Category : ${book.category}</h4>
 					</div>
 				</div>
 			</div>

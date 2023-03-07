@@ -26,35 +26,47 @@ public class PostController {
 
 	@GetMapping("/post_list_view")
 	public String postListView(Model model, @RequestParam("type") String type, HttpSession session, @RequestParam("page") int page) {
+		if (session.getAttribute("userId") == null) {
+			// takes the user to login page when the user is not signed in or the user's session has expired
+			model.addAttribute("viewName", "user/signIn");
+			return "template/layout";
+		}
 		Integer userType = userBO.getUserInfoById((Integer) session.getAttribute("userId")).getType();
 		model.addAttribute("userType", userType);
 		if (type.equals("info")) {
 			model.addAttribute("viewName", "post/postNotice");
-			/*
-			 * int max = postBO.getPostCnt(); if (page * 10 >= max) {
-			 * model.addAttribute("postMax", max); } List<Post> noticeList =
-			 * postBO.getPostNoticeList2(page);
-			 */
-			List<Post> noticeList = postBO.getPostNoticeList(0);
-			model.addAttribute("page", page);
-			model.addAttribute("list", noticeList);
-			List<String> userNameList = new ArrayList<String>();
-			for (int i = 0; i < noticeList.size(); i++) {
-				// get userNames and insert them into userNameList using postId
-				userNameList.add(userBO.getUserNameByUserId(noticeList.get(i).getUserId()));
+			int max = postBO.getPostCnt(0);
+			if (page * 10 >= max) {
+				model.addAttribute("postMax", max);
 			}
-			model.addAttribute("userNameList", userNameList);
-		} else if (type.equals("rec")) {
-			model.addAttribute("viewName", "post/postRecommend");
-			List<Post> recommendList = postBO.getPostRecommendList(0);
-			model.addAttribute("list", recommendList);
-			List<String> userNameList = new ArrayList<String>();
+		List<Post> noticeList = postBO.getPostNoticeList2(page, 0);
 
-			for (int i = 0; i < recommendList.size(); i++) {
-				userNameList.add(userBO.getUserNameByUserId(recommendList.get(i).getUserId()));
-			}
-			model.addAttribute("userNameList", userNameList);
+		model.addAttribute("page", page);
+		model.addAttribute("list", noticeList);
+		List<String> userNameList = new ArrayList<>();
+		for (int i = 0; i < noticeList.size(); i++) {
+			// get userNames and insert them into userNameList using postId
+			userNameList.add(userBO.getUserNameByUserId(noticeList.get(i).getUserId()));
 		}
+		model.addAttribute("userNameList", userNameList);
+	} else if (type.equals("rec")) {
+		model.addAttribute("viewName", "post/postRecommend");
+		int max = postBO.getPostCnt(1);
+		if (page * 10 >= max) {
+			model.addAttribute("postMax", max);
+		}
+		List<Post> recommendList = postBO.getPostNoticeList2(page, 1);
+
+		model.addAttribute("page", page);
+		model.addAttribute("list", recommendList);
+		model.addAttribute("list", recommendList);
+		List<String> userNameList = new ArrayList<String>();
+
+		for (int i = 0; i < recommendList.size(); i++) {
+			userNameList.add(userBO.getUserNameByUserId(recommendList.get(i).getUserId()));
+		}
+		model.addAttribute("userNameList", userNameList);
+	}
 		return "template/layout";
 	}
 

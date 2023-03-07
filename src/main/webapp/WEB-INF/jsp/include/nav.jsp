@@ -3,9 +3,9 @@
 <nav class="menu col-8">
 	<ul class="nav nav-fill">
 		<c:if test="${userType eq 0}">
-		<li class="nav-item"><a href="/admin/admin_view" class="nav-link">관리자</a></li></c:if>
-		<li class="nav-item"><a href="/main/category_list_view" class="nav-link">분류별 보기</a></li>
-		<li class="nav-item"><a href="/post/post_list_view?type=info" class="nav-link">공지사항</a></li>
-		<li class="nav-item"><a href="/post/post_list_view?type=rec" class="nav-link">도서추천</a></li>
+		<li class="nav-item"><a href="/admin/admin_view" class="nav-link">Admin</a></li></c:if>
+		<li class="nav-item"><a href="/main/category_list_view" class="nav-link">Category</a></li>
+		<li class="nav-item"><a href="/post/post_list_view?type=info&page=1" class="nav-link">Notice</a></li>
+		<li class="nav-item"><a href="/post/post_list_view?type=rec&page=1" class="nav-link">Recommendation</a></li>
 	</ul>
 </nav>

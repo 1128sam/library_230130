@@ -4,7 +4,7 @@
 			<div class="col-5 input-group d-flex justify-content-center align-items-end mb-3">
 				<div id="search1" class="d-flex w-100">
 					<input type="text" id="search" name="search" class="form-control">
-					<button id="searchBtn" class="btn btn-secondary" type="button">검색</button>
+					<button id="searchBtn" class="btn btn-secondary" type="button">Search</button>
 				</div>
 			</div>
 		</section>
@@ -13,23 +13,23 @@
 			<div class="col-7 d-flex justify-content-around align-items-start">
 				<label for="general">
 					<input type="radio" id="searchType" name="searchType" value="general" checked>
-					<span class="searchTypeRadio">전체</span>
+					<span class="searchTypeRadio">General</span>
 				</label>
 				<label for="title">
 					<input type="radio" id="searchType" name="searchType" value="title">
-					<span class="searchTypeRadio">서명</span>
+					<span class="searchTypeRadio">Title</span>
 				</label>
 				<label for="author">
 					<input type="radio" id="searchType" name="searchType" value="author">
-					<span class="searchTypeRadio">저자</span>
+					<span class="searchTypeRadio">Author</span>
 				</label>
 				<label for="publisher">
 					<input type="radio" id="searchType" name="searchType" value="publisher">
-					<span class="searchTypeRadio">발행처</span>
+					<span class="searchTypeRadio">Publisher</span>
 				</label>
 				<label for="issn">
 					<input type="radio" id="searchType" name="searchType" value="issn">
-					<span class="searchTypeRadio">ISBN/ISSN</span>
+					<span class="searchTypeRadio">ISBN</span>
 				</label>
 			</div>
 		</div>
@@ -47,7 +47,7 @@ $(document).ready(function() {
 				if (data.code == 1) {
 					location.href = "/main/search_list_view";
 				} else {
-					alert("This shit didn't work.");
+					alert("Failed searching. Please retry.");
 				}
 			},
 			error: function(error) {

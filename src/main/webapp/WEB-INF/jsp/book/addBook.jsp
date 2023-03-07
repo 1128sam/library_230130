@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <div class="section1 d-flex justify-content-center">
 	<div class="postBorder mt-5 pb-4">
-		<h3>도서 추가</h3>
+		<h3>Add Book</h3>
 		<label for="title" class="subject-text my-2">Title</label>
 		<input type="text" id="title" name="title" class="form-control" placeholder="Title" maxlength="128">
 		<label for="author" class="subject-text my-2">Author</label>
@@ -17,17 +17,14 @@
 		<input type="text" id="category" name="category" class="form-control" maxlength="16">
 
 		<div class="file-upload d-flex">
-			<%-- file 태그는 숨겨두고 이미지를 클릭하면 file 태그를 클릭한 것처럼 이벤트를 줄 것이다. --%>
 			<input type="file" id="file" accept=".jpg,.jpeg,.png,.gif">
-			<%-- 이미지에 마우스 올리면 마우스커서가 링크 커서가 변하도록 a 태그 사용 --%>
 			<a href="#" id="fileUploadBtn"><img width="30" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"></a>
 
-			<%-- 업로드 된 임시 파일 이름 저장될 곳 --%>
 			<div id="fileName" class="ml-2"></div>
 		</div>
 
 			<div class="d-flex justify-content-between">
-			<a href="/main/template" type="button" id="deleteBtn" class="btn btn-danger mt-3">삭제</a>
+			<a href="/main/template" type="button" id="deleteBtn" class="btn btn-danger mt-3">DELETE</a>
 				<button type="button" id="newBookBtn" class="btn btn-info mt-3">POST</button>
 			</div>
 	</div>
@@ -119,8 +116,8 @@ $(document).ready(function() {
 	});
 
 	$('#fileUploadBtn').on('click', function(e) {
-		e.preventDefault(); // a 태그의 올라가는 현상 방지
-		$('#file').click(); // input file을 클릭한 것과 같은 효과
+		e.preventDefault();
+		$('#file').click();
 	});
 });
 </script>

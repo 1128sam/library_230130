@@ -12,27 +12,27 @@
 				</div>
 				<div class="col-6 d-flex justify-content-center">
 				<div class="w-50">
-						<label for="userId" class="subject-text my-2">New UserId</label>
+						<label for="userId" class="subject-text my-2">New User ID</label>
 						<input type="text" id="userId" name="userId" class="form-control" placeholder="Enter your new user ID." maxlength="16">
 						<div id="idLengthWarn" class="text-info d-none">
-							<small>아이디를 4자 이상 입력하세요.</small>
+							<small>User Id should be more than 4 characters.</small>
 						</div>
 						<div id="idValCheckWarn" class="text-info d-none">
-							<small>사용중인 아이디입니다.</small>
+							<small>This User ID is in use.</small>
 						</div>
 						<div id="idValCheckPermit" class="text-info d-none">
-							<small>사용 가능한 아이디입니다.</small>
+							<small>This User ID is available.</small>
 						</div>
 						<div id="currentIdWarn" class="text-info d-none">
-							<small>same as current user Id.</small>
+							<small>same as current user ID.</small>
 						</div>
 
 						<label for="password" class="subject-text my-2">Password</label>
-						<input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요">
+						<input type="password" id="password" name="password" class="form-control" placeholder="Enter your Password">
 						<label for="passwordCheck" class="subject-text my-2">Re-enter Your Password</label>
-						<input type="password" id="passwordCheck" name="passwordCheck" class="form-control" placeholder="비밀번호를 다시 입력하세요">
+						<input type="password" id="passwordCheck" name="passwordCheck" class="form-control">
 						<div id="passwordValidWarn" class="text-info d-none">
-							<small>비밀번호가 일치하지 않습니다.</small>
+							<small>Your Password doesn't match.</small>
 						</div>
 
 						<label for="selfVerQue" class="subject-text my-2">Self Vertification Question</label>
@@ -57,7 +57,7 @@
 						</div>
 						</div>
 						
-						<button type="button" id="updateBtn" class="btn btn-info w-100 mt-3">변경하기</button>
+						<button type="button" id="updateBtn" class="btn btn-info w-100 mt-3">UPDATE</button>
 				</div>
 				</div>
 			</div>
