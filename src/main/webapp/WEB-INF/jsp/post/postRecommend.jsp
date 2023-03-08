@@ -26,10 +26,10 @@
 		<div class="d-flex justify-content-center">
 			<div class="d-flex col-2 justify-content-between">
 				<c:if test="${page != 1}">
-					<a href="/post/post_list_view?type=info&page=${page - 1}"><< Previous</a>
+					<a href="/post/post_list_view?type=rec&page=${page - 1}"><<</a>
 				</c:if>
 				<c:if test="${postMax eq null}">
-					<a href="/post/post_list_view?type=info&page=${page + 1}">Next >></a>
+					<a href="/post/post_list_view?type=rec&page=${page + 1}">>></a>
 				</c:if>
 			</div>
 		</div>
