@@ -7,12 +7,12 @@
 		<label for="userId" class="subject-text my-2 mt-2">
                       User ID
               </label>
-              <input type="text" id="userId" name="userId" class="form-control" placeholder="아이디를 입력하세요">
+              <input type="text" id="userId" name="userId" class="form-control" placeholder="User ID">
 
 		<label for="password" class="subject-text my-2">
                       Password
               </label>
-              <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요">
+              <input type="password" id="password" name="password" class="form-control" placeholder="Password">
 
               
               <button type="submit" id="signInBtn" class="btn btn-info w-100 mt-3">Login</button>
