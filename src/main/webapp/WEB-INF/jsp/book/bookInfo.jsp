@@ -31,17 +31,13 @@
 						<c:if test="${borrowedUser eq userLoginId}">
 							<div class="d-flex my-2"><h4>Return Date : </h4><span class="d-flex align-items-center ml-3"><fmt:formatDate value="${dueDate}" pattern="MM.dd(E)" /></span></div>
 						</c:if>
-						<%-- <div class="d-flex my-2">
-							<h4>예약상태 : </h4>
-							<c:if test="${book.status eq 0}"><span class="d-flex align-items-center ml-3"></span></c:if>
-							<c:if test="${book.status eq 1}"><span class="d-flex align-items-center ml-3">가능</span></c:if>
-							<c:if test="${book.status eq 2}"><span class="d-flex align-items-center ml-3">예약중</span></c:if>
-						</div> --%>
-						<div class="d-flex my-2"><h4>Reservation Number : </h4><span class="d-flex align-items-center ml-3" id="resNum">${registerNum}</span></div>
-						<c:if test="${userType eq 0}">
-							<div class="d-flex my-2"><h4>Borrower : </h4><span class="d-flex align-items-center ml-3">${borrowedUser}</span></div>
+						<c:if test="${book.status ne 0}">
+							<div class="d-flex my-2"><h4>Reservation Number : </h4><span class="d-flex align-items-center ml-3" id="resNum">${registerNum}</span></div>
+							<c:if test="${userType eq 0}">
+								<div class="d-flex my-2"><h4>Borrower : </h4><span class="d-flex align-items-center ml-3">${borrowedUser}</span></div>
+							</c:if>
+							<div class="d-flex mt-4"><h4>Rating : <c:if test="${book.point ne 0}">${book.point}</c:if></h4></div>
 						</c:if>
-						<div class="d-flex mt-4"><h4>Rating : <c:if test="${book.point ne 0}">${book.point}</c:if></h4></div>
 						<!-- <img src="https://cdn.searchenginejournal.com/wp-content/uploads/2021/08/a-guide-to-star-ratings-on-google-and-how-they-work-6123be39b9f2d-sej.jpg" class="ml-1" width="100"> -->
 						<div class="d-flex justify-content-end">
 							<c:if test="${book.status eq 0}"><button type="button" id="borrowBtn" class="btn btn-success">대출하기</button></c:if>
@@ -56,10 +52,14 @@
 							</c:if>
 							<c:if test="${userType eq 0}"><button type="button" id="modifyBtn" class="btn btn-secondary">Edit</button></c:if>
 						</div>
-						<button type="button" class="d-none btn btn-success">Edit</button>
-						
+
 				</div>
-					<div class="d-flex justify-content-end align-items-start mr-5"><img src="https://cdn.pixabay.com/photo/2016/01/20/18/35/x-1152114_960_720.png" width="35"></div>
+					<c:if test="${book.status ne 0}">
+						<div class="d-flex justify-content-end align-items-start mr-5"><img src="https://cdn.pixabay.com/photo/2016/01/20/18/35/x-1152114_960_720.png" width="35"></div>
+					</c:if>
+					<c:if test="${book.status eq 0}">
+						<div class="d-flex justify-content-end align-items-start mr-5"><img src="https://cdn.pixabay.com/photo/2016/01/20/18/59/confirmation-1152155_960_720.png" width="35"></div>
+					</c:if>
 			</div>
 		</div>
 		<div class="d-flex justify-content-center mt-5">
@@ -80,6 +80,11 @@
 
 <script>
 $(document).ready(function() {
+	$('#modifyBtn').on('click', function() {
+		alert("수정하기(admin)");
+		location.href="/admin/update_book_view?bookId=" + $('#bookId').val();
+	});
+
 	$('#returnBtn1').on('click', function() {
 		$('#point').removeClass("d-none");
 		$('#returnBtn1').addClass("d-none");
@@ -225,10 +230,6 @@ $(document).ready(function() {
 				alert("failed to borrow. please inquire to admins.");
 			}
 		});
-	});
-
-	$('#modifyBtn').on('click', function() {
-		alert("수정하기(admin)");
 	});
 });
 </script>

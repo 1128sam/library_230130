@@ -29,6 +29,8 @@ public interface BookDAO {
 			@Param("filePath") String filePath
 			);
 
+	public int selectLatestAddedBookIdByISBN(String isbn);
+
 	public Book selectBookByBookId(int id);
 	
 	public int insertRentInfoByUserIdBookId(@Param("userId") int userId, @Param("bookId") int bookId);
@@ -75,4 +77,14 @@ public interface BookDAO {
 	public List<BookStatus> selectBookStatusListOrderByReturnedAt5();
 
 	public List<Book> selectBookOrderByCount5(int type);
+
+	public int updateBook(
+			@Param("id") int id,
+			@Param("title") String title,
+			@Param("author") String author,
+			@Param("isbn") String isbn,
+			@Param("publisher") String publisher,
+			@Param("year") int year,
+			@Param("category") String category
+			);
 }

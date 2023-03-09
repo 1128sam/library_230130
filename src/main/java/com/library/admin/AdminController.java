@@ -43,10 +43,17 @@ public class AdminController {
 		return "template/layout";
 	}
 
+	@GetMapping("/update_book_view")
+	public String updateBookView(Model model, @RequestParam("bookId") int bookId) {
+		model.addAttribute("viewName", "book/updateBook");
+		model.addAttribute("book", bookBO.getBookByBookId(bookId));
+		model.addAttribute("bookId", bookId);
+		return "template/layout";
+	}
+
 	@GetMapping("/overdue_user_view")
 	public String overDueUserListView(Model model, @RequestParam(value="isPassedCheck", required=false) String isPassedCheck) {
 		List<BookStatus> overdueBookStatusList = new ArrayList<>();
-		// (userId) (bookId)
 		if (isPassedCheck == "" || isPassedCheck == null) { // 안거르고
 			overdueBookStatusList = bookBO.getOverdueBookStatusByBookId(""); // from `book_status`
 		} else { // 반납기한 지난것들만

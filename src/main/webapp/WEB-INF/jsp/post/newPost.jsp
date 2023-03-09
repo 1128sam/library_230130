@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <section class="signUp d-flex justify-content-center">
 	<div class="newPostBox">
@@ -43,9 +42,7 @@
 <script>
 $(document).ready(function() {
 	$('#file').on('change', function(e) {
-		//alert("파일 선택");
 		let fileName = e.target.files[0].name; // 07_30_01.png
-		//alert(fileName);
 		
 		// 확장자 유효성 확인
 		let ext = fileName.split(".").pop().toLowerCase();
@@ -88,7 +85,6 @@ $(document).ready(function() {
 		formData.append("content", content);
 		formData.append("type", 0);
 		formData.append("file", $('#file')[0].files[0]);
-		/* console.log(formData); */
 
 		$.ajax({
 			type:"POST",
@@ -130,22 +126,6 @@ $(document).ready(function() {
 			return;
 		}
 
-		/* $.ajax({
-			type:"get",
-			url: "/post/add_post",
-			data: {"title":title, "content":content, "type":1},
-			success: function(data) {
-				if (data.code == 1) {
-					location.href="/post/post_list_view?type=rec";
-				} else {
-					alert(data.result);
-				}
-			},
-			error: function(error) {
-				alert("failed to insert. please inquire to admins.");
-			}
-		}); */
-		
 		let formData = new FormData();
 		formData.append("title", title);
 		formData.append("content", content);
@@ -162,7 +142,7 @@ $(document).ready(function() {
 			contentType: false,
 			success: function(data) {
 				if (data.code == 1) {
-					location.href="/post/post_list_view?type=rec";
+					location.href="/post/post_list_view?type=rec&page=1";
 				} else {
 					alert(data.result);
 				}

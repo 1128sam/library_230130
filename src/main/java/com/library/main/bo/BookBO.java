@@ -43,6 +43,14 @@ public class BookBO {
 		return bookDAO.insertBook(title, author, isbn, publisher, year, category, filePath);
 	}
 
+	public int getLatestAddedBookIdByISBN(String isbn) {
+		return bookDAO.selectLatestAddedBookIdByISBN(isbn);
+	}
+
+	public int updateBook(int id, String title, String author, String isbn, String publisher, int year, String category) {
+		return bookDAO.updateBook(id, title, author, isbn, publisher, year, category);
+	}
+
 	public Book getBookByBookId(int bookId) {
 		return bookDAO.selectBookByBookId(bookId);
 	}

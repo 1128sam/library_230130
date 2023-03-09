@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +33,7 @@ public class AdminRestController {
 
 	@PostMapping("/add_book")
 	public Map<String, Object> addBook(HttpSession session, @RequestParam("title") String title,
-			@RequestParam("author") String author, @RequestParam("issn") String isbn,
+			@RequestParam("author") String author, @RequestParam("isbn") String isbn,
 			@RequestParam("publisher") String publisher, @RequestParam("year") int year,
 			@RequestParam(value = "category", required = false) String category,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
@@ -41,10 +42,29 @@ public class AdminRestController {
 		int row = bookBO.addBook(userName, title, author, isbn, publisher, year, category, file);
 		if (row == 1) {
 			result.put("code", 1);
+			result.put("newId", bookBO.getLatestAddedBookIdByISBN(isbn));
 			result.put("result", "successfully added.");
 		} else {
 			result.put("code", 500);
 			result.put("result", "failed to add.");
+		}
+		return result;
+	}
+
+	@PostMapping("/update_book")
+	public Map<String, Object> addBook(HttpSession session, @RequestParam("id") int id, @RequestParam("title") String title,
+			@RequestParam("author") String author, @RequestParam("isbn") String isbn,
+			@RequestParam("publisher") String publisher, @RequestParam("year") int year,
+			@RequestParam(value = "category", required = false) String category) {
+		Map<String, Object> result = new HashMap<>();
+		int row = bookBO.updateBook(id, title, author, isbn, publisher, year, category);
+		if (row == 1) {
+			result.put("code", 1);
+			result.put("id", id);
+			result.put("result", "successfully updated.");
+		} else {
+			result.put("code", 500);
+			result.put("result", "failed to update.");
 		}
 		return result;
 	}

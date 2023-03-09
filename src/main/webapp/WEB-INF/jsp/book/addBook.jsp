@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="section1 d-flex justify-content-center">
 	<div class="postBorder mt-5 pb-4">
 		<h3>Add Book</h3>
@@ -7,8 +6,8 @@
 		<input type="text" id="title" name="title" class="form-control" placeholder="Title" maxlength="128">
 		<label for="author" class="subject-text my-2">Author</label>
 		<input type="text" id="author" name="author" class="form-control" placeholder="Author" maxlength="64">
-		<label for="issn" class="subject-text my-2">ISBN/ISSN</label>
-		<input type="text" id="issn" name="author" class="form-control" maxlength="20">
+		<label for="isbn" class="subject-text my-2">ISBN/ISSN</label>
+		<input type="text" id="isbn" name="author" class="form-control" maxlength="20">
 		<label for="publisher" class="subject-text my-2">Publisher</label>
 		<input type="text" id="publisher" name="publisher" class="form-control" placeholder="Publisher" maxlength="50">
 		<label for="year" class="subject-text my-2">Year</label>
@@ -34,7 +33,6 @@
 $(document).ready(function() {
 	$('#file').on('change', function(e) {
 		let fileName = e.target.files[0].name; // 07_30_01.png
-		//alert(fileName);
 
 		let ext = fileName.split(".").pop().toLowerCase();
 		if (ext != 'jpg' && ext != 'jpeg' && ext != 'gif' && ext != 'png') {
@@ -58,8 +56,8 @@ $(document).ready(function() {
 			alert("write something.");
 			return;
 		}
-		let issn = $('#issn').val().trim();
-		if (issn == '') {
+		let isbn = $('#isbn').val().trim();
+		if (isbn == '') {
 			alert("write something.");
 			return;
 		}
@@ -88,7 +86,7 @@ $(document).ready(function() {
 		let formData = new FormData();
 		formData.append("title", title);
 		formData.append("author", author);
-		formData.append("issn", issn);
+		formData.append("isbn", isbn);
 		formData.append("publisher", publisher);
 		formData.append("year", year);
 		formData.append("category", category);
@@ -104,7 +102,7 @@ $(document).ready(function() {
 			success: function(data) {
 				if (data.code == 1) {
 					alert(data.result);
-					location.href="/main/template";
+					location.href="/main/book_info_view?bookId=" + data.newId;
 				} else {
 					alert(data.result);
 				}

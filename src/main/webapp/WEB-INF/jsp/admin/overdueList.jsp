@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="section1">
-	<div class="radio bg-warning w-50 d-flex justify-content-center">
+	<div class="radio w-50 d-flex justify-content-center">
 		<label><input type="checkbox" id="isPassDueDate" value="O" <c:if test="${checked ne null}">checked</c:if>>  passed</label>
 	</div>
 	<table class="table">
@@ -44,7 +44,6 @@ $(document).ready(function() {
 		var cb = document.querySelector('#isPassDueDate');
 		if (cb.checked) {
 			var isPassedCheck = "passed";
-			alert(isPassedCheck);
 		} else if (!cb.checked) {
 			alert("canceled");
 			var isPassedCheck = null;
