@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileManagerService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public static final String FILE_UPLOAD_PATH = "D:\\seowonlee\\0_library_project\\workspace\\images/"; 
+//	public static final String FILE_UPLOAD_PATH = "D:\\seowonlee\\0_library_project\\workspace\\images/"; 
 //	public static final String FILE_UPLOAD_PATH = "C:\\AseowonLee\\00_library_project\\workspace\\images/";
 	// aws
 	public static final String FILE_UPLOAD_PATH = "/home/ec2-user/images/"; 
