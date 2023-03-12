@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +20,8 @@ import com.library.post.bo.PostBO;
 import com.library.post.model.Post;
 import com.library.user.bo.UserBO;
 import com.library.user.model.User;
+
+import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/main")
 @Controller

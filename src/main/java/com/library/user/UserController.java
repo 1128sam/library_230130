@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -19,6 +17,8 @@ import com.library.main.bo.BookBO;
 import com.library.main.model.Book;
 import com.library.user.bo.UserBO;
 import com.library.user.model.User;
+
+import jakarta.servlet.http.HttpSession;
 
 @SpringBootApplication
 @EnableScheduling
