@@ -311,7 +311,18 @@
 </select>
 
 <select id="selectBookStatusListOrderByReturnedAt5" resultType="com.library.main.model.BookStatus">
-	SELECT * FROM `book_status`
+	SELECT
+		`id`
+		, `userId`
+		, `bookId`
+		, `borrowedAt`
+		, `dueDate`
+		, `exCount`
+		, `returnedAt`
+		, `point`
+		, `createdAt`
+		, `updatedAt`
+	FROM `book_status`
 		WHERE `returnedAt` is not null GROUP BY `bookId` ORDER BY `returnedAt` DESC LIMIT 5
 </select>
 
