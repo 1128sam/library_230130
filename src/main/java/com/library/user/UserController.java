@@ -75,6 +75,7 @@ public class UserController {
 			returnedBookList.add(bookBO.getBookByBookId(returnedBookIdList.get(i)));
 		}
 		model.addAttribute("returnedBookList", returnedBookList);
+		model.addAttribute("rblCnt", returnedBookList.size());
 
 		List<Book> brl = bookBO.getBookListByUserId(userId2);
 		model.addAttribute("brl", brl);
@@ -82,6 +83,7 @@ public class UserController {
 		model.addAttribute("userId", (Integer) session.getAttribute("userId"));
 		model.addAttribute("userLoginId", (String) session.getAttribute("userLoginId"));
 		model.addAttribute("userName", (String) session.getAttribute("userName"));
+		model.addAttribute("userType", (Integer) session.getAttribute("userType"));
 		model.addAttribute("userType", (Integer) session.getAttribute("userType"));
 		model.addAttribute("userImageUrl", session.getAttribute("userImageUrl"));
 		model.addAttribute("viewName", "user/userProfile");
@@ -105,6 +107,16 @@ public class UserController {
 		// taking the real answer to valid-check with the inputed answer.(evaluating in view page)
 		session.setAttribute("email", session.getAttribute("email"));
 		session.setAttribute("legitAns", userBO.getUserByEmail((String) session.getAttribute("email")).getSelf_vertify_ans());
+		int que = Integer.valueOf(userBO.getUserByEmail((String) session.getAttribute("email")).getSelf_vertify_que());
+		String question = "What is your name?";
+		if (que == 1) {
+			question = "What is your favorite Movie?";
+		} else if (que == 2) {
+			question = "What is your father's name?";
+		} else if (que == 3) {
+			question = "Who was your childhood hero?";
+		}
+		session.setAttribute("question", question);
 		model.addAttribute("viewName", "user/accountRestore");
 		return "template/layout";
 	}

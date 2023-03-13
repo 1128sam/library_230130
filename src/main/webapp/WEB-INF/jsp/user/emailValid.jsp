@@ -24,7 +24,6 @@
 $(document).ready(function() {
 	$('#continueBtn').on('click', function(e) {
 		e.preventDefault();
-
 		let email = $('#email').val().trim();
 
 		if (email == '') {
@@ -37,14 +36,13 @@ $(document).ready(function() {
 			data: {"email" : email},
 			success: function(data) {
 				if (data.code == 1) {
-					alert("found email");
 					location.href = "/user/account_restore_view";
 				} else {
 					alert("There is no account signed up with this email address. Please retry.");
 				}
 			},
 			error: function(error) {
-				alert("failed to check email. please inquire to admins.");
+				alert("failed to check your email. please inquire to admin.");
 			}
 		});
 	});

@@ -4,13 +4,32 @@
  
 <mapper namespace="com.library.post.dao.PostDAO">
 	<select id="selectPostNoticeList" parameterType="int" resultType="com.library.post.model.Post">
-		select * from `post` where `type` = 0 order by `updatedAt` desc
+		select
+			`id`
+			, `type`
+			, `title`
+			, `userId`
+			, `content`
+			, `filePath`
+			, `createdAt`
+			, `updatedAt`
+		from `post`
+			where `type` = 0 order by `updatedAt` desc
 		<if test="num == 5 || num == 10">
 			limit #{limit}
 		</if>
 	</select>
 	<select id="selectPostNoticeList2" parameterType="map" resultType="com.library.post.model.Post">
-		select * from `post`
+		select
+			`id`
+			, `type`
+			, `title`
+			, `userId`
+			, `content`
+			, `filePath`
+			, `createdAt`
+			, `updatedAt`
+		from `post`
 		<if test="type == 0">
 			where `type` = #{type}
 		</if>
@@ -20,21 +39,48 @@
 		order by `createdAt` DESC LIMIT #{min1}, #{max}
 	</select>
 	<select id="selectPostIdByPage" parameterType="int" resultType="com.library.post.model.Post">
-		select * from `post` where `type` = 0 order by `createdAt` DESC LIMIT 0, 5
+		select
+			`id`
+			, `type`
+			, `title`
+			, `userId`
+			, `content`
+			, `filePath`
+			, `createdAt`
+			, `updatedAt`
+		from `post` where `type` = 0 order by `createdAt` DESC LIMIT 0, 5
 	</select>
 	<select id="selectPostCnt" parameterType="int" resultType="int">
 		select COUNT(*) from `post` where `type` = #{type}
 	</select>
 
 	<select id="selectPostRecommendList" parameterType="int" resultType="com.library.post.model.Post">
-		select * from `post` where `type` = 1 order by `updatedAt` desc
+		select
+			`id`
+			, `type`
+			, `title`
+			, `userId`
+			, `content`
+			, `filePath`
+			, `createdAt`
+			, `updatedAt`
+		from `post` where `type` = 1 order by `updatedAt` desc
 		<if test="num == 5">
 			limit #{limit}
 		</if>
 	</select>
 
 	<select id="selectPostById" parameterType="int" resultType="com.library.post.model.Post">
-		select * from `post` where `id` = #{id}
+		select
+			`id`
+			, `type`
+			, `title`
+			, `userId`
+			, `content`
+			, `filePath`
+			, `createdAt`
+			, `updatedAt`
+		from `post` where `id` = #{id}
 	</select>
 
 	<insert id="insertPost" parameterType="map">

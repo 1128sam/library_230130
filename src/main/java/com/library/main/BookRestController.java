@@ -43,6 +43,9 @@ public class BookRestController {
 		if (book.getStatus() == 0) {
 			int row = bookBO.addRentInfo((int) session.getAttribute("userId"), bookId);
 			if (row == 1) {
+				if (bookBO.getRegisteredBookListByBookId(bookId).get(0).getUserId() == (int) session.getAttribute("userId")) {
+					bookBO.cancelRegisteration((int) session.getAttribute("userId"), bookId);
+				}
 				result.put("code", 1);
 				result.put("result", "successfully borrowed. Please come and pick up your book.");
 				bookBO.updateBookStatusAs1(bookId);

@@ -9,6 +9,9 @@ a {text-decoration: none; color:#000;}
 a:hover {text-decoration: none; color: #777;}
 
 header {width:1200px; height:80px;}
+#font1 {font-family: 'Kanit', sans-serif;}
+#font2 {font-family: 'Josefin Sans', sans-serif; font-size: 20px;}
+#font2 {font-family: 'Josefin Sans', sans-serif; font-size: 20px;}
 #menu1 {width: 1200px; height: 50px;}
 /* #menu1 a {text-decoration: none; color:#000;}
 #menu1 a:hover {color: #777;} */
@@ -22,7 +25,38 @@ header {width:1200px; height:80px;}
 .section1 {width: 1200px; min-height: 450px;}
 .popularBooksBox {width: max; height:300px;}
 .imgBox {width:100px; height:120px; background-color:#999;}
-.bookDisplayBox {width: 130px; height: 250px; border: 1px solid;}
+.bookDisplayBox {width: 150px; height: 250px; border: 1px solid;}
+
+
+
+.star-rating {
+  border:solid 1px #ccc;
+  display:flex;
+  flex-direction: row-reverse;
+  font-size:1.5em;
+  justify-content:space-around;
+  padding:0 .2em;
+  text-align:center;
+  width:5em;
+}
+
+.star-rating input {
+  display:none;
+}
+
+.star-rating label {
+  color:#ccc;
+  cursor:pointer;
+}
+
+.star-rating :checked ~ label {
+  color:#f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color:#fc0;
+}
 
 .section2 {width: 1200px; height: 400px;}
 .post {height:400px;}
@@ -42,6 +76,7 @@ footer{width:1200px; height:90px;}
 .profileBox {height: 300px; width: 1100px; border: 1px solid;}
 .bookInfoBox {height: 250px; width: 1100px; border: 1px solid;}
 .bookImgBox {width:150px; height:180px; background-color:#999;}
+.section3 {width: 1200px; min-height: 50px;}
 
 /* profileUpdate */
 .profileUpdateBox {height: 500px; width: 1100px; border: 1px solid;}

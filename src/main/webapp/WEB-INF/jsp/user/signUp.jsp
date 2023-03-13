@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <section class="signUp d-flex justify-content-center">
 	<div class="sign-up-box">
 		<h1 class="d-flex justify-content-center mt-3">Sign Up</h1>
@@ -33,6 +32,19 @@
 			<label for="email" class="subject-text my-2">Email</label> <input
 				type="email" id="email" name="email" class="form-control"
 				placeholder="Enter your email address.">
+			<div id="emailValidMessage" class="text-danger d-none">
+				<small>Enter a valid email address.</small>
+			</div>
+
+			<label for="selfVerQue" class="subject-text my-2">Identification Question</label>
+						<select id="selfVerQue" name="selfVerQue" class="form-control mb-1">
+						  <option value="selectX">-- OPTIONS --</option>
+						  <option value="que1">What is your favorite Movie?</option>
+						  <option value="que2">What is your father's name?</option>
+						  <option value="que3">Who was your childhood hero?</option>
+						  <%-- <option value="audi" <c:if test="${question eq 'audi'}">selected</c:if>>Audi</option> --%>
+						</select>
+						<input type="text" id="selfVerAns" name="selfVerAns" class="form-control" placeholder="Answer the Question" maxlength="256" value="${answer}">
 			<div id="emailValidMessage" class="text-danger d-none">
 				<small>Enter a valid email address.</small>
 			</div>
@@ -84,6 +96,8 @@ $(document).ready(function() {
 		var password = $('#password').val();
 		var passwordCheck = $('#passwordCheck').val();
 		var email = $('#email').val().trim();
+		var selfVerQue = $('#selfVerQue').val();
+		var selfVerAns = $('#selfVerAns').val().trim();
 		
 		if (name.length < 1) {
 			alert("Enter your name.");
@@ -104,12 +118,20 @@ $(document).ready(function() {
 			alert("Please enter your email address.");
 			return;
 		}
+		if (selfVerQue == "selectX") {
+			alert("Please choose an Identification question.");
+			return;
+		}
+		if (selfVerAns.length < 1) {
+			alert("Please enter your answer to Identification Question.");
+			return;
+		}
 		
 		if ($('#idLengthWarn').hasClass('d-none') == false) {
-			alert("Please confirm your id validation.");
+			alert("Please confirm your ID validation.");
 			return;
 		} else if ($('#idValCheckPermit').hasClass('d-none')) {
-			alert("your userid is currently being used.");
+			alert("your user ID is currently being used.");
 			return;
 		}
 
@@ -120,10 +142,10 @@ $(document).ready(function() {
 		$.post(url, params)
 		.done(function(data) {
 			if (data.result == "success") {
-				alert("Successfully signed in. Please log in.");				
+				alert("Successfully signed up. Please log in.");				
 				location.href="/user/sign_in_view";
 			} else {
-				alert("Failed to sign in. Please retry.");
+				alert("Failed to sign up. Please retry.");
 			}
 		});
 	});

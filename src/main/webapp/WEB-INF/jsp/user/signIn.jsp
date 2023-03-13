@@ -1,25 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <section class="signUp d-flex justify-content-center">
 	<div class="sign-up-box">
-		<h1 class="mt-5">Login</h1>
+		<h1 class="mt-5" id="font1">Login</h1>
 
 	<form method="post" action="/user/sign_in" id="signInForm">
-		<label for="userId" class="subject-text my-2 mt-2">
+		<label for="userId" id="font2" class="subject-text my-2 mt-2">
                       User ID
               </label>
               <input type="text" id="userId" name="userId" class="form-control" placeholder="User ID">
 
-		<label for="password" class="subject-text my-2">
+		<label for="password" id="font2" class="subject-text my-2">
                       Password
               </label>
               <input type="password" id="password" name="password" class="form-control" placeholder="Password">
 
               
-              <button type="submit" id="signInBtn" class="btn btn-info w-100 mt-3">Login</button>
+              <button type="submit" id="signInBtn" class="btn btn-info w-100 mt-3"><span id="font2">Sign in</span></button>
               </form>
 		<section class="d-flex justify-content-between my-2">
-			<a href="/user/sign_up_view">Don't have an account?</a><br>
-			<a href="/user/email_validation_view">Forgot Password?</a>
+			<a href="/user/sign_up_view" id="font2">Don't have an account?</a><br>
+			<a href="/user/email_validation_view" id="font2">Forgot Your Password?</a>
 		</section>
 	</div>
 </section>

@@ -72,6 +72,10 @@ public class PostController {
 
 	@GetMapping("/post_view")
 	public String postView(Model model, @RequestParam("postId") int id, HttpSession session) {
+		if (session.getAttribute("userId") == null) {
+			model.addAttribute("viewName", "user/signIn");
+			return "template/layout";
+		}
 		model.addAttribute("viewName", "/post/postView");
 		Post post = postBO.getPostById(id);
 		model.addAttribute("postUserName", userBO.getUserNameByUserId(post.getUserId()));
@@ -81,7 +85,11 @@ public class PostController {
 	}
 
 	@GetMapping("/new_post_view")
-	public String newPostView(Model model, @RequestParam("type") int type) {
+	public String newPostView(Model model, @RequestParam("type") int type, HttpSession session) {
+		if (session.getAttribute("userId") == null) {
+			model.addAttribute("viewName", "user/signIn");
+			return "template/layout";
+		}
 		model.addAttribute("type", type);
 		model.addAttribute("viewName", "/post/newPost");
 		return "template/layout";

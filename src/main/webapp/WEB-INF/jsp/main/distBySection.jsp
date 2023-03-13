@@ -6,21 +6,21 @@
 		<div class="categoryBox d-flex justify-content-between">
 		<c:forEach var="var" begin="1" end="3">
 			<div class="sectionBox"><a href="/main/search_list_view?category=${var*100}">
-				<div class="h-100 d-flex justify-content-center align-items-center">${var*100}</div></a>
+				<div class="h-100 d-flex justify-content-center align-items-center" id="font2">${var*100}</div></a>
 			</div>
 		</c:forEach>
 		</div>
 		<div class="categoryBox d-flex justify-content-between">
 		<c:forEach var="var" begin="4" end="6">
 			<div class="sectionBox"><a href="/main/search_list_view?category=${var*100}">
-				<div class="h-100 d-flex justify-content-center align-items-center">${var*100}</div></a>
+				<div class="h-100 d-flex justify-content-center align-items-center" id="font2">${var*100}</div></a>
 			</div>
 		</c:forEach>
 		</div>
 		<div class="categoryBox d-flex justify-content-between">
 		<c:forEach var="var" begin="7" end="9">
 			<div class="sectionBox"><a href="/main/search_list_view?category=${var*100}">
-				<div class="h-100 d-flex justify-content-center align-items-center">${var*100}</div></a>
+				<div class="h-100 d-flex justify-content-center align-items-center" id="font2">${var*100}</div></a>
 			</div>
 		</c:forEach>
 		</div>

@@ -42,7 +42,10 @@ public class MainController {
 		model.addAttribute("recList", recommendList);
 		List<BookStatus> bsl = (List<BookStatus>) session.getAttribute("overdueBookStatusList");
 		if (bsl != null) { // if the user has no books to return, we have nothing to alert, so I am going to show the list to the users who has books to return.
-			model.addAttribute("overdueBookStatusList", bsl);
+			if (bsl.size() > 0) {
+				model.addAttribute("temp", 1);
+//				popUpView(model, session);
+			}
 		}
 
 		List<BookStatus> recent5 = bookBO.getBookStatusListOrderByReturnedAt5().stream().distinct().collect(Collectors.toList());;
@@ -121,6 +124,11 @@ public class MainController {
 				model.addAttribute("borrowedUser", userBO.getUserNameByUserId(bs.getUserId()));
 			}
 			model.addAttribute("dueDate", bs.getDueDate());
+		} else if (book.getStatus() == 0 && bookBO.getRegisteredBookCountByBookId(bookId) > 0) {
+			if (bookBO.getRegisteredBookListByBookId(bookId).get(0).getUserId() == (int) session.getAttribute("userId")) {
+				model.addAttribute("firstInLine", 1);
+			}
+			model.addAttribute("temp", bookBO.getRegisteredBookListByBookId(bookId));
 		}
 		model.addAttribute("book", book);
 		model.addAttribute("viewName", "book/bookInfo");

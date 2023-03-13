@@ -48,6 +48,7 @@ public class MailRestController {
 	}
 
 	@Scheduled(cron = "0 10 6 * * *")
+	// sending an alert email to the user that he/she has a week left to return the book.
 	public void sendAlertMailOneWeek() {
 		List<BookStatus> bsl = bookBO.getBookStatus1Week();
 		for (int i = 0; i < bsl.size(); i++) {
