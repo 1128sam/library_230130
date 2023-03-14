@@ -3,6 +3,8 @@ package com.library.post;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.library.post.bo.PostBO;
 import com.library.post.model.Post;
 import com.library.user.bo.UserBO;
-
-import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/post")
 @RestController
