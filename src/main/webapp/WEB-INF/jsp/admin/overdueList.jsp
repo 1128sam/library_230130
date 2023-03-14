@@ -8,27 +8,27 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th class="col-8">Title</th>
+				<th class="col-7">Title</th>
 				<th class="col-2">Return Date</th>
-				<th class="col-1">UserId</th>
-				<th class="col-1">rand</th>
+				<th class="col-1">User ID</th>
+				<th class="col-2">days left / passed</th>
 			</tr>
 		</thead>
 		<tbody>
 		<c:forEach var="bookList" items="${overdueBookList}" varStatus="vs">
 			<tr>
-				<td class="col-8"><a href="/main/book_info_view?bookId=${bookList.id}">${bookList.title}</a></td>
+				<td class="col-7"><a href="/main/book_info_view?bookId=${bookList.id}">${bookList.title}</a></td>
 				<td class="col-2"><small><fmt:formatDate value="${overdueBookStatusList.get(vs.index).dueDate}" pattern="MM.d"/></small></td>
 				<td class="col-1">${overdueUserList.get(vs.index).getUserId()}</td>
 
 					<fmt:formatNumber var="date" type="number" value="${Math.floor((overdueBookStatusList.get(vs.index).dueDate.getTime() - nowDate.getTime()) / (1000 * 60 * 60 * 24)) + 1}"/>
 					<c:if test="${date < 0}">
-						<td class="col-1 text-danger">
+						<td class="col-2 text-danger">
 							${-date} days passed
 						</td>
 					</c:if>
 					<c:if test="${date > 0}">
-						<td class="col-1 text-primary">
+						<td class="col-2 text-primary">
 							${date} days left
 						</td>
 					</c:if>
@@ -45,7 +45,6 @@ $(document).ready(function() {
 		if (cb.checked) {
 			var isPassedCheck = "passed";
 		} else if (!cb.checked) {
-			alert("canceled");
 			var isPassedCheck = null;
 		}
 

@@ -47,7 +47,7 @@ $(document).ready(function() {
 		// 확장자 유효성 확인
 		let ext = fileName.split(".").pop().toLowerCase();
 		if (ext != 'jpg' && ext != 'jpeg' && ext != 'gif' && ext != 'png') {
-			alert("이미지 파일만 업로드 할 수 있습니다.");
+			alert("이미지 파일만 업로드 할 수 1있습니다.");
 			$('#file').val(''); // 파일 태그에 실제 파일 제거
 			$("#fileName").text(''); // 파일 이름 비우기
 			return;
@@ -68,10 +68,12 @@ $(document).ready(function() {
 			alert("write something.");
 			return;
 		}
-		let file = $('#file').val();
-		
+		var file = $('#file').val();
+		alert(1);
+
 		if (file != '') {
-			alert(file.split(".").pop().toLowerCase());
+			console.log("file: " + file);
+			// alert(file.split(".").pop().toLowerCase());
 			let ext = file.split(".").pop().toLowerCase();
 			if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) {
 				alert("이미지 파일만 업로드 할 수 있습니다.");
@@ -119,11 +121,15 @@ $(document).ready(function() {
 		}
 		
 		let file = $('#file').val();
-		let ext = file.split('.').pop().toLowerCase(); // 파일 경로를 .으로 나누고 확장자가 있는 마지막 문자열을 가져온 후 모두 소문자로 변경
-		if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-			alert("gif, png, jpg, jpeg 파일만 업로드 할 수 있습니다.");
-			$('#file').val(''); // 파일을 비운다.
-			return;
+		if (file != '') {
+			console.log("file: " + file);
+			// alert(file.split(".").pop().toLowerCase());
+			let ext = file.split(".").pop().toLowerCase();
+			if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) {
+				alert("이미지 파일만 업로드 할 수 있습니다.");
+				$('#file').val(""); // 파일을 비운다.
+				return;
+			}
 		}
 
 		let formData = new FormData();

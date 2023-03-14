@@ -46,7 +46,7 @@ public class UserRestController {
 			if (user.getImageUrl() != null || user.getImageUrl() != "") {
 				session.setAttribute("userImageUrl", user.getImageUrl());
 			}
-			List<BookStatus> bsl = bookBO.getOverdueBookStatusByUserId(user.getId());
+			List<BookStatus> bsl = bookBO.getNotReturnedBookStatusByUserId(user.getId());
 			if (bsl != null) {
 				session.setAttribute("overdueBookStatusList", bsl);
 			}
@@ -66,12 +66,15 @@ public class UserRestController {
 			@RequestParam("name") String name,
 			@RequestParam("userId") String userId,
 			@RequestParam("password") String password,
-			@RequestParam("email") String email
+			@RequestParam("email") String email,
+			@RequestParam("selfVerQue") String selfVerQue,
+			@RequestParam("selfVerAns") String selfVerAns
 			) {
 		Map<String, Object> result = new HashMap<>();
 		
 		String encryptPassword = EncryptUtils.md5(password);
-		int row = userBO.addUser(name, userId, encryptPassword, email);
+		int question = Integer.valueOf(selfVerQue.substring(3));
+		int row = userBO.addUser(name, userId, encryptPassword, email, question, selfVerAns);
 		if (row == 1) {
 			result.put("result", "success");
 		} else {
@@ -103,11 +106,8 @@ public class UserRestController {
 			HttpSession session
 			) {
 		Map<String, Object> result = new HashMap<>();
-		int question = 0;
 		String encryptPassword = EncryptUtils.md5(password);
-		if (selfVerQue.equals("volvo")) {
-			question = 2;
-		}
+		int question = Integer.valueOf(selfVerQue.substring(3));
 
 		int row = userBO.updateUserProfile((int) session.getAttribute("userId"), userId, encryptPassword, question, selfVerAns, file);
 

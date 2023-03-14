@@ -8,14 +8,19 @@
 		<section class="section1 d-flex justify-content-center mt-5">
 			<div class="profileUpdateBox d-flex">
 				<div class="col-6 h-100 d-flex justify-content-center align-items-center">
-					<img src="https://i.pinimg.com/originals/ca/52/e6/ca52e6e168595f767c2121a68cc227b0.jpg" alt="profile img" width="200">
+				<c:if test="${userImageUrl eq null}">
+					<img src="https://i.pinimg.com/originals/ca/52/e6/ca52e6e168595f767c2121a68cc227b0.jpg" alt="null-profile-img" width="200">
+				</c:if>
+				<c:if test="${userImageUrl ne null}">
+					<img src="${userImageUrl}" alt="profile-img" width="200" id="pageProfileImg">
+				</c:if>
 				</div>
 				<div class="col-6 d-flex justify-content-center">
 				<div class="w-50">
 						<label for="userId" class="subject-text my-2">New User ID</label>
-						<input type="text" id="userId" name="userId" class="form-control" placeholder="Enter your new user ID." maxlength="16">
+						<input type="text" id="userId" name="userId" class="form-control" placeholder="Enter your new user ID" maxlength="16">
 						<div id="idLengthWarn" class="text-info d-none">
-							<small>User Id should be more than 4 characters.</small>
+							<small>User ID should be more than 4 characters.</small>
 						</div>
 						<div id="idValCheckWarn" class="text-info d-none">
 							<small>This User ID is in use.</small>
@@ -24,7 +29,7 @@
 							<small>This User ID is available.</small>
 						</div>
 						<div id="currentIdWarn" class="text-info d-none">
-							<small>same as current user ID.</small>
+							<small>same as current User ID.</small>
 						</div>
 
 						<label for="password" class="subject-text my-2">Password</label>
@@ -35,23 +40,20 @@
 							<small>Your Password doesn't match.</small>
 						</div>
 
-						<label for="selfVerQue" class="subject-text my-2">Self Vertification Question</label>
+						<label for="selfVerQue" class="subject-text my-2">Identification Question</label>
 						<select id="selfVerQue" name="selfVerQue" class="form-control mb-1">
 						  <option value="selectX">-- OPTIONS --</option>
-						  <option value="volvo" <c:if test="${question eq 'volvo'}">selected</c:if>>Volvo</option>
-						  <option value="saab" <c:if test="${question eq 'saab'}">selected</c:if>>Saab</option>
-						  <option value="fiat" <c:if test="${question eq 'fiat'}">selected</c:if>>Fiat</option>
-						  <option value="audi" <c:if test="${question eq 'audi'}">selected</c:if>>Audi</option>
+						  <option value="que1" <c:if test="${question eq 'volvo'}">selected</c:if>>What is your favorite Movie?</option>
+						  <option value="que2" <c:if test="${question eq 'saab'}">selected</c:if>>What is your father's name?</option>
+						  <option value="que3" <c:if test="${question eq 'fiat'}">selected</c:if>>Who was your childhood hero?</option>
+						  <%-- <option value="audi" <c:if test="${question eq 'audi'}">selected</c:if>>Audi</option> --%>
 						</select>
 						<input type="text" id="selfVerAns" name="selfVerAns" class="form-control" placeholder="Answer the Question" maxlength="256" value="${answer}">
 						<div class="fileAttachBox d-flex justify-content-between">
 							<div class="file-upload d-flex">
-							<%-- file 태그는 숨겨두고 이미지를 클릭하면 file 태그를 클릭한 것처럼 이벤트를 줄 것이다. --%>
 							<input type="file" id="file" accept=".jpg,.jpeg,.png,.gif">
-							<%-- 이미지에 마우스 올리면 마우스커서가 링크 커서가 변하도록 a 태그 사용 --%>
 							<a href="#" id="fileUploadBtn"><img width="30" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"></a>
 		
-							<%-- 업로드 된 임시 파일 이름 저장될 곳 --%>
 							<div id="fileName" class="ml-2">
 							</div>
 						</div>
@@ -95,7 +97,7 @@ $(document).ready(function() {
 				}
 			},
 			error: function(error) {
-				alert("failed to check userId validation. please inquire to admins.");
+				alert("failed to check user ID validation. please inquire to admin.");
 			}
 		});
 	});
@@ -119,7 +121,6 @@ $(document).ready(function() {
 	});
 
 	$('#updateBtn').on('click', function() {
-
 		let userId = $('#userId').val().trim();
 		let password = $('#password').val();
 		let passwordCheck = $('#passwordCheck').val();
@@ -137,7 +138,7 @@ $(document).ready(function() {
 		}
 
 		if (userId.length < 1) {
-			alert("Please enter your new userID.");
+			alert("Please enter your new user ID.");
 			return;
 		}
 		if (password.length < 1 || passwordCheck.length < 1) {
@@ -152,21 +153,20 @@ $(document).ready(function() {
 			return;
 		}
 		if (selfVerAns.length < 1) {
-			alert("Please write your answer to self vertification Q.");
+			alert("Please write your answer to self vertification Question.");
 			return;
 		}
 
 		if ($('#idLengthWarn').hasClass('d-none') == false) {
-			alert("Please confirm your id validation.");
+			alert("Please confirm your ID validation.");
 			return;
 		} else if ($('#idValCheckPermit').hasClass('d-none')) {
 			 /* if ($('#currentIdWarn').hasClass('d-none') == false) {
 			 	return;
 			 } */
-			alert("your userid is currently being used.");
+			alert("your User ID is currently being used.");
 			return;
 		}
-		alert(userId + " " + password + " " + passwordCheck + " " + selfVerQue + " " + selfVerAns + " " + file);
 		let formData = new FormData();
 		formData.append("userId", userId);
 		formData.append("password", password);

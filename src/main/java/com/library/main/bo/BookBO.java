@@ -127,6 +127,10 @@ public class BookBO {
 		return bookDAO.selectOverdueBookStatusByBookId(tmp, date);
 	}
 
+	public List<BookStatus> getNotReturnedBookStatusByUserId(int userId) {
+		return bookDAO.selectNotReturnedBookStatusByUserId(userId);
+	}
+
 	public List<BookStatus> getOverdueBookStatusByUserId(int userId) {
 		return bookDAO.selectOverdueBookStatusByUserId(userId);
 	}

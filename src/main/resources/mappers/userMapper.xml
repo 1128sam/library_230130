@@ -25,19 +25,43 @@
 				, #{name}
 				, #{email}
 				, NULL
-				, 1
-				, 'test'
+				, #{que}
+				, #{ans}
 				, NOW()
 				, NOW()
 			)
 	</insert>
 	
 	<select id="selectUserList" resultType="com.library.user.model.User">
-		SELECT * FROM `user`
+		SELECT
+			`id`
+			, `userId`
+			, `password`
+			, `type`
+			, `name`
+			, `email`
+			, `imageUrl`
+			, `self_vertify_que`
+			, `self_vertify_ans`
+			, `createdAt`
+			, `updatedAt`
+		FROM `user`
 	</select>
 
 	<select id="selectUserListByUserId" resultType="com.library.user.model.User">
-		SELECT * FROM `user` WHERE `id` = #{userId}
+		SELECT
+			`id`
+			, `userId`
+			, `password`
+			, `type`
+			, `name`
+			, `email`
+			, `imageUrl`
+			, `self_vertify_que`
+			, `self_vertify_ans`
+			, `createdAt`
+			, `updatedAt`
+		FROM `user` WHERE `id` = #{userId}
 	</select>
 
 	<select id="userIdValid" resultType="int">

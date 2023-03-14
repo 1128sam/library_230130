@@ -4,51 +4,29 @@
 	<div class="postBorder mt-5">
 		<div class="d-flex">
 			<input type="number" id="postId" class="d-none" value="${post.id}">
-			<h2 class="col-10">${post.title}</h2>
-			<span class="col-1">${postUserName}</span>
-			<c:if test="${post.userId eq sessUserId}">
-				<div class="col-1"><button type="button" id="postDeleteBtn" class="btn btn-danger">Delete</button><a href="/post/update_post_view?postId=${post.id}" id="postUpdateBtn" class="btn btn-secondary mt-1">Update</a></div>
-			</c:if>
+			<div class="col-10">
+				<h1 id="font1">${post.title}</h><br>
+				<span id="font2">${postUserName}</span>
+			</div>
+				<div class="col-1">
+					<c:if test="${post.userId eq sessUserId || userType == 0}"><button type="button" id="postDeleteBtn" class="btn btn-danger"><span id="font2">DELETE</span></button></c:if>
+					<c:if test="${post.userId eq sessUserId}"><a href="/post/update_post_view?postId=${post.id}" id="postUpdateBtn" class="btn btn-secondary mt-1"><span id="font2">UPDATE</span></a></c:if>
+				</div>
 		</div>
 		<div class="d-flex justify-content-center">
 			<c:if test="${post.filePath ne null}">
 				<img src="${post.filePath}" alt="image" width="400">
 			</c:if>
 		</div>
-		<p class="mt-4 ml-3">${post.content}</p>
-	<%-- <c:if test="${post.type == 1}">
-		<div class="commentsBorder mt-5">
-			<div class="commentBox my-4">
-				<span class="m-2">userId1</span><br>
-				<span class="m-2">fdasfdsafdas...</span>
-			</div>
-			<div class="commentBox my-4">
-				<span class="m-2">userId3</span><br>
-				<span class="m-2">fdasfdsafdas...</span>
-			</div>
-			<div class="commentBox my-4">
-				<span class="m-2">userId2</span><br>
-				<span class="m-2">fdasfdsafdas...</span>
-			</div>
-		</div>
-		<c:if test="${userId ne null}">
-		<textarea id="newComment" name="newComment" rows="3" cols="120"></textarea>
-		<button type="button" id="commentUploadBtn" class="btn btn-info mb-4">게시하기</button>
-		</c:if>
-	</c:if> --%>
+		<span class="mt-4 ml-3">${post.content}</span>
 	</div>
 </div>
 
 <script>
 $(document).ready(function() {
-	$('#commentUploadBtn').on('click', function() {
-		
-	});
-	
 	$('#postDeleteBtn').on('click', function() {
 		confirm("Are you sure you want to delete this post?");
 		let postId = $('#postId').val();
-		alert(postId);
 
 		$.ajax({
 			type:"delete",
@@ -57,7 +35,7 @@ $(document).ready(function() {
 			success: function(data) {
 				if (data.code == 1) {
 					alert(data.result);
-					location.href = "/post/post_list_view?type=rec";
+					location.href = "/post/post_list_view?type=rec&page=1";
 				} else {
 					alert(data.result);
 				}

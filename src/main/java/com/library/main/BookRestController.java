@@ -37,12 +37,23 @@ public class BookRestController {
 			result.put("code", 402);
 			result.put("result", "You have reached the maximum numbers of books you can borrow. Please retry after returning your books.");
 			return result;
+		} else if (bookBO.getOverdueBookStatusByUserId((int) session.getAttribute("userId")).size() > 0) {
+			result.put("code", 414);
+			result.put("result", "There are overdue books that needs to be returned. Please retry after returning your book(s).");
+			return result;
 		}
 
 		Book book = bookBO.getBookByBookId(bookId);
 		if (book.getStatus() == 0) {
 			int row = bookBO.addRentInfo((int) session.getAttribute("userId"), bookId);
 			if (row == 1) {
+				if (bookBO.getRegisteredBookCountByBookId(bookId) > 0) {
+					// if there are any waiting lists,
+					if (bookBO.getRegisteredBookListByBookId(bookId).get(0).getUserId() == (int) session.getAttribute("userId")) {
+						// checking if the signed in user is the first person in the waiting list
+						bookBO.cancelRegisteration((int) session.getAttribute("userId"), bookId);
+					}
+				}
 				result.put("code", 1);
 				result.put("result", "successfully borrowed. Please come and pick up your book.");
 				bookBO.updateBookStatusAs1(bookId);
@@ -99,6 +110,10 @@ public class BookRestController {
 		if (statusCnt > 2) {
 			result.put("code", 403);
 			result.put("result", "You have reached the maximum numbers of books you can reserve.");
+			return result;
+		} else if (bookBO.getOverdueBookStatusByUserId((int) session.getAttribute("userId")).size() > 0) {
+			result.put("code", 403);
+			result.put("result", "There are overdue books that needs to be returned. Please retry after returning your book(s).");
 			return result;
 		}
 

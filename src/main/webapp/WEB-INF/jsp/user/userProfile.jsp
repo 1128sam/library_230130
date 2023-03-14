@@ -24,7 +24,7 @@
 							USER
 						</c:if>
 					</span>
-					<div class="d-flex justify-content-end align-items-end mm-3"><input type="button" id="profileUpdateBtn" class="btn btn-info" value="update"></div>
+					<div class="d-flex justify-content-end align-items-end mm-3"><input type="button" id="profileUpdateBtn" class="btn btn-info" value="UPDATE"></div>
 				</div>
 			</div>
 		</section>
@@ -33,7 +33,7 @@
 		<div class="temp d-flex mr-5">
 			<h1 class="pl-5 col-10"><i>Currently borrowed books</i></h1>
 			<div class="col-2 d-flex align-items-end justify-content-end">
-				<span>Available : ${3 - fn:length(borrowedBookList)}</span>
+				<span id="font2">Available : ${3 - fn:length(borrowedBookList)}</span>
 			</div>
 		</div>
 		<c:forEach var="book" items="${borrowedBookList}" varStatus="vs">
@@ -71,10 +71,10 @@
 		<div class="temp d-flex mr-5">
 			<h1 class="pl-5 col-10"><i>Reservation</i></h1>
 			<div class="col-2 d-flex align-items-end justify-content-end">
-				<span>Available : ${3 - fn:length(brl)}</span>
+				<span id="font2">Available : ${3 - fn:length(brl)}</span>
 			</div>
 		</div>
-		<section class="section1 d-flex justify-content-center">
+		<section class="section3 d-flex justify-content-center">
 		<c:forEach var="book" items="${brl}">
 			<section class="bookSection d-flex justify-content-center mt-2">
 		<a href="/main/book_info_view?bookId=${book.id}">
@@ -94,27 +94,57 @@
 			</c:forEach>
 		</section>
 		
-		<div class="d-flex justify-content-center">
-				<div class="col-10 section1">
-				<c:if test="${returnedBookList eq null}">
+		<c:if test="${returnedBookList.size() < 5}">
+		<div class="ml-4">
+					<h1><i>Recently Returned Books</i></h1>
+				<div class="col-${(returnedBookList.size() * 2) + 1} section3">
+				<c:if test="${returnedBookList ne null}">
+						<div class="popularBooksBox d-flex justify-content-between pt-2">
+					<c:forEach var="book" items="${returnedBookList}">
+					<a href="/main/book_info_view?bookId=${book.id}">
+						<article class="bookDisplayBox">
+							<c:if test="${book.imageUrl ne null}">
+	                        	<img src="${book.imageUrl}" alt="book${vs}" width="100" height="120" class="d-flex justify-content-center mt-4 ml-4 mr-4 mb-1">
+	                        </c:if>
+	                        <c:if test="${book.imageUrl eq null}">
+	                        	<div class="imgBox mt-4 ml-4 mr-4 mb-2 d-flex justify-content-center"></div>
+	                        </c:if>
+	                        <div class="ml-3 mt-1">${book.title}</div>
+	                        <span class="ml-3 text-secondary"><small>${book.author}</small></span>
+	                    </article>
+                    </a>
+	                </c:forEach>
+					</div>
+					</c:if>
+					</div>
+				</div>
+				
+		</c:if>
+				<c:if test="${returnedBookList.size() == 5}">
+				<div class="ml-4">
+				<div class="col-11 section3">
+				<c:if test="${returnedBookList ne null}">
 					<h1><i>Recently Returned Books</i></h1>
 						<div class="popularBooksBox d-flex justify-content-between pt-2">
 					<c:forEach var="book" items="${returnedBookList}">
-							<article class="bookDisplayBox">
-								<c:if test="${book.imageUrl ne null}">
-		                        <div class="d-flex justify-content-center mt-1"><img src="${book.imageUrl}" alt="bookImg" width="100"></div>
-		                        </c:if>
-		                        <c:if test="${book.imageUrl eq null}">
-		                        	<div class="imgBox m-3 d-flex justify-content-center"></div>
-		                        </c:if>
-		                        <div class="ml-3 mt-1">${book.title}</div>
-		                        <span class="ml-3 text-secondary"><small>${book.author}</small></span>
-		                    </article>
+					<a href="/main/book_info_view?bookId=${book.id}">
+						<article class="bookDisplayBox">
+							<c:if test="${book.imageUrl ne null}">
+	                        	<img src="${book.imageUrl}" alt="book${vs}" width="100" height="120" class="d-flex justify-content-center mt-4 ml-4 mr-4 mb-1">
+	                        </c:if>
+	                        <c:if test="${book.imageUrl eq null}">
+	                        	<div class="imgBox mt-4 ml-4 mr-4 mb-2 d-flex justify-content-center"></div>
+	                        </c:if>
+	                        <div class="ml-3 mt-1">${book.title}</div>
+	                        <span class="ml-3 text-secondary"><small>${book.author}</small></span>
+	                    </article>
+                    </a>
 	                </c:forEach>
-						</div>
+					</div>
 					</c:if>
+					</div>
 				</div>
-			</div>
+				</c:if>
 
 <!-- 단위 테스트
 JUnit

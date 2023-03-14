@@ -26,7 +26,8 @@ public class PostRestController {
 	private UserBO userBO;
 
 	@PostMapping("/add_post")
-	public Map<String, Object> addPost(HttpSession session, @RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("type") int type, @RequestParam(value="file", required=false) MultipartFile file) {
+	public Map<String, Object> addPost(HttpSession session, @RequestParam("title") String title, @RequestParam("content") String content1, @RequestParam("type") int type, @RequestParam(value="file", required=false) MultipartFile file) {
+		String content = content1.replace("\r\n", "<br>");
 		Integer userId = (Integer) session.getAttribute("userId");
 		String userLoginId = userBO.getUserNameByUserId(userId); 
 		Map<String, Object> result = new HashMap<>();
@@ -52,8 +53,9 @@ public class PostRestController {
 	}
 
 	@PostMapping("/update_post")
-	public Map<String, Object> updatePost(@RequestParam("postId") int postId, @RequestParam("title") String title, @RequestParam("content") String content) {
+	public Map<String, Object> updatePost(@RequestParam("postId") int postId, @RequestParam("title") String title, @RequestParam("content") String content1) {
 		Map<String, Object> result = new HashMap<>();
+		String content = content1.replace("\r\n", "<br>");
 
 		Post post = postBO.getPostById(postId);
 		int row = postBO.updatePost(postId, title, content);

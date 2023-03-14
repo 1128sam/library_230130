@@ -5,6 +5,6 @@
 		<div class="h-100 d-flex justify-content-center align-items-center">add book</div></a>
 	</div>
 	<div class="sectionBox"><a href="/admin/overdue_user_view">
-		<div class="h-100 d-flex justify-content-center align-items-center">overdued users</div></a>
+		<div class="h-100 d-flex justify-content-center align-items-center">borrowed list</div></a>
 	</div>
 </div>

@@ -4,10 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="postBorder d-flex justify-content-center ml-5">
 	<div class="w-100 mt-3">
-		<h4 class="text-center">Notice</h4>
+		<h4 class="text-center" id="font1">Notice</h4>
 		<table class="table">
 			<thead>
-				<tr>
+				<tr id="font1">
 					<th class="col-10">Title</th>
 					<th class="text-center col-1">Writer</th>
 					<th class="text-center col-1">Date</th>
@@ -15,7 +15,7 @@
 			</thead>
 			<tbody>
 			<c:forEach var="list" items="${list}" varStatus="vs">
-					<tr>
+					<tr id="font2">
 						<td><a href="/post/post_view?postId=${list.id}">${list.title}</a></td>
 						<td class="text-center">${userNameList.get(vs.index)}</td>
 						<td class="text-center"><fmt:formatDate value="${list.updatedAt}" pattern="yyyy.MM.dd"/></td>
@@ -26,10 +26,10 @@
 		<div class="d-flex justify-content-center">
 			<div class="d-flex col-2 justify-content-between">
 				<c:if test="${page != 1}">
-					<a href="/post/post_list_view?type=info&page=${page - 1}"><<</a>
+					<a href="/post/post_list_view?type=info&page=${page - 1}"><<</a><span>  </span>
 				</c:if>
 				<c:if test="${postMax eq null}">
-					<a href="/post/post_list_view?type=info&page=${page + 1}">>></a>
+					<span>  </span><a href="/post/post_list_view?type=info&page=${page + 1}">>></a>
 				</c:if>
 			</div>
 		</div>

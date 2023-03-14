@@ -3,7 +3,21 @@
  
 <mapper namespace="com.library.main.dao.BookDAO">
 <select id="selectBookList" resultType="com.library.main.model.Book">
-	select * from `book` ORDER BY `id` DESC
+	select
+		`id`
+		, `isbn`
+		, `title`
+		, `author`
+		, `publisher`
+		, `year`
+		, `imageUrl`
+		, `category`
+		, `status`
+		, `count`
+		, `point`
+		, `createdAt`
+		, `updatedAt`
+	from `book` ORDER BY `id` DESC
 </select>
 
 <select id="selectBookListBySearchSearchType" parameterType="map" resultType="com.library.main.model.Book">
@@ -174,11 +188,28 @@
 </update>
 
 <select id="selectBookStatusByBookId" parameterType="int" resultType="com.library.main.model.BookStatus">
-	SELECT * FROM `book_status`
+	SELECT
+		`id`
+		, `userId`
+		, `bookId`
+		, `borrowedAt`
+		, `dueDate`
+		, `exCount`
+		, `returnedAt`
+		, `point`
+		, `createdAt`
+		, `updatedAt`
+	FROM `book_status`
 			WHERE `bookId` = #{bookId} AND `returnedAt` is null
 </select>
 <select id="selectNextRegisteredBookByBookId" parameterType="int" resultType="com.library.main.model.BookRegister">
-	SELECT * FROM `book_register`
+	SELECT
+		`id`
+		, `userId`
+		, `bookId`
+		, `informedAt`
+		, `createdAt`
+	FROM `book_register`
 		WHERE `bookId` = #{bookId} AND `informedAt` is null ORDER BY `createdAt` DESC LIMIT 1 
 </select>
 
@@ -242,13 +273,50 @@
 		</if>
 </select>
 
-<select id="selectOverdueBookStatusByUserId" parameterType="int" resultType="com.library.main.model.BookStatus">
-	SELECT * FROM `book_status`
+<select id="selectNotReturnedBookStatusByUserId" parameterType="int" resultType="com.library.main.model.BookStatus">
+	SELECT
+		`id`
+		, `userId`
+		, `bookId`
+		, `borrowedAt`
+		, `dueDate`
+		, `exCount`
+		, `returnedAt`
+		, `point`
+		, `createdAt`
+		, `updatedAt`
+	FROM `book_status`
 		WHERE `returnedAt` is null AND `userId` = #{userId}
+</select>
+<select id="selectOverdueBookStatusByUserId" parameterType="int" resultType="com.library.main.model.BookStatus">
+	SELECT
+		`id`
+		, `userId`
+		, `bookId`
+		, `borrowedAt`
+		, `dueDate`
+		, `exCount`
+		, `returnedAt`
+		, `point`
+		, `createdAt`
+		, `updatedAt`
+	FROM `book_status`
+		WHERE `returnedAt` is null AND `userId` = #{userId} AND `dueDate` <![CDATA[ < ]]> NOW()
 </select>
 
 <select id="selectOverdueBookStatus" resultType="com.library.main.model.BookStatus">
-	SELECT * FROM `book_status`
+	SELECT
+		`id`
+		, `userId`
+		, `bookId`
+		, `borrowedAt`
+		, `dueDate`
+		, `exCount`
+		, `returnedAt`
+		, `point`
+		, `createdAt`
+		, `updatedAt`
+	FROM `book_status`
 		WHERE `returnedAt` is null AND `dueDate` <![CDATA[ < ]]> NOW()
 </select>
 
@@ -286,17 +354,35 @@
 </update>
 
 <select id="selectRegisteredBookListByBookId" parameterType="int" resultType="com.library.main.model.BookRegister">
-	SELECT * FROM `book_register`
+	SELECT
+		`id`
+		, `userId`
+		, `bookId`
+		, `informedAt`
+		, `createdAt`
+	FROM `book_register`
 		WHERE `bookId` = #{bookId}
 </select>
 
 <select id="selectRegisteredBookListByUserId" parameterType="int" resultType="com.library.main.model.BookRegister">
-	SELECT * FROM `book_register`
+	SELECT
+		`id`
+		, `userId`
+		, `bookId`
+		, `informedAt`
+		, `createdAt`
+	FROM `book_register`
 		WHERE `userId` = #{userId}
 </select>
 
 <select id="selectRegisteredBookListPassedDate" resultType="com.library.main.model.BookRegister">
-	SELECT * FROM `book_register`
+	SELECT
+		`id`
+		, `userId`
+		, `bookId`
+		, `informedAt`
+		, `createdAt`
+	FROM `book_register`
 		WHERE DATE_ADD(`informedAt`, INTERVAL 3 DAY) <![CDATA[ < ]]> NOW()
 </select>
 
@@ -306,7 +392,18 @@
 </select>
 
 <select id="selectBookStatus1Week" resultType="com.library.main.model.BookStatus">
-	SELECT * FROM `book_status`
+	SELECT
+		`id`
+		, `userId`
+		, `bookId`
+		, `borrowedAt`
+		, `dueDate`
+		, `exCount`
+		, `returnedAt`
+		, `point`
+		, `createdAt`
+		, `updatedAt`
+	FROM `book_status`
 		WHERE `dueDate` = DATE_ADD(DATE_FORMAT(now(), '%Y-%m-%d'), INTERVAL 7 DAY)
 </select>
 
@@ -327,7 +424,21 @@
 </select>
 
 <select id="selectBookOrderByCount5" parameterType="int" resultType="com.library.main.model.Book">
-	SELECT * FROM `book`
+	SELECT
+		`id`
+		, `isbn`
+		, `title`
+		, `author`
+		, `publisher`
+		, `year`
+		, `imageUrl`
+		, `category`
+		, `status`
+		, `count`
+		, `point`
+		, `createdAt`
+		, `updatedAt`
+	FROM `book`
 		<if test="type == 0">
 			ORDER BY `count`
 		</if>

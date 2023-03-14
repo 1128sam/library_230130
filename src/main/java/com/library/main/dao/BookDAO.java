@@ -53,6 +53,7 @@ public interface BookDAO {
 
 	public List<BookStatus> selectOverdueBookStatusByBookId(@Param("tmp") int tmp, @Param("date") Date date);
 
+	public List<BookStatus> selectNotReturnedBookStatusByUserId(int userId);
 	public List<BookStatus> selectOverdueBookStatusByUserId(int userId);
 
 	public List<BookStatus> selectOverdueBookStatus();
