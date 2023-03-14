@@ -273,7 +273,7 @@
 		</if>
 </select>
 
-<select id="selectOverdueBookStatusByUserId" parameterType="int" resultType="com.library.main.model.BookStatus">
+<select id="selectNotReturnedBookStatusByUserId" parameterType="int" resultType="com.library.main.model.BookStatus">
 	SELECT
 		`id`
 		, `userId`
@@ -287,6 +287,21 @@
 		, `updatedAt`
 	FROM `book_status`
 		WHERE `returnedAt` is null AND `userId` = #{userId}
+</select>
+<select id="selectOverdueBookStatusByUserId" parameterType="int" resultType="com.library.main.model.BookStatus">
+	SELECT
+		`id`
+		, `userId`
+		, `bookId`
+		, `borrowedAt`
+		, `dueDate`
+		, `exCount`
+		, `returnedAt`
+		, `point`
+		, `createdAt`
+		, `updatedAt`
+	FROM `book_status`
+		WHERE `returnedAt` is null AND `userId` = #{userId} AND `dueDate` <![CDATA[ < ]]> NOW()
 </select>
 
 <select id="selectOverdueBookStatus" resultType="com.library.main.model.BookStatus">

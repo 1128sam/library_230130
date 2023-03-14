@@ -79,6 +79,9 @@ public class PostController {
 		model.addAttribute("viewName", "/post/postView");
 		Post post = postBO.getPostById(id);
 		model.addAttribute("postUserName", userBO.getUserNameByUserId(post.getUserId()));
+		if ((int) session.getAttribute("userType") == 0) {
+			model.addAttribute("userType", 0);
+		}
 		model.addAttribute("post", post);
 		model.addAttribute("sessUserId", session.getAttribute("userId"));
 		return "template/layout";

@@ -50,7 +50,7 @@
 								<span class="d-flex align-items-center ml-3 text-danger">In Reservation</span>
 							</c:if>
 						</div>
-						<c:if test="${borrowedUser eq userLoginId}">
+						<c:if test="${borrowedUser eq userLoginId || userType eq 0}">
 							<div class="d-flex my-2"><h4>Return Date : </h4><span class="d-flex align-items-center ml-3"><fmt:formatDate value="${dueDate}" pattern="MM.dd(E)" /></span></div>
 						</c:if>
 						<c:if test="${book.status ne 0}">
@@ -93,7 +93,6 @@
 <script>
 $(document).ready(function() {
 	$('#modifyBtn').on('click', function() {
-		alert("수정하기(admin)");
 		location.href="/admin/update_book_view?bookId=" + $('#bookId').val();
 	});
 
@@ -204,7 +203,7 @@ $(document).ready(function() {
 					location.href = "/main/book_info_view?bookId=" + bookId;
 				} else if (data.code == 401) {
 					alert(data.result);
-				} else if (data.code == 403) {
+				} else if (data.code == 414) {
 					alert(data.result);
 				} else {
 					alert("failed. Please retry.");
@@ -236,6 +235,9 @@ $(document).ready(function() {
 					alert(data.result);
 					location.reload();
 				}  else if (data.code == 401) {
+					alert(data.result);
+					location.reload();
+				} else if (data.code == 403) {
 					alert(data.result);
 					location.reload();
 				} else {

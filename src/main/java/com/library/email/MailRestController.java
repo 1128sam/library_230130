@@ -33,7 +33,7 @@ public class MailRestController {
 
 		for (int i = 0; i < ul.size(); i++) {
 			Addressee mail = new Addressee();
-			List<BookStatus> bs = bookBO.getOverdueBookStatusByUserId(ul.get(i).getId()); // gets bookstatus of all the books that user has not returned
+			List<BookStatus> bs = bookBO.getNotReturnedBookStatusByUserId(ul.get(i).getId()); // gets bookstatus of all the books that user has not returned
 			if (bs.get(0) != null) {
 				mail.setBook1(bookBO.getBookByBookId(Integer.valueOf(bs.get(i).getBookId())));
 			} else if (bs.get(1) != null) {

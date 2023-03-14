@@ -93,7 +93,16 @@
 				<table class="table">
 				<c:forEach var="list" items="${noticeList}">
 					<tr>
-						<td class="col-10 infoPost"><a href="/post/post_view?postId=${list.id}">${list.title}</a></td>
+						<td class="col-10 infoPost">
+							<a href="/post/post_view?postId=${list.id}">
+								<c:if test="${list.title.length() < 55}">
+		                        	<div>${list.title}</div>
+		                        </c:if>
+								<c:if test="${list.title.length() >= 55}">
+		                        	<div>${fn:substring(list.title, 0, 55)}...</div>
+		                        </c:if>
+							</a>
+						</td>
 						<td class="col-2 d-flex justify-content-end"><small><i><fmt:formatDate value="${list.createdAt}" pattern="MM.d"/></i></small></td>
 					</tr>
 				</c:forEach>
@@ -104,7 +113,16 @@
 				<table class="table">
 					<c:forEach var="list" items="${recList}">
 					<tr>
-						<td class="col-10 infoPost"><a href="/post/post_view?postId=${list.id}">${list.title}</a></td>
+						<td class="col-10 infoPost">
+							<a href="/post/post_view?postId=${list.id}">
+								<c:if test="${list.title.length() < 55}">
+		                        	<div>${list.title}</div>
+		                        </c:if>
+								<c:if test="${list.title.length() >= 55}">
+		                        	<div>${fn:substring(list.title, 0, 55)}...</div>
+		                        </c:if>
+							</a>
+						</td>
 						<td class="col-2 d-flex justify-content-end"><small><i><fmt:formatDate value="${list.createdAt}" pattern="MM.d"/></i></small></td>
 					</tr>
 				</c:forEach>

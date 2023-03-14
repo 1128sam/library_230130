@@ -46,7 +46,7 @@ public class UserRestController {
 			if (user.getImageUrl() != null || user.getImageUrl() != "") {
 				session.setAttribute("userImageUrl", user.getImageUrl());
 			}
-			List<BookStatus> bsl = bookBO.getOverdueBookStatusByUserId(user.getId());
+			List<BookStatus> bsl = bookBO.getNotReturnedBookStatusByUserId(user.getId());
 			if (bsl != null) {
 				session.setAttribute("overdueBookStatusList", bsl);
 			}

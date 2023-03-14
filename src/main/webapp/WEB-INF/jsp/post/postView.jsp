@@ -8,9 +8,10 @@
 				<h1 id="font1">${post.title}</h><br>
 				<span id="font2">${postUserName}</span>
 			</div>
-			<c:if test="${post.userId eq sessUserId}">
-				<div class="col-1"><button type="button" id="postDeleteBtn" class="btn btn-danger">Delete</button><a href="/post/update_post_view?postId=${post.id}" id="postUpdateBtn" class="btn btn-secondary mt-1">Update</a></div>
-			</c:if>
+				<div class="col-1">
+					<c:if test="${post.userId eq sessUserId || userType == 0}"><button type="button" id="postDeleteBtn" class="btn btn-danger"><span id="font2">DELETE</span></button></c:if>
+					<c:if test="${post.userId eq sessUserId}"><a href="/post/update_post_view?postId=${post.id}" id="postUpdateBtn" class="btn btn-secondary mt-1"><span id="font2">UPDATE</span></a></c:if>
+				</div>
 		</div>
 		<div class="d-flex justify-content-center">
 			<c:if test="${post.filePath ne null}">
@@ -23,14 +24,9 @@
 
 <script>
 $(document).ready(function() {
-	$('#commentUploadBtn').on('click', function() {
-		
-	});
-	
 	$('#postDeleteBtn').on('click', function() {
 		confirm("Are you sure you want to delete this post?");
 		let postId = $('#postId').val();
-		alert(postId);
 
 		$.ajax({
 			type:"delete",

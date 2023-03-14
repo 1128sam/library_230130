@@ -3,25 +3,25 @@
 	<div class="postBorder mt-5 pb-4">
 	<input class="d-none" id="bookId" value="${book.id}">
 		<div class="d-flex">
-			<h2 class="col-6">Update Book</h2>
+			<h2 class="col-6" id="font1">Update Book</h2>
 			<div class="col-6 d-flex justify-content-center"><img src="${book.imageUrl}" width="200"></div>
 		</div>
-		<label for="title" class="subject-text my-2">Title</label>
+		<label for="title" class="subject-text my-2"><span id="font2">Title</span></label>
 		<input type="text" id="title" name="title" class="form-control" placeholder="Title" maxlength="128" value="${book.title}">
-		<label for="author" class="subject-text my-2">Author</label>
+		<label for="author" class="subject-text my-2"><span id="font2">Author</span></label>
 		<input type="text" id="author" name="author" class="form-control" placeholder="Author" maxlength="64" value="${book.author}">
-		<label for="isbn" class="subject-text my-2">ISBN/ISSN</label>
+		<label for="isbn" class="subject-text my-2"><span id="font2">ISBN/ISSN</span></label>
 		<input type="text" id="isbn" name="author" class="form-control" maxlength="20" value="${book.isbn}">
-		<label for="publisher" class="subject-text my-2">Publisher</label>
+		<label for="publisher" class="subject-text my-2"><span id="font2">Publisher</span></label>
 		<input type="text" id="publisher" name="publisher" class="form-control" placeholder="Publisher" maxlength="50" value="${book.publisher}">
-		<label for="year" class="subject-text my-2">Year</label>
+		<label for="year" class="subject-text my-2"><span id="font2">Year</span></label>
 		<input type="number" id="year" name="year" class="form-control" placeholder="Year" maxlength="4" value="${book.year}">
-		<label for="category" class="subject-text my-2">Category</label>
+		<label for="category" class="subject-text my-2"><span id="font2">Category</span></label>
 		<input type="text" id="category" name="category" class="form-control" maxlength="16" value="${book.category}">
 
 		<div class="d-flex justify-content-between">
-			<a href="/main/template" type="button" id="deleteBtn" class="btn btn-danger mt-3">DELETE</a>
-			<button type="button" id="updateBookBtn" class="btn btn-info mt-3">UPDATE</button>
+			<a href="/main/template" type="button" id="deleteBtn" class="btn btn-danger mt-3"><span id="font2">DELETE</span></a>
+			<button type="button" id="updateBookBtn" class="btn btn-info mt-3"><span id="font2">UPDATE</span></button>
 		</div>
 	</div>
 </div>
@@ -30,7 +30,6 @@
 $(document).ready(function() {
 	$('#updateBookBtn').on('click', function() {
 		let id = $('#bookId').val();
-		alert(id);
 		let title = $('#title').val().trim();
 		if (title == '') {
 			alert("Please enter the title.");
