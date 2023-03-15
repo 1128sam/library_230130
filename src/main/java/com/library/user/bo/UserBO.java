@@ -24,8 +24,8 @@ public class UserBO {
 	@Autowired
 	private FileManagerService fms;
 
-	public int addUser(String name, String userId, String password, String email, int question, String selfVerAns) {
-		return userDAO.insertUser(name, userId, password, email, question, selfVerAns);
+	public int addUser(String name, String userId, String password, String email, int question, String answer) {
+		return userDAO.insertUser(name, userId, password, email, question, answer);
 	}
 
 	public List<User> getUserList() {
