@@ -50,10 +50,10 @@
 			</div>
 
 			<button type="submit" id="signUpBtn"
-				class="btn btn-info w-100 mt-3">Sign in</button>
+				class="btn btn-info w-100 mt-3">Sign Up</button>
 		</form>
 		<div class="d-flex justify-content-end my-2">
-			<a href="/user/sign_in_view">Log in</a>
+			<a href="/user/sign_in_view">Sign In</a>
 		</div>
 	</div>
 </section>

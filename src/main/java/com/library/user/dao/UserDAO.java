@@ -13,8 +13,8 @@ public interface UserDAO {
 			@Param("userId") String userId,
 			@Param("password") String password,
 			@Param("email") String email,
-			@Param("question") int que,
-			@Param("selfVerAns") String ans);
+			@Param("question") int question,
+			@Param("answer") String answer);
 
 	public List<User> selectUserList();
 
